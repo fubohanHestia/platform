@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝领技工板块 - C端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+
+    <section class="p-6 bg-white shadow-sm">
+        <h2 class="text-lg font-bold mb-4">选择服务种类</h2>
+        <div class="grid grid-cols-4 gap-4">
+            <button class="flex flex-col items-center gap-2 group">
+                <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition">
+                    <i class="fas fa-paint-roller text-xl"></i>
+                </div>
+                <span class="text-xs">刷墙</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 group">
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+                    <i class="fas fa-hammer text-xl"></i>
+                </div>
+                <span class="text-xs">安装</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 group">
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
+                    <i class="fas fa-border-all text-xl"></i>
+                </div>
+                <span class="text-xs">贴瓷砖</span>
+            </button>
+            <button class="flex flex-col items-center gap-2 group">
+                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
+                    <i class="fas fa-faucet text-xl"></i>
+                </div>
+                <span class="text-xs">维修</span>
+            </button>
+        </div>
+    </section>
+
+    <main class="p-4 space-y-4">
+        <h2 class="text-lg font-bold">推荐技工</h2>
+        
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <div class="flex justify-between items-start">
+                <div class="flex gap-3">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Worker1" class="w-14 h-14 rounded-full bg-gray-100 border">
+                    <div>
+                        <h3 class="font-bold text-gray-900">王建设师傅 <span class="text-xs font-normal text-gray-400">贴砖/刷墙</span></h3>
+                        <div class="mt-1 flex items-center gap-2">
+                            <span class="bg-orange-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold italic">Luban 92</span>
+                            <span class="text-[10px] text-green-600 font-bold"><i class="fas fa-shield-alt"></i> 雇主责任险已覆盖</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs text-gray-400">距离 800m</span>
+                </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+                <span class="text-[10px] border border-blue-200 text-blue-600 px-2 py-1 rounded-full bg-blue-50">实名认证已核验</span>
+                <span class="text-[10px] border border-purple-200 text-purple-600 px-2 py-1 rounded-full bg-purple-50">高空作业证 OCR 核验通过</span>
+                <span class="text-[10px] border border-green-200 text-green-600 px-2 py-1 rounded-full bg-green-50">无犯罪记录证明已提交</span>
+            </div>
+
+            <div class="mt-4 grid grid-cols-2 gap-2">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?q=80&w=200" class="h-20 w-full object-cover rounded-lg">
+                    <span class="absolute bottom-1 left-1 bg-black/50 text-[8px] text-white px-1">施工前</span>
+                </div>
+                <div class="relative border-2 border-orange-200 rounded-lg">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=200" class="h-20 w-full object-cover rounded-lg">
+                    <span class="absolute bottom-1 left-1 bg-orange-600 text-[8px] text-white px-1">完工后</span>
+                </div>
+            </div>
+
+            <button class="w-full mt-4 bg-orange-600 text-white py-2 rounded-xl text-sm font-bold shadow-lg shadow-orange-200">立即预约 / 托管资金</button>
+        </div>
+        </main>
+
+</body>
+</html>
