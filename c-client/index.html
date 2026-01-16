@@ -3,119 +3,915 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>蓝领技工板块 - 交互演示版</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>匠聘网 - 专业劳务与技术服务平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary: #2A5CAA;
+            --secondary: #FF6B35;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --success: #28A745;
+        }
+        
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .main-header {
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .search-box {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--light-gray);
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .search-box button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4a8a;
+        }
+        
+        /* 导航样式 */
+        nav {
+            background-color: white;
+            border-top: 1px solid var(--light-gray);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 0 0 8px 8px;
+        }
+        
+        .dropdown-content a {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        /* 英雄区域样式 */
+        .hero {
+            background: linear-gradient(135deg, #2A5CAA 0%, #3A7BDA 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .hero-btns .btn {
+            padding: 12px 30px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e05a2b;
+        }
+        
+        /* 服务分类样式 */
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .services {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .category-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 热门服务样式 */
+        .popular-services {
+            padding: 60px 0;
+            background-color: #f9fafc;
+        }
+        
+        .service-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-image {
+            height: 180px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .service-header h3 {
+            font-size: 1.2rem;
+            flex: 1;
+        }
+        
+        .price {
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        
+        .service-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: #FFC107;
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .service-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .provider {
+            display: flex;
+            align-items: center;
+        }
+        
+        .provider img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        /* 平台优势样式 */
+        .advantages {
+            padding: 60px 0;
+            background-color: white;
+        }
+        
+        .advantage-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .advantage-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .advantage-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background-color: rgba(42, 92, 170, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+        }
+        
+        .advantage-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background-color: #1a1a2e;
+            color: #ccc;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text, .hero-image {
+                width: 100%;
+            }
+            
+            .hero-image {
+                margin-top: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-box {
+                order: 3;
+                margin-top: 15px;
+                max-width: 100%;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50">
-
-    <section class="p-6 bg-white shadow-sm">
-        <h2 class="text-lg font-bold mb-4">选择服务种类</h2>
-        <div class="grid grid-cols-4 gap-4">
-            <button onclick="filterWorkers('刷墙')" class="flex flex-col items-center gap-2 group">
-                <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 group-focus:bg-orange-600 group-focus:text-white transition">
-                    <i class="fas fa-paint-roller text-xl"></i>
+<body>
+    <!-- 顶部栏 -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <i class="fas fa-phone-alt"></i> 客服热线：400-888-9999
+            </div>
+            <div class="user-links">
+                <a href="#" style="color:white; margin-right:15px;"><i class="fas fa-question-circle"></i> 帮助中心</a>
+                <a href="#" style="color:white;"><i class="fas fa-user-circle"></i> 服务商入驻</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主头部 -->
+    <header>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="#" class="logo">
+                        <i class="fas fa-hands-helping"></i>
+                        <div>匠聘<span>网</span></div>
+                    </a>
+                    
+                    <div class="search-box">
+                        <input type="text" placeholder="搜索服务或服务商，如：网站开发、家政保洁、会计审计...">
+                        <button><i class="fas fa-search"></i> 搜索</button>
+                    </div>
+                    
+                    <div class="user-actions">
+                        <a href="#" class="btn btn-outline"><i class="fas fa-user"></i> 登录/注册</a>
+                        <a href="#" class="btn btn-primary"><i class="fas fa-upload"></i> 发布需求</a>
+                    </div>
                 </div>
-                <span class="text-xs">刷墙</span>
-            </button>
-            <button onclick="filterWorkers('安装')" class="flex flex-col items-center gap-2 group">
-                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 group-focus:bg-blue-600 group-focus:text-white transition">
-                    <i class="fas fa-hammer text-xl"></i>
+            </div>
+        </div>
+        
+        <!-- 导航 -->
+        <nav>
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#"><i class="fas fa-home"></i>首页</a></li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-th-large"></i>劳务服务 <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-broom"></i> 家政保洁</a>
+                            <a href="#"><i class="fas fa-tools"></i> 维修安装</a>
+                            <a href="#"><i class="fas fa-paint-roller"></i> 装修装饰</a>
+                            <a href="#"><i class="fas fa-people-carry"></i> 搬运服务</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#"><i class="fas fa-laptop-code"></i>技术服务 <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="#"><i class="fas fa-code"></i> 软件开发</a>
+                            <a href="#"><i class="fas fa-pen-nib"></i> 设计创意</a>
+                            <a href="#"><i class="fas fa-chart-line"></i> 营销推广</a>
+                            <a href="#"><i class="fas fa-file-contract"></i> 财税法律</a>
+                        </div>
+                    </li>
+                    <li><a href="#"><i class="fas fa-crown"></i>金牌服务商</a></li>
+                    <li><a href="#"><i class="fas fa-shield-alt"></i>交易保障</a></li>
+                    <li><a href="#"><i class="fas fa-newspaper"></i>行业资讯</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>专业劳务与技术服务的<span style="color:var(--secondary)">一站式平台</span></h1>
+                    <p>连接10万+专业服务商，覆盖200+服务品类，平台担保交易，资金安全有保障</p>
+                    <div class="hero-btns">
+                        <a href="#" class="btn btn-secondary"><i class="fas fa-search"></i> 找服务</a>
+                        <a href="#" class="btn btn-outline" style="background-color: transparent; border-color: white; color: white;">成为服务商</a>
+                    </div>
                 </div>
-                <span class="text-xs">安装</span>
-            </button>
-            <button onclick="filterWorkers('贴瓷砖')" class="flex flex-col items-center gap-2 group">
-                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 group-focus:bg-green-600 group-focus:text-white transition">
-                    <i class="fas fa-border-all text-xl"></i>
+                <div class="hero-image">
+                    <div style="background-color: rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; display: inline-block;">
+                        <i class="fas fa-handshake" style="font-size: 8rem; opacity: 0.8;"></i>
+                    </div>
                 </div>
-                <span class="text-xs">贴瓷砖</span>
-            </button>
-            <button onclick="filterWorkers('维修')" class="flex flex-col items-center gap-2 group">
-                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 group-focus:bg-purple-600 group-focus:text-white transition">
-                    <i class="fas fa-faucet text-xl"></i>
-                </div>
-                <span class="text-xs">维修</span>
-            </button>
+            </div>
         </div>
     </section>
-
-    <main class="p-4 space-y-4" id="workerList">
-        <h2 class="text-lg font-bold" id="listTitle">推荐优质技工</h2>
-        
-        <div class="worker-card bg-white rounded-2xl p-4 shadow-sm border border-gray-100" data-category="贴瓷砖">
-            <div class="flex justify-between items-start">
-                <div class="flex gap-3">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Worker1" class="w-14 h-14 rounded-full bg-gray-100 border">
-                    <div>
-                        <h3 class="font-bold text-gray-900">王建设师傅 <span class="text-xs font-normal text-gray-400">贴瓷砖/刷墙</span></h3>
-                        <div class="mt-1 flex items-center gap-2">
-                            <span onclick="showLubanDetail()" class="cursor-pointer bg-orange-500 text-white text-[10px] px-1.5 py-0.5 rounded font-bold italic">Luban Score: 92</span>
-                            <span class="text-[10px] text-green-600 font-bold"><i class="fas fa-shield-alt"></i> 雇主责任险已覆盖</span>
+    
+    <!-- 服务分类 -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>全品类专业服务</h2>
+                <p>覆盖劳务服务与专项技术服务，满足您的多样化需求</p>
+            </div>
+            
+            <div class="categories">
+                <div class="category-card">
+                    <i class="fas fa-broom"></i>
+                    <h3>家政保洁</h3>
+                    <p>日常保洁、深度清洁、家电清洗、开荒保洁</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>维修安装</h3>
+                    <p>家电维修、水电维修、家具安装、灯具安装</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-paint-roller"></i>
+                    <h3>装修装饰</h3>
+                    <p>房屋装修、局部改造、墙面刷新、软装设计</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>软件开发</h3>
+                    <p>网站开发、小程序、APP开发、系统定制</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-pen-nib"></i>
+                    <h3>设计创意</h3>
+                    <p>UI/UX设计、Logo设计、海报画册、包装设计</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>营销推广</h3>
+                    <p>SEO优化、短视频运营、品牌策划、广告投放</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>财税法律</h3>
+                    <p>代理记账、税务筹划、法律咨询、合同审查</p>
+                </div>
+                
+                <div class="category-card">
+                    <i class="fas fa-people-carry"></i>
+                    <h3>搬运服务</h3>
+                    <p>搬家服务、货物搬运、家具拆装、大件运输</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 热门服务 -->
+    <section class="popular-services">
+        <div class="container">
+            <div class="section-title">
+                <h2>热门推荐服务</h2>
+                <p>平台优质服务商，高评分、高成交、用户信赖</p>
+            </div>
+            
+            <div class="service-list">
+                <!-- 服务1 -->
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #4a6fa5;"></div>
+                    <div class="service-content">
+                        <div class="service-header">
+                            <h3>企业官网开发（响应式设计）</h3>
+                            <div class="price">¥8,000起</div>
+                        </div>
+                        <div class="service-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> 全国</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 4.9 (126评价)
+                            </span>
+                        </div>
+                        <p class="service-desc">专业企业官网开发，响应式设计，适配PC/移动端，SEO优化，后台管理系统...</p>
+                        <div class="service-footer">
+                            <div class="provider">
+                                <div style="width:30px; height:30px; border-radius:50%; background-color:#ddd; margin-right:8px;"></div>
+                                <span>卓越科技工作室</span>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 15px; font-size:0.9rem;">查看详情</a>
                         </div>
                     </div>
                 </div>
-                <div class="text-right"><span class="text-xs text-gray-400">距离 800m</span></div>
+                
+                <!-- 服务2 -->
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #6d9b7c;"></div>
+                    <div class="service-content">
+                        <div class="service-header">
+                            <h3>深度保洁（4小时）</h3>
+                            <div class="price">¥200起</div>
+                        </div>
+                        <div class="service-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> 北京</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 4.8 (89评价)
+                            </span>
+                        </div>
+                        <p class="service-desc">专业深度保洁服务，4小时精细作业，厨房、卫生间深度清洁，家具表面养护...</p>
+                        <div class="service-footer">
+                            <div class="provider">
+                                <div style="width:30px; height:30px; border-radius:50%; background-color:#ddd; margin-right:8px;"></div>
+                                <span>洁净家政</span>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 15px; font-size:0.9rem;">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 服务3 -->
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #d17b49;"></div>
+                    <div class="service-content">
+                        <div class="service-header">
+                            <h3>公司Logo与VI设计</h3>
+                            <div class="price">¥3,000起</div>
+                        </div>
+                        <div class="service-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> 全国</span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i> 5.0 (67评价)
+                            </span>
+                        </div>
+                        <p class="service-desc">专业品牌Logo与VI系统设计，3套方案供选择，源文件交付，商用授权...</p>
+                        <div class="service-footer">
+                            <div class="provider">
+                                <div style="width:30px; height:30px; border-radius:50%; background-color:#ddd; margin-right:8px;"></div>
+                                <span>创意思维设计</span>
+                            </div>
+                            <a href="#" class="btn btn-primary" style="padding: 8px 15px; font-size:0.9rem;">查看详情</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="mt-4 flex flex-wrap gap-2">
-                <span class="text-[10px] bg-blue-50 text-blue-600 px-2 py-1 rounded-full">实名已认证</span>
-                <span class="text-[10px] bg-purple-50 text-purple-600 px-2 py-1 rounded-full">电工证 OCR 已核验</span>
-                <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded-full">无犯罪记录证明</span>
-            </div>
-
-            <button onclick="openEscrowModal()" class="w-full mt-4 bg-orange-600 text-white py-2 rounded-xl text-sm font-bold shadow-lg">立即预约 / 资金托管</button>
         </div>
-    </main>
-
-    <div id="escrowModal" class="modal flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl w-full max-w-sm p-6 relative">
-            <h3 class="text-center font-bold text-lg mb-4">服务托管流程</h3>
-            <div class="space-y-4 text-sm">
-                <div class="flex gap-3 items-start">
-                    <div class="bg-orange-100 text-orange-600 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0">1</div>
-                    <p><b>预付托管资金</b>：资金由平台监管，师傅开工更有动力。</p>
-                </div>
-                <div class="flex gap-3 items-start">
-                    <div class="bg-gray-100 text-gray-600 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0">2</div>
-                    <p><b>阶段验收</b>：通过施工前/后照片流确认工程进度。</p>
-                </div>
-                <div class="flex gap-3 items-start">
-                    <div class="bg-gray-100 text-gray-600 w-6 h-6 rounded-full flex items-center justify-center text-xs flex-shrink-0">3</div>
-                    <p><b>满意放款</b>：确认收货后，平台将资金拨付给师傅。</p>
-                </div>
+    </section>
+    
+    <!-- 平台优势 -->
+    <section class="advantages">
+        <div class="container">
+            <div class="section-title">
+                <h2>为什么选择匠聘网</h2>
+                <p>专业、安全、高效的劳务与技术服务交易平台</p>
             </div>
-            <button onclick="closeEscrowModal()" class="w-full mt-6 bg-gray-900 text-white py-2 rounded-xl text-sm">我知道了</button>
-        </div>
-    </div>
-
-    <script>
-        // 筛选功能
-        function filterWorkers(category) {
-            const cards = document.querySelectorAll('.worker-card');
-            const title = document.getElementById('listTitle');
-            title.innerText = `推荐优质 - ${category}技工`;
             
-            cards.forEach(card => {
-                // 简单的分类包含逻辑
-                if (card.getAttribute('data-category').includes(category)) {
-                    card.style.display = 'block';
+            <div class="advantage-cards">
+                <div class="advantage-card">
+                    <i class="fas fa-user-check"></i>
+                    <h3>严格审核</h3>
+                    <p>所有服务商实名认证，资质审核，技能验证，保障服务质量</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>资金担保</h3>
+                    <p>平台托管交易资金，满意后付款，支持退款，交易安全有保障</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>合同保障</h3>
+                    <p>电子合同在线签署，法律效力保障，明确双方权益与责任</p>
+                </div>
+                
+                <div class="advantage-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>全程服务</h3>
+                    <p>专业客服团队，全程跟踪服务，纠纷快速处理，解决后顾之忧</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>匠聘网</h3>
+                    <p>专业劳务与技术服务电商平台，连接优质服务商与需求方，打造可信赖的服务交易生态。</p>
+                    <div style="margin-top: 20px;">
+                        <a href="#" style="color:#ccc; margin-right:15px; font-size:1.2rem;"><i class="fab fa-weixin"></i></a>
+                        <a href="#" style="color:#ccc; margin-right:15px; font-size:1.2rem;"><i class="fab fa-weibo"></i></a>
+                        <a href="#" style="color:#ccc; font-size:1.2rem;"><i class="fab fa-zhihu"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>服务分类</h3>
+                    <ul>
+                        <li><a href="#">家政保洁</a></li>
+                        <li><a href="#">维修安装</a></li>
+                        <li><a href="#">装修装饰</a></li>
+                        <li><a href="#">软件开发</a></li>
+                        <li><a href="#">设计创意</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a href="#">平台介绍</a></li>
+                        <li><a href="#">加入我们</a></li>
+                        <li><a href="#">服务商入驻</a></li>
+                        <li><a href="#">平台规则</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>帮助中心</h3>
+                    <ul>
+                        <li><a href="#">新手指南</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">交易保障</a></li>
+                        <li><a href="#">用户协议</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2026 匠聘网 jiangpin.com 版权所有 | 京ICP备2026000000号-1 | 人力资源服务许可证：110000202600001</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 搜索框聚焦效果
+            const searchInput = document.querySelector('.search-box input');
+            const searchBtn = document.querySelector('.search-box button');
+            
+            searchInput.addEventListener('focus', function() {
+                this.style.boxShadow = '0 0 0 3px rgba(42, 92, 170, 0.2)';
+            });
+            
+            searchInput.addEventListener('blur', function() {
+                this.style.boxShadow = 'none';
+            });
+            
+            // 搜索按钮点击效果
+            searchBtn.addEventListener('click', function() {
+                const query = searchInput.value;
+                if(query.trim() === '') {
+                    alert('请输入搜索关键词');
+                    searchInput.focus();
                 } else {
-                    card.style.display = 'none';
+                    alert(`搜索: ${query}`);
+                    // 实际应用中这里应该是提交搜索表单或跳转到搜索结果页
                 }
             });
-        }
-
-        // 托管弹窗控制
-        function openEscrowModal() { document.getElementById('escrowModal').style.display = 'flex'; }
-        function closeEscrowModal() { document.getElementById('escrowModal').style.display = 'none'; }
-
-        // 鲁班分计算逻辑演示
-        function showLubanDetail() {
-            alert("鲁班分 (Luban Score) 构成：\n- 身份特质 (20%)\n- 履约能力 (50%)\n- 行为偏好 (15%)\n- 用户评价 (15%)");
-        }
+            
+            // 服务卡片悬停效果增强
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // 分类卡片点击效果
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const title = this.querySelector('h3').textContent;
+                    alert(`您选择了: ${title} 服务分类`);
+                });
+            });
+        });
     </script>
 </body>
 </html>
+
