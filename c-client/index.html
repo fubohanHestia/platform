@@ -3,378 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>匠聘网 - 2026专业劳务交付平台</title>
+    <title>匠聘网 - 专业劳务与技术服务一站式平台</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- 核心基础样式 (保留原始风格) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
         :root {
-            --primary-blue: #2A5CAA;
+            --primary: #2A5CAA;
             --primary-orange: #FF6B35;
-            --navy: #1a1a2e;
+            --secondary: #FF6B35;
+            --light: #F8F9FA;
+            --dark: #333333;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
             --gold: #D4AF37;
-            --silver: #A8A8A8;
-            --bronze: #CD7F32;
-            --light-bg: #f8f9fa;
+            --navy: #1a1a2e;
         }
+        body { color: var(--dark); line-height: 1.6; background-color: #f5f7fa; overflow-x: hidden; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .btn { padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.3s; }
+        .btn-primary { background-color: var(--primary); color: white; border: none; }
+        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-        body { background: var(--light-bg); overflow-x: hidden; }
-
-        /* --- 第一步：首页双引擎 (The Hub) --- */
-        .home-split {
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
-
-        .split-side {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            cursor: pointer;
-            position: relative;
-            color: white;
-            padding: 40px;
-        }
-
-        /* 视差拉伸效果 */
-        .split-side:hover { flex: 1.2; }
-
-        .side-worker { background: linear-gradient(135deg, var(--primary-blue) 0%, #3a7bd5 100%); }
-        .side-enterprise { background: linear-gradient(135deg, var(--navy) 0%, #16213e 100%); }
-
-        .side-content { text-align: center; z-index: 2; }
-        .side-content i { font-size: 5rem; margin-bottom: 20px; display: block; }
-        .side-content h2 { font-size: 3rem; margin-bottom: 15px; letter-spacing: 2px; }
-
-        /* 吸顶搜索框 */
-        .sticky-search {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 500px;
-            z-index: 1000;
-            transition: all 0.3s;
-        }
-        .sticky-search input {
-            width: 100%;
-            padding: 15px 25px;
-            border-radius: 40px;
-            border: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            font-size: 1.1rem;
-        }
-
-        /* --- 第二步：分类导航 --- */
-        .page-container { display: none; padding-top: 80px; max-width: 1200px; margin: 0 auto; }
+        /* --- 顶部与头部 (还原初始代码) --- */
+        .top-bar { background-color: var(--primary); color: white; padding: 8px 0; font-size: 0.9rem; }
+        .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
+        header { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); position: sticky; top: 0; z-index: 1000; }
+        .main-header { padding: 15px 0; }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--secondary); }
         
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
+        .search-box { flex: 1; max-width: 500px; margin: 0 20px; position: relative; }
+        .search-box input { width: 100%; padding: 12px 20px; border: 2px solid var(--light-gray); border-radius: 30px; font-size: 1rem; }
+        .search-box button { position: absolute; right: 5px; top: 5px; background-color: var(--primary); color: white; border: none; border-radius: 30px; padding: 8px 20px; cursor: pointer; }
+
+        nav { background-color: white; border-top: 1px solid var(--light-gray); }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links a { display: block; padding: 15px 20px; text-decoration: none; color: var(--dark); font-weight: 600; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- 第一步：首页双引擎交互 (The Hub) --- */
+        .home-dual-hero { display: flex; height: 600px; margin-top: 2px; }
+        .split-side { 
+            flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; color: white; text-align: center;
         }
-        .cat-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid #eee;
-        }
-        .cat-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--primary-orange); }
+        .split-side:hover { flex: 1.4; }
+        .side-worker { background: linear-gradient(135deg, var(--primary) 0%, #4a90e2 100%); }
+        .side-enterprise { background: linear-gradient(135deg, var(--navy) 0%, #16213e 100%); }
+        .side-content i { font-size: 4rem; margin-bottom: 20px; }
+        .side-content h2 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* --- 第二、三、四步：内容板块切换 --- */
+        .page-section { display: none; padding: 40px 0; }
+        #home-section { display: flex; } /* 初始显示 */
+
+        .category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
+        .cat-card { background: white; padding: 30px; border-radius: 12px; text-align: center; cursor: pointer; border: 1px solid #eee; transition: 0.3s; }
+        .cat-card:hover { border-color: var(--primary-orange); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .cat-card i { font-size: 2.5rem; color: var(--primary-orange); margin-bottom: 15px; }
 
-        /* --- 第三步：技工信息流 (Worker Feed) --- */
-        .smart-sort-bar {
-            display: flex;
-            gap: 15px;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            position: sticky;
-            top: 70px;
-            z-index: 10;
+        /* 技工卡片与等级 (Worker Tier) */
+        .smart-sort-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+        .worker-card { 
+            background: white; border-radius: 15px; margin-bottom: 15px; padding: 20px; 
+            display: flex; align-items: center; position: relative; border: 1px solid #eee; cursor: pointer; 
         }
-        .sort-btn { padding: 8px 20px; border-radius: 20px; border: 1px solid #ddd; background: none; cursor: pointer; }
-        .sort-btn.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+        .tier-gold { border-left: 5px solid var(--gold); }
+        .worker-card img { width: 80px; height: 80px; border-radius: 50%; background: #eee; margin-right: 20px; }
+        .price-tag { margin-left: auto; color: var(--primary-orange); font-size: 1.4rem; font-weight: bold; }
 
-        .worker-card {
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            padding: 20px;
-            display: flex;
-            position: relative;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .worker-card:hover { transform: scale(1.01); }
-
-        /* 等级边框 */
-        .tier-gold { border: 2px solid var(--gold); }
-        .tier-silver { border: 2px solid var(--silver); }
-        .tier-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
-        }
-        .bg-gold { background: var(--gold); }
-        .bg-silver { background: var(--silver); }
-
-        .price-tag { color: var(--primary-orange); font-size: 1.5rem; font-weight: bold; margin-left: auto; }
-
-        /* --- 第四步：技工个人空间 (Before/After 滑块模拟) --- */
-        .portfolio-slider {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            background: #eee;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 20px 0;
-        }
-        .after-img { width: 100%; height: 100%; object-fit: cover; }
-        .before-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%; /* 模拟滑块位置 */
-            height: 100%;
-            border-right: 3px solid white;
-            overflow: hidden;
-        }
-        .before-img { width: 1200px; height: 300px; object-fit: cover; filter: grayscale(1); }
-
-        /* --- 第五步：预约覆盖层 (Overlay) --- */
-        .overlay {
-            position: fixed;
-            bottom: -100%;
-            left: 0;
-            width: 100%;
-            height: 85vh;
-            background: white;
-            z-index: 2000;
-            transition: bottom 0.5s ease;
-            border-radius: 30px 30px 0 0;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
-            padding: 30px;
-            overflow-y: auto;
+        /* --- 第五步：预约覆盖层 (Booking Overlay) --- */
+        .overlay { 
+            position: fixed; bottom: -100%; left: 0; width: 100%; height: 80vh; 
+            background: white; z-index: 2000; transition: bottom 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+            border-radius: 30px 30px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,0.15); padding: 40px; overflow-y: auto;
         }
         .overlay.active { bottom: 0; }
-        .overlay-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .multimedia-input { display: flex; gap: 15px; margin: 20px 0; }
+        .input-box { flex: 1; border: 2px dashed #ddd; border-radius: 10px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--gray); cursor: pointer; }
 
-        /* 时间选择器模拟 */
-        .slot-picker { display: flex; gap: 10px; margin: 15px 0; }
-        .slot { flex: 1; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #ddd; cursor: pointer; }
-        .slot.free { background: #e8f5e9; border-color: #4caf50; }
-        .slot.busy { background: #f5f5f5; color: #bbb; cursor: not-allowed; }
+        /* --- 第六步：状态跟踪与成功 --- */
+        .progress-steps { display: flex; justify-content: space-between; margin: 40px 0; position: relative; }
+        .progress-line { position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #eee; z-index: 1; }
+        .step { width: 30px; height: 30px; border-radius: 50%; background: #eee; z-index: 2; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; }
+        .step.done { background: #28A745; color: white; }
 
-        /* --- 第六步：状态跟踪 --- */
-        .progress-track {
-            display: flex;
-            justify-content: space-between;
-            margin: 30px 0;
-            position: relative;
-        }
-        .step { z-index: 2; background: #ddd; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: white; }
-        .step.active { background: #4caf50; box-shadow: 0 0 10px rgba(76,175,80,0.5); }
+        /* --- 页脚 (还原初始代码) --- */
+        footer { background-color: #1a1a2e; color: #ccc; padding: 60px 0 20px; margin-top: 50px; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer-col h3 { color: white; margin-bottom: 20px; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col a { color: #aaa; text-decoration: none; }
+        .copyright { text-align: center; padding-top: 20px; border-top: 1px solid #333; font-size: 0.9rem; }
 
-        /* 常驻沟通浮窗 */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary-blue);
-            border-radius: 50%;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 3000;
-            display: none;
-        }
-
+        /* 通用返回导航 */
+        .back-btn { margin-bottom: 20px; cursor: pointer; color: var(--primary); font-weight: bold; display: inline-block; }
     </style>
 </head>
 <body>
 
-    <div class="sticky-search" id="topSearch">
-        <input type="text" placeholder="输入关键词，一键找人...">
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info"><i class="fas fa-phone-alt"></i> 客服热线：400-888-9999</div>
+            <div class="user-links">
+                <a href="#" style="color:white; margin-right:15px;"><i class="fas fa-question-circle"></i> 帮助中心</a>
+                <a href="#" style="color:white;"><i class="fas fa-user-circle"></i> 服务商入驻</a>
+            </div>
+        </div>
     </div>
 
-    <section id="home-section" class="home-split">
-        <div class="split-side side-worker" onclick="navigateTo('category-section')">
-            <div class="side-content">
-                <i class="fas fa-user-hard-hat"></i>
-                <h2>蓝领技工</h2>
-                <p>温暖服务 · 匠心交付</p>
-            </div>
-        </div>
-        <div class="split-side side-enterprise" onclick="alert('企业端入口：需企业资质认证')">
-            <div class="side-content">
-                <i class="fas fa-city"></i>
-                <h2>企业联盟</h2>
-                <p>稳健高效 · 工业标准</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="category-section" class="page-container">
-        <div style="cursor:pointer; color:var(--primary-blue)" onclick="navigateTo('home-section')"><i class="fas fa-chevron-left"></i> 返回</div>
-        <h1 style="margin: 20px 0;">服务大类导航</h1>
-        <div class="category-grid">
-            <div class="cat-card" onclick="navigateTo('worker-feed-section')">
-                <i class="fas fa-bolt"></i>
-                <h3>水电暖通</h3>
-                <p>起步价 ¥150</p>
-            </div>
-            <div class="cat-card" onclick="navigateTo('worker-feed-section')">
-                <i class="fas fa-sink"></i>
-                <h3>厨卫翻新</h3>
-                <p>起步价 ¥200</p>
-            </div>
-            <div class="cat-card" onclick="navigateTo('worker-feed-section')">
-                <i class="fas fa-brush"></i>
-                <h3>墙面地面</h3>
-                <p>均价 ¥15/平</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="worker-feed-section" class="page-container">
-        <div class="smart-sort-bar">
-            <button class="sort-btn active">综合排序</button>
-            <button class="sort-btn">距离最近</button>
-            <button class="sort-btn">好评最高</button>
-            <button class="sort-btn">价格最低</button>
-        </div>
-
-        <div class="worker-card tier-gold" onclick="openProfile('张建国', '高级技工')">
-            <div class="tier-badge bg-gold">高级技工 (Gold)</div>
-            <div style="width:80px; height:80px; border-radius:50%; background:#ddd; margin-right:20px;"></div>
-            <div>
-                <h3>张建国 · <span style="font-size: 0.9rem; color: var(--gray);">15年+经验/全能王</span></h3>
-                <p>⭐ 4.9 | 已服务 1200+ | 距离 0.8km</p>
-                <div style="margin-top:10px">
-                    <span style="background:#fff3e0; color:#e65100; padding:2px 8px; border-radius:4px; font-size:0.8rem">准时到家</span>
-                    <span style="background:#e3f2fd; color:#0d47a1; padding:2px 8px; border-radius:4px; font-size:0.8rem">自带专业设备</span>
+    <header>
+        <div class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <a href="javascript:void(0)" onclick="showSection('home-section')" class="logo">
+                        <i class="fas fa-hands-helping"></i>
+                        <div>匠聘<span>网</span></div>
+                    </a>
+                    <div class="search-box">
+                        <input type="text" placeholder="搜索服务或师傅，如：电路维修、大板铺贴...">
+                        <button><i class="fas fa-search"></i> 搜索</button>
+                    </div>
+                    <div class="user-actions">
+                        <a href="#" class="btn btn-outline"><i class="fas fa-user"></i> 登录/注册</a>
+                    </div>
                 </div>
             </div>
-            <div class="price-tag">¥300 <small>起</small></div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('home-section')">首页</a></li>
+                    <li><a href="#">金牌服务商</a></li>
+                    <li><a href="#">交易保障</a></li>
+                    <li><a href="#">行业资讯</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home-section" class="home-dual-hero">
+        <div class="split-side side-worker" onclick="showSection('category-section')">
+            <div class="side-content">
+                <i class="fas fa-user-hard-hat"></i>
+                <h2>蓝领技工板块</h2>
+                <p>找优质装修师傅 · 个人客户入口</p>
+            </div>
+        </div>
+        <div class="split-side side-enterprise" onclick="alert('企业联盟：工程分包与大宗集采系统')">
+            <div class="side-content">
+                <i class="fas fa-city"></i>
+                <h2>企业联盟板块</h2>
+                <p>企业级劳务合作 · 标准化工程交付</p>
+            </div>
         </div>
     </section>
 
-    <div id="profileOverlay" class="overlay">
-        <div class="overlay-header">
-            <h2 id="workerName">师傅详情</h2>
+    <div class="container">
+        <section id="category-section" class="page-section">
+            <div class="back-btn" onclick="showSection('home-section')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+            <h2 style="text-align:center;">专业服务分类</h2>
+            <div class="category-grid">
+                <div class="cat-card" onclick="showSection('worker-feed-section')">
+                    <i class="fas fa-bolt"></i>
+                    <h3>水电暖通</h3>
+                    <p>水管修复、电路改造</p>
+                </div>
+                <div class="cat-card" onclick="showSection('worker-feed-section')">
+                    <i class="fas fa-sink"></i>
+                    <h3>厨卫翻新</h3>
+                    <p>美缝、卫浴安装</p>
+                </div>
+                <div class="cat-card" onclick="showSection('worker-feed-section')">
+                    <i class="fas fa-brush"></i>
+                    <h3>墙面地面</h3>
+                    <p>艺术漆、岩板铺贴</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="worker-feed-section" class="page-section">
+            <div class="back-btn" onclick="showSection('category-section')"><i class="fas fa-arrow-left"></i> 返回分类</div>
+            <div class="smart-sort-bar">
+                <button class="btn btn-outline" style="border-radius: 20px;">距离最近</button>
+                <button class="btn btn-primary" style="border-radius: 20px;">好评最高</button>
+                <button class="btn btn-outline" style="border-radius: 20px;">价格最低</button>
+            </div>
+            
+            <div class="worker-card tier-gold" onclick="openOverlay('张建国', '高级技工')">
+                <img src="https://via.placeholder.com/80" alt="avatar">
+                <div class="worker-info">
+                    <h3>张建国 <span style="font-size: 0.8rem; background: var(--gold); color:white; padding: 2px 8px; border-radius: 4px;">高级技工</span></h3>
+                    <p>⭐ 4.9 | 服务 1200+ | 距离 1.2km</p>
+                    <p style="font-size: 0.8rem; color: var(--gray);">“解决老旧小区电路老化问题，耗时3小时”</p>
+                </div>
+                <div class="price-tag">¥200 <small>起</small></div>
+            </div>
+        </section>
+    </div>
+
+    <div id="bookingOverlay" class="overlay">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+                <h2 id="workerNameDisplay">师傅详情</h2>
+                <p id="workerTierDisplay">资质：中级技工</p>
+            </div>
             <i class="fas fa-times" style="font-size:1.5rem; cursor:pointer;" onclick="closeOverlay()"></i>
         </div>
 
-        <h4>施工日志 (Before & After)</h4>
-        <div class="portfolio-slider">
-            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" class="after-img" alt="After">
-            <div class="before-overlay">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" class="before-img" alt="Before">
+        <div id="bookingForm">
+            <h4 style="margin-top:30px;">施工日志 (Before & After)</h4>
+            <div style="width:100%; height:200px; background:#eee; border-radius:10px; margin:15px 0; overflow:hidden; position:relative;">
+                <div style="position:absolute; left:0; top:0; width:50%; height:100%; background:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80'); background-size:cover; border-right:2px solid white;"></div>
+                <div style="position:absolute; right:0; top:0; width:50%; height:100%; background:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=400&q=80'); background-size:cover; filter: grayscale(1);"></div>
+                <p style="position:absolute; bottom:10px; left:10px; color:white; background:rgba(0,0,0,0.5); padding:2px 5px; font-size:0.7rem;">滑动对比成果</p>
             </div>
-            <div style="position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.5); color:white; padding:5px 10px; border-radius:5px;">左:改造前 | 右:改造后</div>
-        </div>
 
-        <div id="bookingContent">
             <h4>多模态需求描述</h4>
-            <div style="display:flex; gap:10px; margin:15px 0;">
-                <div style="flex:1; border:2px dashed #ddd; height:100px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; cursor:pointer;">
-                    <i class="fas fa-camera" style="font-size:1.5rem"></i>
-                    <span>拍照/视频</span>
-                </div>
-                <div style="flex:1; border:2px dashed #ddd; height:100px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; cursor:pointer;">
-                    <i class="fas fa-microphone" style="font-size:1.5rem"></i>
-                    <span>语音输入</span>
-                </div>
+            <div class="multimedia-input">
+                <div class="input-box"><i class="fas fa-camera"></i><span>拍照/视频</span></div>
+                <div class="input-box"><i class="fas fa-microphone"></i><span>语音描述</span></div>
             </div>
 
-            <h4>时间锁定</h4>
-            <div class="slot-picker">
-                <div class="slot free">明天 09:00</div>
-                <div class="slot free">明天 14:00</div>
-                <div class="slot busy">后天 全约满</div>
-            </div>
-
-            <button class="btn-confirm" style="width:100%; padding:18px; background:var(--primary-orange); color:white; border:none; border-radius:10px; font-size:1.2rem; font-weight:bold; cursor:pointer; margin-top:20px;" onclick="showSuccess()">立即确认预约</button>
+            <button class="btn btn-primary" style="width:100%; padding:15px; font-size:1.2rem; border-radius:10px; background:var(--primary-orange);" onclick="confirmBooking()">确认预约</button>
         </div>
 
-        <div id="successContent" style="display:none; text-align:center; padding:40px 0;">
-            <div style="color:#4caf50; font-size:5rem; margin-bottom:20px;"><i class="fas fa-check-circle"></i></div>
-            <h2>预约成功</h2>
-            <p style="margin: 10px 0; color:#666;">您的安全核销码：<strong style="font-size:1.5rem; color:var(--primary-blue)">8866</strong></p>
-            
-            <div class="progress-track">
-                <div style="position:absolute; top:15px; left:0; width:100%; height:2px; background:#ddd; z-index:1"></div>
-                <div class="step active">1</div>
+        <div id="successState" style="display:none; text-align:center; padding:40px 0;">
+            <i class="fas fa-check-circle" style="font-size:4rem; color:#28A745;"></i>
+            <h2>预约成功！</h2>
+            <p style="margin:20px 0;">您的安全码：<strong style="font-size:2rem; color:var(--primary);">8866</strong></p>
+            <div class="progress-steps">
+                <div class="progress-line"></div>
+                <div class="step done">1</div>
                 <div class="step">2</div>
                 <div class="step">3</div>
                 <div class="step">4</div>
             </div>
-            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#999; margin-top:-20px;">
-                <span>已预约</span><span>待上门</span><span>施工中</span><span>验收</span>
-            </div>
+            <p style="font-size:0.8rem; color:var(--gray); margin-top:-30px;">已预约 — 待上门 — 施工中 — 验收</p>
         </div>
     </div>
 
-    <div class="fab" id="contactFab" onclick="alert('正在接入虚拟号通话...')">
-        <i class="fas fa-comment-dots"></i>
-    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>匠聘网</h3>
+                    <p>专业劳务与技术服务电商平台，连接优质服务商与需求方，打造可信赖的服务交易生态。</p>
+                </div>
+                <div class="footer-col">
+                    <h3>服务分类</h3>
+                    <ul>
+                        <li><a href="#">家政保洁</a></li>
+                        <li><a href="#">维修安装</a></li>
+                        <li><a href="#">装修装饰</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>关于我们</h3>
+                    <ul>
+                        <li><a href="#">平台介绍</a></li>
+                        <li><a href="#">服务商入驻</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2026 匠聘网 jiangpin.com 版权所有 | 房屋建材蓝领专业服务平台</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // 核心导航逻辑
-        function navigateTo(sectionId) {
-            document.querySelectorAll('.page-container, .home-split').forEach(s => s.style.display = 'none');
+        // 板块切换逻辑
+        function showSection(sectionId) {
+            document.querySelectorAll('.page-section, .home-dual-hero').forEach(s => s.style.display = 'none');
             const target = document.getElementById(sectionId);
-            target.style.display = sectionId === 'home-section' ? 'flex' : 'block';
-            
-            // 首页不显示搜索框和浮窗
-            document.getElementById('topSearch').style.display = sectionId === 'home-section' ? 'none' : 'block';
+            if (sectionId === 'home-section') {
+                target.style.display = 'flex';
+            } else {
+                target.style.display = 'block';
+            }
             window.scrollTo(0,0);
         }
 
-        // 详情页逻辑
-        function openProfile(name, tier) {
-            document.getElementById('workerName').innerText = name + " - " + tier;
-            document.getElementById('profileOverlay').classList.add('active');
-            document.getElementById('bookingContent').style.display = 'block';
-            document.getElementById('successContent').style.display = 'none';
-            document.body.style.overflow = 'hidden'; // 禁止底页滚动
+        // 覆盖层控制
+        function openOverlay(name, tier) {
+            document.getElementById('workerNameDisplay').innerText = name;
+            document.getElementById('workerTierDisplay').innerText = "资质：" + tier;
+            document.getElementById('bookingOverlay').classList.add('active');
+            document.getElementById('bookingForm').style.display = 'block';
+            document.getElementById('successState').style.display = 'none';
         }
 
         function closeOverlay() {
-            document.getElementById('profileOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
+            document.getElementById('bookingOverlay').classList.remove('active');
         }
 
-        // 成功动画模拟
-        function showSuccess() {
-            document.getElementById('bookingContent').style.display = 'none';
-            document.getElementById('successContent').style.display = 'block';
-            document.getElementById('contactFab').style.display = 'flex';
+        function confirmBooking() {
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successState').style.display = 'block';
         }
-
-        // 页面初始化
-        navigateTo('home-section');
     </script>
 </body>
 </html>
