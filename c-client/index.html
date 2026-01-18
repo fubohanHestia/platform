@@ -6,6 +6,7 @@
     <title>智能劳务技术网 - 专业蓝领劳务直聘平台</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- 核心皮肤风格 --- */
         :root {
             --primary-blue: #2A5CAA; --primary-orange: #FF6B35; --navy: #1a1a2e;
             --gold: #D4AF37; --silver: #A8A8A8; --bronze: #CD7F32;
@@ -16,7 +17,7 @@
         body { background: var(--bg); color: #333; overflow-x: hidden; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
-        /* --- 1. 顶部与头部 --- */
+        /* --- 1. 顶部状态栏 & 头部 --- */
         .top-bar { background: var(--primary-blue); color: white; padding: 8px 0; font-size: 13px; }
         .top-bar .container { display: flex; justify-content: space-between; }
         header { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
@@ -36,7 +37,7 @@
         .view-section { display: none; }
         .view-section.active { display: block; }
 
-        /* --- 3. 首页：双引擎分屏 --- */
+        /* --- 3. 首页：双引擎交互 (Step 1) --- */
         #hub-view { height: calc(100vh - 165px); display: none; overflow: hidden; }
         #hub-view.active { display: flex; }
         .split-side { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1); color: white; text-align: center; }
@@ -46,24 +47,23 @@
         .split-side i { font-size: 80px; margin-bottom: 20px; transition: 0.5s; }
         .split-side h2 { font-size: 36px; font-weight: 800; }
 
-        /* --- 4. 宫格导航与列表 --- */
+        /* --- 4. 服务大类宫格 (Step 2) --- */
         .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; padding: 40px 0; }
         .cat-card { background: white; padding: 30px; border-radius: 15px; border: 1px solid #eee; cursor: pointer; transition: 0.3s; text-align: center; }
         .cat-card:hover { border-color: var(--primary-orange); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .cat-card i { font-size: 40px; color: var(--primary-orange); margin-bottom: 15px; }
 
-        /* 细分服务项 */
+        /* --- 5. 细分服务选择 (Step 3) --- */
         .subcat-item { background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
         .subcat-item:hover { border-color: var(--primary-orange); background: #fffaf5; }
 
-        /* 排序工具栏 */
+        /* --- 6. 技工信息流 & 排序 (Step 4) --- */
         .sort-bar { display: flex; gap: 10px; padding: 15px 0; background: var(--bg); position: sticky; top: 130px; z-index: 10; border-bottom: 1px solid #eee; }
         .sort-btn { padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd; background: white; cursor: pointer; font-size: 13px; font-weight: bold; }
         .sort-btn.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
         
-        /* 技工卡片 */
         .worker-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 15px; display: flex; position: relative; cursor: pointer; transition: 0.3s; border: 1px solid #eee; }
-        .worker-card:hover { border-color: var(--primary-orange); }
+        .worker-card:hover { border-color: var(--primary-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .card-gold { border: 2px solid var(--gold); }
         .worker-avatar { width: 90px; height: 90px; border-radius: 10px; object-fit: cover; margin-right: 20px; border: 1px solid #eee; }
         .tier-badge { position: absolute; top: 15px; right: 20px; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: white; }
@@ -71,22 +71,27 @@
         .price-area { margin-left: auto; text-align: right; color: var(--primary-orange); align-self: center; }
         .price-area b { font-size: 26px; }
 
-        /* --- 5. 淘宝级详情页 --- */
+        /* --- 7. 淘宝级详情页 Overlay (Step 5) --- */
         .overlay { position: fixed; top: 0; right: -100%; width: 100%; max-width: 650px; height: 100%; background: white; z-index: 2000; transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); box-shadow: -10px 0 40px rgba(0,0,0,0.1); overflow-y: auto; padding-bottom: 100px; }
         .overlay.active { right: 0; }
         .overlay-header { position: sticky; top: 0; background: white; padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
         
         /* 评价滑块样式 */
-        .ba-slider { position: relative; width: 100%; height: 260px; border-radius: 12px; overflow: hidden; margin: 15px 0; border: 1px solid #eee; cursor: ew-resize; }
+        .ba-slider { position: relative; width: 100%; height: 280px; border-radius: 12px; overflow: hidden; margin: 15px 0; border: 1px solid #eee; cursor: ew-resize; }
         .ba-img { width: 100%; height: 100%; background-size: cover; background-position: center; position: absolute; top:0; left:0; }
         .ba-before { z-index: 2; width: 50%; border-right: 3px solid white; filter: grayscale(1); }
-        .ba-tag { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 8px; font-size: 11px; border-radius: 4px; z-index: 3; }
+        .ba-tag { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 2px 6px; font-size: 10px; border-radius: 3px; z-index: 3; }
 
         .overlay-footer { position: sticky; bottom: 0; left: 0; width: 100%; padding: 20px; background: white; border-top: 1px solid #eee; z-index: 100; }
         .btn-booking { background: var(--primary-orange); color: white; border: none; padding: 18px; border-radius: 12px; width: 100%; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(255,107,53,0.3); }
 
-        /* --- 6. 履约进度追踪 --- */
-        .drawer { position: fixed; bottom: -100%; left: 0; width: 100%; background: white; z-index: 3000; border-radius: 30px 30px 0 0; transition: 0.5s; padding: 30px; box-shadow: 0 -10px 30px rgba(0,0,0,0.1); max-height: 90vh; overflow-y: auto; }
+        /* --- 8. 评价流模块 --- */
+        .review-card { padding: 20px 0; border-bottom: 1px solid #eee; }
+        .user-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .user-meta img { width: 30px; height: 30px; border-radius: 50%; }
+
+        /* --- 9. 预约与追踪 (Step 6/7/8) --- */
+        .drawer { position: fixed; bottom: -100%; left: 0; width: 100%; background: white; z-index: 3000; border-radius: 30px 30px 0 0; transition: 0.5s; padding: 30px; box-shadow: 0 -10px 30px rgba(0,0,0,0.1); }
         .drawer.active { bottom: 0; }
         .progress-bar { display: flex; justify-content: space-between; margin: 40px 0; position: relative; }
         .progress-bar::before { content: ""; position: absolute; top: 15px; left: 0; width: 100%; height: 2px; background: #eee; z-index: 1; }
@@ -94,11 +99,11 @@
         .p-step.active { border-color: var(--success); background: var(--success); color: white; }
         .p-label { position: absolute; top: 40px; white-space: nowrap; font-size: 12px; color: #999; left: 50%; transform: translateX(-50%); }
 
-        /* --- 7. IM 系统 & FAB --- */
+        /* --- 10. IM 系统 & FAB --- */
         .chat-body { height: 400px; overflow-y: auto; padding: 20px; background: #f9f9f9; display: flex; flex-direction: column; gap: 15px; }
         .msg { max-width: 80%; padding: 10px 15px; border-radius: 15px; font-size: 14px; position: relative; }
-        .msg.other { align-self: flex-start; background: white; border: 1px solid #eee; }
-        .msg.me { align-self: flex-end; background: var(--primary-blue); color: white; }
+        .msg.other { align-self: flex-start; background: white; border: 1px solid #eee; border-top-left-radius: 2px; }
+        .msg.me { align-self: flex-end; background: var(--primary-blue); color: white; border-top-right-radius: 2px; }
 
         .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 4000; }
         .fab-main { width: 65px; height: 65px; background: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
@@ -178,30 +183,35 @@
                     <h2 id="p-name">师傅名称</h2>
                     <div id="p-score-box" style="margin-top:5px; background:#fffaf0; padding:8px 15px; border-radius:8px; border:1px solid #ffe58f;">
                         <span style="color:var(--primary-orange); font-weight:bold; font-size:24px;" id="p-avg-score">5.0</span>
-                        <span style="color:#666; font-size:12px;"> / 5.0 综合评分</span>
+                        <span style="color:#666; font-size:12px;"> / 5.0 综合评价总平均分</span>
                     </div>
                 </div>
             </div>
             <div id="p-certs" style="margin-bottom:25px;"></div>
             
-            <h4>施工日志 (Visual Portfolio)</h4>
+            <h4>过往服务案例</h4>
             <div id="p-portfolio"></div>
 
-            <h4 style="margin-top: 30px;">真实客户评价 (10+)</h4>
+            <h4 style="margin-top: 30px;">淘宝级客户评价流 (10+)</h4>
+            <div style="margin: 15px 0;">
+                <span class="sort-btn" style="padding:4px 10px; font-size:11px;">准时到家(99+)</span>
+                <span class="sort-btn" style="padding:4px 10px; font-size:11px;">自带工具齐全(50+)</span>
+                <span class="sort-btn" style="padding:4px 10px; font-size:11px;">沟通顺畅(95+)</span>
+            </div>
             <div id="p-reviews"></div>
         </div>
         <div class="overlay-footer"><button class="btn-booking" onclick="app.openBooking()">立即预约</button></div>
     </div>
 
     <div id="booking-drawer" class="drawer">
-        <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><h3>极速预约服务</h3><i class="fas fa-times" onclick="app.closeAll()"></i></div>
-        <p>1. 预约看板 (未来7天)</p>
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px;"><h3>极速预约</h3><i class="fas fa-times" onclick="app.closeAll()"></i></div>
+        <p>选择服务时段 (未来7天看板)：</p>
         <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; margin:20px 0;" id="slot-grid"></div>
         <button class="btn-booking" onclick="app.confirmBooking()">确认预约</button>
     </div>
 
     <div id="order-overlay" class="overlay">
-        <div class="overlay-header"><h3>订单追踪管理</h3><i class="fas fa-times" onclick="app.closeOverlay('order-overlay')"></i></div>
+        <div class="overlay-header"><h3>订单进度追踪</h3><i class="fas fa-times" onclick="app.closeOverlay('order-overlay')"></i></div>
         <div style="padding:30px; text-align:center;">
             <div style="background:#fff3e0; padding:20px; border-radius:12px; margin-bottom:30px;">
                 <p>安全核销码</p><h1 id="check-code" style="letter-spacing:10px; color:var(--primary-blue); font-size:36px; margin:10px 0;">8866</h1>
@@ -221,14 +231,18 @@
     <div id="rating-overlay" class="overlay">
         <div class="overlay-header"><h3>评价服务</h3><i class="fas fa-times" onclick="app.closeOverlay('rating-overlay')"></i></div>
         <div style="padding:30px;">
-            <p>1-5 星级点击评价</p>
-            <textarea placeholder="描述施工细节..." style="width:100%; height:150px; padding:15px; border:1px solid #ddd; border-radius:10px; margin:20px 0; outline:none;"></textarea>
+            <p>淘宝级 1-5 星级打分</p>
+            <div style="display:flex; flex-direction:column; gap:15px; margin:20px 0;">
+                <div style="display:flex; justify-content:space-between;"><span>服务态度</span><div style="color:#ffc107"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
+                <div style="display:flex; justify-content:space-between;"><span>专业技能</span><div style="color:#ffc107"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div></div>
+            </div>
+            <textarea placeholder="描述施工细节..." style="width:100%; height:150px; padding:15px; border:1px solid #ddd; border-radius:10px; margin:20px 0; outline:none; background:#f9f9f9;"></textarea>
             <button class="btn-booking" onclick="app.submitRating()">提交评价并回首页</button>
         </div>
     </div>
 
     <div id="chat-overlay" class="overlay">
-        <div class="overlay-header"><h3 id="chat-title">对话中</h3><i class="fas fa-times" onclick="app.closeOverlay('chat-overlay')"></i></div>
+        <div class="overlay-header"><h3 id="chat-title">咨询对话</h3><i class="fas fa-times" onclick="app.closeOverlay('chat-overlay')"></i></div>
         <div class="chat-body" id="chat-content"></div>
         <div style="padding:15px; display:flex; gap:10px;"><input type="text" id="chat-input" placeholder="输入..." style="flex:1; padding:10px; border-radius:20px; border:1px solid #ddd;"><button onclick="app.sendChat()" style="background:var(--primary-blue); color:white; border:none; padding:10px 20px; border-radius:20px;">发送</button></div>
     </div>
@@ -242,24 +256,25 @@
     </div>
 
     <div class="backdrop" id="backdrop" onclick="app.closeAll()"></div>
-    <footer><p>© 2026 智能劳务技术网 | 专业·透明·高效</p></footer>
+    <footer><p>© 2026 智能劳务技术网 | 专业·透明·高效·直聘平台</p></footer>
 
     <script>
         const app = {
             state: { workers: [], sortType: 'dist' },
 
+            // 初始化海量数据
             initData() {
                 const names = ['张建国','李大为','王师傅','赵全能','刘师傅','陈工','周师傅','吴师傅','郑师傅','孙师傅','钱师傅','冯师傅'];
                 this.state.workers = Array.from({length: 12}, (_, i) => ({
                     id: i,
                     name: names[i % names.length],
                     tier: i % 4 === 0 ? 'Gold' : (i % 4 === 1 ? 'Silver' : 'Bronze'),
-                    rating: (4.4 + Math.random() * 0.6).toFixed(1),
+                    rating: (4.5 + Math.random() * 0.5).toFixed(1),
                     price: [260, 200, 150, 100][i % 4],
                     dist: (0.5 + Math.random() * 5).toFixed(1),
                     count: 800 + Math.floor(Math.random() * 1000),
                     exp: (8 + Math.floor(Math.random() * 10)) + '年',
-                    certs: ['高级技能证', '实名认证']
+                    certs: ['高级电工证', '实名认证', '诚信技工']
                 }));
             },
 
@@ -271,7 +286,7 @@
 
             enterLabor() { this.renderCategories(); this.switchView('category-view'); },
 
-            // 第一步：渲染大类
+            // [Step 1 & 2]
             renderCategories() {
                 const cats = [
                     { id: 1, name: "水电暖通", icon: "fa-bolt", sub: ["给排水，消防水", "强弱电，消防电", "通风空调采暖", "电气焊"] },
@@ -283,7 +298,7 @@
                 document.getElementById('cat-grid').innerHTML = cats.map(c => `<div class="cat-card" onclick="app.handleCatClick(${c.id})"><i class="fas ${c.icon}"></i><h3>${c.name}</h3></div>`).join('');
             },
 
-            // 第二步：处理大类点击逻辑 (修复消失的细分选择)
+            // [Step 3] 细分服务点击逻辑
             handleCatClick(id) {
                 const cats = [
                     { id: 1, name: "水电暖通", sub: ["给排水，消防水", "强弱电，消防电", "通风空调采暖", "电气焊"] },
@@ -293,17 +308,14 @@
                     { id: 5, name: "智能家居/家电", sub: [] }
                 ];
                 const cat = cats.find(c => c.id === id);
-                if(cat.sub.length === 0) { 
-                    this.renderWorkers(); 
-                } else {
-                    document.getElementById('subcat-title').innerText = cat.name + " - 细分服务";
-                    const list = document.getElementById('subcat-list');
-                    list.innerHTML = cat.sub.map(s => `<div class="subcat-item" onclick="app.renderWorkers()">${s}<i class="fas fa-chevron-right" style="color:#ccc;"></i></div>`).join('');
-                    this.switchView('subcat-view');
-                }
+                if(cat.sub.length === 0) return this.renderWorkers();
+                document.getElementById('subcat-title').innerText = cat.name + " - 细分服务";
+                const list = document.getElementById('subcat-list');
+                list.innerHTML = cat.sub.map(s => `<div class="subcat-item" onclick="app.renderWorkers()">${s}<i class="fas fa-chevron-right"></i></div>`).join('');
+                this.switchView('subcat-view');
             },
 
-            // 第三步：渲染工人池
+            // [Step 4] 渲染技工池 & 排序
             renderWorkers() {
                 const list = document.getElementById('worker-list');
                 let sorted = [...this.state.workers];
@@ -314,15 +326,14 @@
 
                 list.innerHTML = sorted.map(w => `
                     <div class="worker-card ${w.tier === 'Gold' ? 'card-gold' : ''}" onclick="app.openProfile(${w.id})">
-                        <div class="tier-badge badge-${w.tier.toLowerCase()}">${w.tier==='Gold'?'15年+ / 全能王':'推荐'}</div>
+                        <div class="tier-badge badge-${w.tier.toLowerCase()}">${w.tier==='Gold'?'高级技工 (Gold)':'中级技工 (Silver)'}</div>
                         <img src="https://i.pravatar.cc/100?u=${w.id}" class="worker-avatar">
-                        <div><h3>${w.name}</h3><p>⭐ ${w.rating} | ${w.dist}km</p></div>
+                        <div><h3>${w.name}</h3><p>⭐ ${w.rating} | 距离您 ${w.dist}km</p></div>
                         <div class="price-area">¥<b>${w.price}</b>起</div>
                     </div>`).join('');
                 this.switchView('worker-view');
             },
 
-            // 排序控制
             handleSort(btn) {
                 document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
@@ -330,7 +341,15 @@
                 this.renderWorkers();
             },
 
-            // 第四步：技工详情渲染 (恢复10条评价与汇总分)
+            filterGold() {
+                this.state.sortType = 'rating';
+                const list = document.getElementById('worker-list');
+                let gold = this.state.workers.filter(w => w.tier === 'Gold');
+                list.innerHTML = gold.map(w => `<div class="worker-card card-gold" onclick="app.openProfile(${w.id})"><div class="tier-badge badge-gold">高级技工 (Gold)</div><img src="https://i.pravatar.cc/100?u=${w.id}" class="worker-avatar"><div><h3>${w.name}</h3><p>⭐ ${w.rating} | ${w.dist}km</p></div><div class="price-area">¥<b>${w.price}</b>起</div></div>`).join('');
+                this.switchView('worker-view');
+            },
+
+            // [Step 5] 核心修复：10条淘宝级评价 + Before/After 滑动对比图
             openProfile(id) {
                 const w = this.state.workers.find(i => i.id === id);
                 document.getElementById('p-avatar').src = `https://i.pravatar.cc/100?u=${w.id}`;
@@ -338,49 +357,74 @@
                 document.getElementById('p-avg-score').innerText = w.rating;
                 document.getElementById('p-certs').innerHTML = w.certs.map(c => `<span style="font-size:11px; background:#f5f5f5; padding:3px 8px; border-radius:4px; margin-right:5px;">${c}</span>`).join('') + `<span style="font-size:11px; background:#eef4ff; color:var(--primary-blue); padding:3px 8px; border-radius:4px;">从业${w.exp}</span>`;
                 
+                // 详情案例展示
                 document.getElementById('p-portfolio').innerHTML = `
                     <div class="ba-slider" onmousemove="app.handleBA(event)">
                         <div class="ba-img" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800')"></div>
                         <div class="ba-img ba-before" id="ba-before-img" style="background-image:url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800')"></div>
-                        <div class="ba-label">Before / After 滑动对比</div>
-                    </div><p style="font-size:12px; color:#888;">案例：解决老旧小区线路老化问题，耗时4小时。</p>`;
+                        <span class="ba-tag">滑动看对比效果</span>
+                    </div><p style="font-size:12px; color:#888;">案例总结：全面排查电路安全隐患，耗时3小时。</p>`;
 
-                let revs = "";
-                for(let i=0; i<10; i++) revs += `<div style="padding:15px 0; border-bottom:1px solid #f0f0f0;"><div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span style="font-weight:bold; font-size:13px;">用户 ${13500000000+i}</span><span style="color:#ffc107;">⭐⭐⭐⭐⭐</span></div><p style="font-size:12px; color:#666;">师傅专业，服务质量极高。</p></div>`;
-                document.getElementById('p-reviews').innerHTML = revs;
-                this.openOverlay('profile-overlay');
+                // 强制生成 10 条淘宝级带图评价
+                const reviews = ["活干得很细，强弱电排布整齐！", "准时到家，带了全套工具，施工规范。", "价格公道，没有额外收费。", "师傅特别有耐心，讲解了电路原理。", "技术过硬，解决了我家大难题。", "细节处理完美，横平竖直。", "下单一小时就上门了，响应极快。", "态度好，人踏实，干活利索。", "自带鞋套，施工完还帮忙打扫了。", "老师傅了，经验丰富，值得信赖！"];
+                const userNames = ["张业主", "李女士", "赵老板", "Momo", "快乐家装", "陈先生", "刘姐", "业主小吴", "钱经理", "孙阿姨"];
+                
+                let revHtml = "";
+                for(let i=0; i<10; i++) {
+                    const imgUrl = `https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&sig=${i}`;
+                    revHtml += `
+                        <div class="review-card">
+                            <div class="user-meta">
+                                <img src="https://i.pravatar.cc/40?u=${i}">
+                                <span style="font-size:13px; font-weight:bold;">${userNames[i]}</span>
+                                <span style="color:#ffc107; font-size:11px; margin-left:auto;">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <p style="font-size:13px; color:#555; margin-bottom:10px;">${reviews[i]}</p>
+                            <div class="ba-slider" onmousemove="app.handleBA(event)">
+                                <div class="ba-img" style="background-image:url('${imgUrl}')"></div>
+                                <div class="ba-img ba-before" style="background-image:url('${imgUrl}')"></div>
+                                <span class="ba-tag">Before/After 对比返图</span>
+                            </div>
+                        </div>`;
+                }
+                document.getElementById('p-reviews').innerHTML = revHtml;
+                document.getElementById('profile-overlay').classList.add('active');
+                document.getElementById('backdrop').style.display = 'block';
             },
 
+            // 滑块逻辑
             handleBA(e) {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const percent = ((e.clientX - rect.left) / rect.width) * 100;
-                document.getElementById('ba-before-img').style.width = percent + "%";
+                const before = e.currentTarget.querySelector('.ba-before');
+                if(before) before.style.width = percent + "%";
             },
 
-            // 流程逻辑
-            openBooking() { this.closeOverlay('profile-overlay'); this.openOverlay('booking-drawer'); this.renderSlots(); },
+            // [Step 6 & 7]
+            openBooking() { this.closeOverlay('profile-overlay'); document.getElementById('booking-drawer').classList.add('active'); this.renderSlots(); },
             renderSlots() {
                 const grid = document.getElementById('slot-grid');
                 grid.innerHTML = Array.from({length:7}, (_, i) => `<div style="padding:10px 5px; border-radius:8px; text-align:center; background:#e8f5e9; color:#2e7d32; cursor:pointer; font-size:11px;">周${['一','二','三','四','五','六','日'][i]}<br>有空</div>`).join('');
             },
 
             confirmBooking() {
-                this.closeOverlay('booking-drawer');
-                document.getElementById('fab-worker-item').style.display = 'flex';
+                document.getElementById('booking-drawer').classList.remove('active');
+                document.getElementById('fab-worker-item').style.display = 'flex'; // 预约成功显示联系师傅
                 document.getElementById('check-code').innerText = Math.floor(1000 + Math.random()*9000);
                 this.openOverlay('order-overlay');
             },
 
+            // [Step 8 & 9] 模拟履约流程
             simFlow(step) {
                 const action = document.getElementById('order-dynamic-actions');
                 const steps = document.querySelectorAll('#order-p-bar .p-step');
                 if(step === 'start') {
                     steps[1].classList.add('active');
-                    action.innerHTML = `<input type="text" id="verify-code" placeholder="输入核销码" style="width:100%; padding:15px; border:1px solid #ddd; border-radius:10px; text-align:center; font-size:24px; outline:none;"><button class="btn-booking" style="margin-top:15px;" onclick="app.simFlow('work')">验证开工</button>`;
+                    action.innerHTML = `<input type="text" id="code-in" placeholder="输入4位核销码" style="width:100%; padding:15px; border:1px solid #ddd; border-radius:10px; text-align:center; font-size:24px; outline:none;"><button class="btn-booking" style="margin-top:15px;" onclick="app.simFlow('work')">验证码一致，开始施工</button>`;
                 } else if(step === 'work') {
-                    if(document.getElementById('verify-code').value === document.getElementById('check-code').innerText) {
+                    if(document.getElementById('code-in').value === document.getElementById('check-code').innerText) {
                         steps[2].classList.add('active');
-                        action.innerHTML = `<button class="btn-booking" style="background:var(--primary-orange)" onclick="app.simFlow('finish')">验收并结算</button>`;
+                        action.innerHTML = `<div style="text-align:center; padding:20px;"><i class="fas fa-tools fa-spin" style="font-size:30px; color:var(--primary-blue)"></i><p style="margin-top:10px;">施工中，平台全程质保...</p></div><button class="btn-booking" onclick="app.simFlow('finish')">确认施工完成并验收</button>`;
                     } else alert('核销码错误');
                 } else if(step === 'finish') {
                     steps[3].classList.add('active');
@@ -389,15 +433,17 @@
                 }
             },
 
+            // [Step 10]
             submitRating() {
-                alert('评价成功！');
-                document.getElementById('fab-worker-item').style.display = 'none';
+                alert('感谢评价！已结算订单。');
+                document.getElementById('fab-worker-item').style.display = 'none'; // 服务结束隐藏联系师傅
                 this.closeOverlay('rating-overlay');
                 this.switchView('hub-view');
             },
 
+            // IM 对话
             openChat(type) {
-                document.getElementById('chat-title').innerText = type === 'worker' ? '联系师傅' : '平台客服';
+                document.getElementById('chat-title').innerText = type === 'worker' ? '正在联系师傅' : '平台官方客服';
                 this.openOverlay('chat-overlay');
                 document.getElementById('chat-content').innerHTML = `<div class="msg other">您好！请问有什么可以帮您？</div>`;
             },
@@ -407,7 +453,7 @@
                 if(!val) return;
                 document.getElementById('chat-content').innerHTML += `<div class="msg me">${val}</div>`;
                 document.getElementById('chat-input').value = '';
-                setTimeout(() => { document.getElementById('chat-content').innerHTML += `<div class="msg other">收到消息，我们会尽快处理。</div>`; }, 1000);
+                setTimeout(() => { document.getElementById('chat-content').innerHTML += `<div class="msg other">收到，正为您处理。</div>`; }, 1000);
             },
 
             toggleFab() { const m = document.getElementById('fab-menu'); m.style.display = m.style.display === 'flex' ? 'none' : 'flex'; },
@@ -415,11 +461,10 @@
             closeOverlay(id) { document.getElementById(id).classList.remove('active'); document.getElementById('backdrop').style.display='none'; },
             closeAll() { document.querySelectorAll('.overlay, .drawer').forEach(el => el.classList.remove('active')); document.getElementById('backdrop').style.display='none'; },
             showEntAlert() { alert('该板块正在构建中'); },
-            filterGold() { this.state.sortType = 'rating'; this.renderWorkers(); },
             handleSearch() { this.renderWorkers(); }
         };
 
-        // 事件监听修复 (排序按钮失灵修复)
+        // 全局事件委托 (修复排序按钮失灵)
         document.addEventListener('click', (e) => {
             if(e.target.classList.contains('sort-btn') && e.target.dataset.sort) app.handleSort(e.target);
         });
