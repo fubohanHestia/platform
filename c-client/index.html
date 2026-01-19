@@ -796,16 +796,24 @@
        .legal-check input { width: 18px; height: 18px; margin-top: 2px; }
        .legal-check a { color: var(--primary-blue); text-decoration: none; font-weight: bold; }
 
-       /* --- [NEW: Personal & Identity - CSS Patch] --- */
-       .user-asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; padding: 0 10px; }
-       .asset-item { background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; justify-content: center; min-height: 80px; }
-       .asset-val { display: block; font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
-       .asset-label { font-size: 11px; color: #999; white-space: nowrap; }
-       .menu-list { margin-top: 30px; padding: 0 10px; }
-       .menu-item { 
-           display: flex; justify-content: space-between; align-items: center; 
-           padding: 18px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;
+       /* --- [NEW: Personal Center - Layout Patch] --- */
+       .user-asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; padding: 0 10px; }
+       .asset-item { 
+           background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align: center; 
+           display: flex; flex-direction: column; align-items: center; justify-content: center;
+           min-height: 85px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
        }
+       .asset-val { display: block; font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
+       .asset-label { font-size: 12px; color: #999; white-space: nowrap; }
+       .menu-list { padding: 0 10px; margin-top: 20px; }
+       .menu-item { 
+           display: flex; justify-content: space-between; align-items: center; 
+           padding: 20px 18px; background: #ffffff; border: 1px solid #f0f0f0; 
+           border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+       }
+       .menu-item:active { background: #f9f9f9; transform: scale(0.98); }
+       .menu-item-left { display: flex; align-items: center; gap: 15px; font-weight: bold; }
+       .menu-item i.main-icon { font-size: 18px; width: 20px; text-align: center; }
        .verify-status { font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
        .status-no { background: #fff1f0; color: #ff4d4f; }
        .status-yes { background: #f6ffed; color: #52c41a; }
@@ -814,12 +822,9 @@
 
        /* --- [NEW: Payment & Orders - CSS] --- */
        .recharge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
-       .recharge-card { 
-           border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s;
-       }
+       .recharge-card { border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
        .recharge-card.active { border-color: var(--primary-orange); background: #fffaf5; }
        .recharge-card b { font-size: 24px; color: var(--primary-orange); }
-       
        .order-item { background: white; border: 1px solid #eee; border-radius: 15px; padding: 20px; margin-bottom: 15px; }
        .order-meta { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-bottom: 10px; }
        .order-body { display: flex; gap: 15px; align-items: center; }
@@ -1099,20 +1104,20 @@
                <div class="asset-item" onclick="app.openPayment()"><span class="asset-val" id="u-balance">0.00</span><span class="asset-label">钱包余额</span></div>
            </div>
 
-           <div class="menu-list">
+           <div class="menu-list" id="main-menu-list">
                <div class="menu-item" onclick="app.openVerify()">
-                   <span><i class="fas fa-id-card" style="margin-right:15px; color:var(--primary-blue)"></i>实名认证状态</span>
+                   <div class="menu-item-left"><i class="fas fa-id-card main-icon" style="color:var(--primary-blue)"></i>实名认证状态</div>
                    <span id="u-verify-tag" class="verify-status status-no">未认证</span>
                </div>
                <div class="menu-item" onclick="app.openOrders()">
-                   <span><i class="fas fa-clipboard-list" style="margin-right:15px; color:#34A853"></i>全部服务订单</span>
+                   <div class="menu-item-left"><i class="fas fa-clipboard-list main-icon" style="color:#34A853"></i>全部服务订单</div>
                    <i class="fas fa-chevron-right" style="color:#ccc"></i>
                </div>
                <div class="menu-item" onclick="alert('地址管理功能开发中')">
-                   <span><i class="fas fa-map-marker-alt" style="margin-right:15px; color:#EA4335"></i>我的服务地址</span>
+                   <div class="menu-item-left"><i class="fas fa-map-marker-alt main-icon" style="color:#EA4335"></i>我的服务地址</div>
                    <i class="fas fa-chevron-right" style="color:#ccc"></i>
                </div>
-               <div class="menu-item" style="margin-top:40px; border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold;" onclick="location.reload()">
+               <div class="menu-item" style="margin-top:20px; border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold; background:#fff1f0;" onclick="location.reload()">
                    退出登录
                </div>
            </div>
@@ -1230,7 +1235,7 @@
            <div class="verify-form-group"><label>1. 真实姓名</label><input type="text" class="auth-input" id="wo-name" placeholder="与证件姓名一致"></div>
            
            <div class="verify-form-group">
-               <label>2. 性le别</label>
+               <label>2. 性别</label>
                <div class="gender-selector">
                    <div class="gender-opt active" onclick="app.selectWoGender('男', this)">男</div>
                    <div class="gender-opt" onclick="app.selectWoGender('女', this)">女</div>
@@ -1532,11 +1537,11 @@
                document.getElementById('backdrop').style.display = 'block';
            },
 
-           /* --- [NEW: Worker Registration & Dashboard Logic] --- */
+           /* --- [NEW: Worker Dashboard - Logic Patch] --- */
            patchWorkerEntry() {
-               // 此补丁在不改动原有HTML的情况下，动态控制师傅端的访问逻辑
-               if(document.getElementById('dynamic-worker-btn')) document.getElementById('dynamic-worker-btn').remove();
-               const menuList = document.querySelector('#user-overlay .menu-list');
+               // 动态补丁：在不改动原有HTML的情况下，控制个人中心的动态按钮显示
+               if(document.getElementById('dynamic-worker-btn')) document.getElementById('dynamic-worker-btn').remove(); 
+               const menuList = document.getElementById('main-menu-list');
                if(!menuList) return;
                const logoutBtn = menuList.lastElementChild;
                const workerBtn = document.createElement('div');
@@ -1544,34 +1549,22 @@
                workerBtn.className = 'menu-item';
                
                if(this.state.workerRegStatus === 'none') {
-                   workerBtn.innerHTML = `<span><i class="fas fa-user-plus" style="margin-right:15px; color:var(--primary-orange)"></i>申请成为匠心师傅</span><i class="fas fa-chevron-right"></i>`;
+                   workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-user-plus main-icon" style="color:var(--primary-orange)"></i>申请成为匠心师傅</div><i class="fas fa-chevron-right" style="color:#ccc"></i>`;
                    workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-onboarding-overlay').classList.add('active'); };
                } else if(this.state.workerRegStatus === 'pending') {
-                   workerBtn.innerHTML = `<span><i class="fas fa-hourglass-half" style="margin-right:15px; color:#faad14"></i>师傅入驻审核中...</span>`;
-                   workerBtn.onclick = () => alert('平台已收到您的入驻资料，正进行职业资质审核，请保持手机畅通。');
+                   workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-hourglass-half main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
+                   workerBtn.onclick = () => alert('平台已收到您的入驻资料，目前处于“人工审核+L级评定”阶段，请耐心等待。');
                } else if(this.state.workerRegStatus === 'approved') {
-                   workerBtn.style.color = 'var(--primary-orange)';
-                   workerBtn.style.background = '#fffaf5'; workerBtn.style.paddingLeft = '15px'; workerBtn.style.borderRadius = '12px';
-                   workerBtn.innerHTML = `<span><i class="fas fa-tools" style="margin-right:15px;"></i><b>师傅管理工作台</b></span><i class="fas fa-chevron-right"></i>`;
+                   workerBtn.style.border = '1.5px solid var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
+                   workerBtn.innerHTML = `<div class="menu-item-left" style="color:var(--primary-orange)"><i class="fas fa-tools main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right" style="color:var(--primary-orange)"></i>`;
                    workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-dashboard-overlay').classList.add('active'); };
                }
                menuList.insertBefore(workerBtn, logoutBtn);
            },
-           selectWoGender(g, el) {
-               document.querySelectorAll('#worker-onboarding-overlay .gender-opt').forEach(o => o.classList.remove('active'));
-               el.classList.add('active'); this.state.woGender = g;
-           },
-           submitWorkerOnboarding() {
-               const fields = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
-               if(fields.some(f => !document.getElementById(f).value)) return alert('请填齐所有 8 项资料以供评级');
-               alert('资料上传完毕，正在加密提交平台审核部...');
-               setTimeout(() => {
-                   this.state.workerRegStatus = 'pending';
-                   this.closeOverlay('worker-onboarding-overlay');
-                   alert('提交成功！\n\n[补丁预览]：为方便测试，1.5秒后将模拟审核通过。');
-                   // 模拟后台审核通过逻辑
-                   setTimeout(() => { this.state.workerRegStatus = 'approved'; alert('【系统通知】：您的师傅入驻申请已通过！\n职业评级：L5 资深师傅'); }, 1500);
-               }, 1000);
+           openWorkerDashboard() {
+               this.closeOverlay('user-overlay');
+               document.getElementById('worker-dashboard-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
            },
            switchDashTab(tab) {
                document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
@@ -1583,8 +1576,27 @@
                document.querySelectorAll('#worker-dashboard-overlay .gender-opt').forEach(o => o.classList.remove('active'));
                el.classList.add('active'); this.state.workerGender = g;
            },
+           selectWoGender(g, el) {
+               document.querySelectorAll('#worker-onboarding-overlay .gender-opt').forEach(o => o.classList.remove('active'));
+               el.classList.add('active'); this.state.woGender = g;
+           },
+           submitWorkerOnboarding() {
+               const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
+               if(ids.some(i => !document.getElementById(i).value)) return alert('请填齐所有 8 项资料（姓名/证件/特长/年限/介绍均为必填）');
+               alert('资料已安全加密，正传输至后台审核部...');
+               setTimeout(() => {
+                   this.state.workerRegStatus = 'pending';
+                   this.closeOverlay('worker-onboarding-overlay');
+                   alert('提交成功！我们将根据您的自我介绍为您进行等级评定。\n\n[开发环境模拟]：1.5秒后将自动模拟审核通过状态。');
+                   // 模拟后台审核通过
+                   setTimeout(() => {
+                       this.state.workerRegStatus = 'approved';
+                       alert('【系统消息】：恭喜！您的师傅入驻申请已审核通过。\n当前初始评级：L5 资深师傅');
+                   }, 1500);
+               }, 1000);
+           },
            saveWorkerProfile() {
-               alert('职业资料更新已备案。');
+               alert('资料更新成功，职业档案已同步生效。');
            }
        };
  
