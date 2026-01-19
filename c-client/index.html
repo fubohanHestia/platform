@@ -257,7 +257,7 @@
             color: #444444; 
         }
 
-        /* --- [V. 细分服务] --- */
+        /* --- [V. 细分服务按钮卡片] --- */
         .subcat-grid { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -290,7 +290,7 @@
             color: #444444; 
         }
 
-        /* --- [VI. 技工列表] --- */
+        /* --- [VI. 技工导览列表] --- */
         .worker-list-header { 
             margin-bottom: 25px; 
             border-left: 6px solid var(--primary-orange); 
@@ -371,7 +371,7 @@
             font-size: 32px; 
         }
 
-        /* --- [VII. 详情图层] --- */
+        /* --- [VII. 详情图层与预约置顶按钮] --- */
         .overlay { 
             position: fixed; 
             top: 0; 
@@ -474,7 +474,7 @@
             filter: grayscale(1); 
         }
 
-        /* --- [VIII. 预约抽屉] --- */
+        /* --- [VIII. 预约多模态抽屉] --- */
         .drawer { 
             position: fixed; 
             bottom: -100%; 
@@ -521,11 +521,11 @@
             margin-top: 25px; 
         }
 
-        .input-label { 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-            display: block; 
-            font-size: 16px; 
+        .input-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 16px;
         }
 
         .photo-upload-placeholder { 
@@ -553,7 +553,7 @@
             margin-top: 10px; 
         }
 
-        /* --- [IX. 订单状态] --- */
+        /* --- [IX. 订单追踪与状态流转] --- */
         .progress-container { 
             width: 100%; 
             padding: 50px 20px; 
@@ -649,69 +649,164 @@
             color: #ffc107; 
         }
 
-        /* --- [XI. IM系统] --- */
+        /* --- [XI. IM 聊天系统] --- */
         .chat-overlay { 
-            position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px; height: 100%; background-color: var(--white); z-index: 6000; transition: right 0.5s ease; display: flex; flex-direction: column; 
+            position: fixed; 
+            top: 0; 
+            right: -100%; 
+            width: 100%; 
+            max-width: 500px; 
+            height: 100%; 
+            background-color: var(--white); 
+            z-index: 6000; 
+            transition: right 0.5s ease; 
+            display: flex; 
+            flex-direction: column; 
         }
+
         .chat-overlay.active { 
             right: 0; 
         }
+
         .chat-messages { 
-            flex: 1; padding: 25px; overflow-y: auto; background-color: #f0f2f5; display: flex; flex-direction: column; gap: 15px; 
+            flex: 1; 
+            padding: 25px; 
+            overflow-y: auto; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
         }
+
         .msg-bubble { 
-            max-width: 80%; padding: 12px 18px; border-radius: 18px; font-size: 15px; line-height: 1.5; 
+            max-width: 80%; 
+            padding: 12px 18px; 
+            border-radius: 18px; 
+            font-size: 15px; 
+            line-height: 1.5; 
         }
+
         .msg-bubble.me { 
-            align-self: flex-end; background-color: var(--primary-blue); color: white; border-bottom-right-radius: 2px; 
+            align-self: flex-end; 
+            background-color: var(--primary-blue); 
+            color: white; 
+            border-bottom-right-radius: 2px; 
         }
+
         .msg-bubble.other { 
-            align-self: flex-start; background-color: var(--white); border: 1px solid #e0e0e0; border-bottom-left-radius: 2px; 
+            align-self: flex-start; 
+            background-color: var(--white); 
+            border: 1px solid #e0e0e0; 
+            border-bottom-left-radius: 2px; 
         }
 
         .fab-container { 
-            position: fixed; bottom: 30px; right: 30px; z-index: 4500; 
-        }
-        .fab-main { 
-            width: 70px; height: 70px; background-color: var(--primary-orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; cursor: pointer; box-shadow: 0 10px 30px rgba(255,107,53,0.3); transition: transform 0.3s ease; 
-        }
-        .fab-menu { 
-            position: absolute; bottom: 85px; right: 0; display: none; flex-direction: column; gap: 15px; width: 200px; 
-        }
-        .fab-item { 
-            background-color: var(--white); padding: 15px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #eeeeee; font-size: 15px; font-weight: bold; display: flex; align-items: center; gap: 12px; cursor: pointer; 
-        }
-        .fab-item.disabled { 
-            filter: grayscale(1); opacity: 0.5; cursor: not-allowed; 
-        }
-        .backdrop { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 1500; 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            z-index: 4500; 
         }
 
-        /* --- [NEW: Auth System] --- */
-        .auth-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(5px); 
+        .fab-main { 
+            width: 70px; 
+            height: 70px; 
+            background-color: var(--primary-orange); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 30px; 
+            cursor: pointer; 
+            box-shadow: 0 10px 30px rgba(255,107,53,0.3); 
+            transition: transform 0.3s ease; 
         }
-        .auth-card { 
-            background: var(--white); width: 90%; max-width: 400px; padding: 40px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); position: relative; animation: modalPop 0.3s ease; 
+
+        .fab-menu { 
+            position: absolute; 
+            bottom: 85px; 
+            right: 0; 
+            display: none; 
+            flex-direction: column; 
+            gap: 15px; 
+            width: 200px; 
+        }
+
+        .fab-item { 
+            background-color: var(--white); 
+            padding: 15px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            border: 1px solid #eeeeee; 
+            font-size: 15px; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            cursor: pointer; 
+        }
+
+        .fab-item.disabled { 
+            filter: grayscale(1); 
+            opacity: 0.5; 
+            cursor: not-allowed; 
+        }
+
+        .backdrop { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.6); 
+            z-index: 1500; 
+        }
+
+        /* --- [NEW: Auth System - CSS] --- */
+        .auth-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 9000;
+            display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        .auth-card {
+            background: var(--white); width: 90%; max-width: 400px;
+            padding: 40px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            position: relative; animation: modalPop 0.3s ease;
         }
         @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .auth-tab { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 30px; text-align: center; }
         .auth-input-group { margin-bottom: 20px; position: relative; }
-        .auth-input { width: 100%; padding: 16px 20px; border-radius: 12px; border: 1.5px solid #ddd; outline: none; font-size: 16px; transition: all 0.3s; }
+        .auth-input {
+            width: 100%; padding: 16px 20px; border-radius: 12px;
+            border: 1.5px solid #ddd; outline: none; font-size: 16px; transition: all 0.3s;
+        }
         .auth-input:focus { border-color: var(--primary-blue); background: #f0f7ff; }
-        .btn-send-code { position: absolute; right: 10px; top: 8px; background: var(--bg); border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px; color: var(--primary-blue); font-weight: bold; cursor: pointer; }
+        .btn-send-code {
+            position: absolute; right: 10px; top: 8px; background: var(--bg);
+            border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px;
+            color: var(--primary-blue); font-weight: bold; cursor: pointer;
+        }
         .legal-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 25px; font-size: 13px; color: #666; cursor: pointer; }
         .legal-check input { width: 18px; height: 18px; margin-top: 2px; }
         .legal-check a { color: var(--primary-blue); text-decoration: none; font-weight: bold; }
 
-        /* --- [NEW: Personal Center] --- */
+        /* --- [NEW: Personal Center - Layout Patch] --- */
         .user-asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; padding: 0 10px; }
-        .asset-item { background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 85px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .asset-item { 
+            background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align: center; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 85px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
         .asset-val { display: block; font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
         .asset-label { font-size: 12px; color: #999; white-space: nowrap; }
         .menu-list { padding: 0 10px; margin-top: 20px; }
-        .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 20px 18px; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        .menu-item { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 18px; background: #ffffff; border: 1px solid #f0f0f0; 
+            border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+        }
         .menu-item:active { background: #f9f9f9; transform: scale(0.98); }
         .menu-item-left { display: flex; align-items: center; gap: 15px; font-weight: bold; }
         .menu-item i.main-icon { font-size: 18px; width: 20px; text-align: center; }
@@ -721,7 +816,7 @@
         .verify-form-group { margin-bottom: 25px; }
         .verify-form-group label { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
 
-        /* --- [NEW: Payment & Orders] --- */
+        /* --- [NEW: Payment & Orders - CSS] --- */
         .recharge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
         .recharge-card { border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
         .recharge-card.active { border-color: var(--primary-orange); background: #fffaf5; }
@@ -732,7 +827,7 @@
         .order-info h4 { margin: 0; font-size: 16px; }
         .order-status-tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; background: #e6f7ff; color: var(--primary-blue); }
 
-        /* --- [NEW: Worker Dashboard] --- */
+        /* --- [NEW: Worker Dashboard - CSS Patch] --- */
         .dashboard-header { background: var(--navy); color: white; padding: 40px 30px; }
         .dashboard-tabs { display: flex; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
         .dash-tab { flex: 1; text-align: center; padding: 15px; font-weight: bold; color: #999; cursor: pointer; border-bottom: 3px solid transparent; }
@@ -747,11 +842,20 @@
         .gender-opt.active { border-color: var(--primary-blue); color: var(--primary-blue); background: #f0f7ff; }
         .upload-placeholder-sm { width: 100%; height: 100px; border: 2px dashed #ddd; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; cursor: pointer; }
 
-        .promo-card-v2 { position: relative; height: 180px; border-radius: 15px; overflow: hidden; background-size: cover; background-position: center; cursor: pointer; transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        /* --- [PATCH: Special Services Styles] --- */
+        .promo-card-v2 {
+            position: relative; height: 180px; border-radius: 15px; overflow: hidden; background-size: cover; background-position: center; cursor: pointer; transition: transform 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
         .promo-card-v2:hover { transform: scale(1.02); }
-        .promo-card-v2::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)); z-index: 1; }
-        .promo-card-v2 span { position: relative; z-index: 2; color: white; font-size: 18px; font-weight: 800; text-align: center; padding: 0 15px; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .promo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 25px; }
+        .promo-card-v2::before {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6)); z-index: 1;
+        }
+        .promo-card-v2 span {
+            position: relative; z-index: 2; color: white; font-size: 18px; font-weight: 800; text-align: center; padding: 0 15px; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .promo-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 25px;
+        }
         #promo-full-view .promo-grid { grid-template-columns: repeat(2, 1fr); }
         .ent-card { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; border: 1px solid #eeeeee; display: flex; align-items: center; gap: 25px; transition: 0.3s; cursor: pointer; }
         .ent-card:hover { border-color: var(--primary-blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
@@ -761,14 +865,13 @@
         .ent-tags { display: flex; gap: 8px; margin-top: 10px; }
         .ent-tag { font-size: 12px; padding: 3px 10px; border-radius: 4px; background: #f0f7ff; color: var(--primary-blue); font-weight: bold; }
 
-        /* [PATCH: Enterprise Reg Styles Integration] */
-        .ent-form-card { background: white; border-radius: 20px; padding: 35px; margin: 30px auto 60px; border: 1px solid #e8e8e8; box-shadow: 0 15px 45px rgba(0,0,0,0.05); }
-        .ent-form-step { margin-bottom: 35px; }
-        .ent-form-step label { display: block; font-weight: 800; color: var(--navy); margin-bottom: 12px; font-size: 16px; }
-        .ent-form-step .hint { font-size: 12px; color: #999; margin-bottom: 12px; line-height: 1.4; }
-        .ent-file-uploader { width: 100%; height: 130px; border: 2px dashed #d9d9d9; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; cursor: pointer; transition: all 0.3s; background: #fafafa; }
-        .ent-file-uploader:hover { border-color: var(--primary-blue); background: #f0f7ff; color: var(--primary-blue); }
-        .ent-file-uploader i { font-size: 32px; margin-bottom: 10px; }
+        /* [PATCH: Enterprise Registration Styles Integration] */
+        .ent-reg-section { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; border: 1px solid #e8e8e8; }
+        .ent-reg-label { display: block; font-weight: 800; color: var(--navy); margin-bottom: 12px; font-size: 16px; border-left: 5px solid var(--primary-orange); padding-left: 12px; }
+        .ent-reg-upload-card { width: 100%; height: 130px; border: 2px dashed #d9d9d9; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; cursor: pointer; transition: 0.3s; background: #fafafa; }
+        .ent-reg-upload-card:hover { border-color: var(--primary-blue); background: #f0f7ff; color: var(--primary-blue); }
+        .ent-reg-upload-card i { font-size: 32px; margin-bottom: 8px; }
+        .ent-reg-hint { font-size: 12px; color: #999; margin-top: 5px; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -855,38 +958,36 @@
           <div id="worker-list" style="margin-top: 30px;"></div>
         </section>
 
-        <div id="ent-reg-overlay-v2" class="overlay" style="background-color: #f9fbff; z-index: 9999;">
-            <div class="overlay-header" style="background: white;">
-                <h3 style="font-weight: 800; color: var(--primary-blue);"><i class="fas fa-user-shield"></i> 企业服务商入驻审核中心</h3>
-                <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('ent-reg-overlay-v2')"></i>
+        <div id="enterprise-reg-overlay-final" class="overlay" style="background: #f4f7f9; z-index: 9999;">
+            <div class="overlay-header" style="background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h3 style="font-weight: 800; color: var(--primary-blue);"><i class="fas fa-briefcase"></i> 企业服务商商城入驻注册</h3>
+                <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('enterprise-reg-overlay-final')"></i>
             </div>
-            <div class="container" style="max-width: 800px;">
-                <div class="ent-form-card">
-                    <div class="ent-form-step">
-                        <label>1. 企业主体资质（营业执照）</label>
-                        <p class="hint">请上传有效期内的营业执照副本原件照片或扫描件（加盖红公章）。</p>
-                        <div class="ent-file-uploader"><i class="fas fa-file-invoice"></i><span>点击或拖拽营业执照上传</span></div>
-                    </div>
-                    <div class="ent-form-step">
-                        <label>2. 企业经营范围简介</label>
-                        <textarea class="voice-textarea" style="height: 110px;" placeholder="请详细阐述贵司的主营业务范围、专项资质等级及核心技术优势..."></textarea>
-                    </div>
-                    <div class="ent-form-step">
-                        <label>3. 常年在册人员资料（职称证/技工证/特种证）</label>
-                        <p class="hint">请上传：工程师技术职称证书、特种作业证（电工/焊工/高处）、技工证等。</p>
-                        <div class="ent-file-uploader" style="height: 100px;"><i class="fas fa-id-card-alt" style="font-size:24px;"></i><span>点击批量上传证书照片（支持多选）</span></div>
-                        <textarea class="voice-textarea" style="height: 60px; margin-top:10px;" placeholder="人员概况简述（如：高工2人，中级职称5人，特种技工20人）"></textarea>
-                    </div>
-                    <div class="ent-form-step">
-                        <label>4. 历史业绩与企业实力宣传资料</label>
-                        <p class="hint">可包含过往项目合同关键页、中标通知书、完工实景图或企业宣传PPT。</p>
-                        <div class="ent-file-uploader"><i class="fas fa-project-diagram"></i><span>上传业绩证明材料</span></div>
-                    </div>
-                    <div style="padding-top: 20px;">
-                        <button class="btn-booking-main" onclick="alert('入驻资料已安全加密传输至总部审验科。3个工作日内将有专属客服联系您。')">提交入驻资料并申请备案</button>
-                        <p style="text-align:center; color:#999; font-size:12px; margin-top:20px;">* 所有提交资料仅用于入驻资质审验，平台依法保障企业隐私安全</p>
-                    </div>
+            <div class="container" style="max-width: 800px; padding-bottom: 80px;">
+                <div style="margin-top: 30px; background: #fffbe6; padding: 15px; border-radius: 10px; border: 1px solid #ffe58f; color: #856404; font-size: 14px; margin-bottom: 25px;">
+                    <i class="fas fa-exclamation-circle"></i> 提示：请确保上传资料清晰真实。平台合规部将依据技术人员职称及过往业绩进行初次信用评级。
                 </div>
+                <div class="ent-reg-section">
+                    <label class="ent-reg-label">1. 企业营业执照资质</label>
+                    <p class="ent-reg-hint">请上传有效期内的营业执照副本原件照片或加盖公章的复印件（支持JPG/PNG）。</p>
+                    <div class="ent-reg-upload-card"><i class="fas fa-file-contract"></i><span>点击上传营业执照</span></div>
+                </div>
+                <div class="ent-reg-section">
+                    <label class="ent-reg-label">2. 经营范围简介</label>
+                    <textarea class="voice-textarea" style="height: 120px;" placeholder="请详细阐述贵司的主营技术业务领域、服务半径及核心优势..."></textarea>
+                </div>
+                <div class="ent-reg-section">
+                    <label class="ent-reg-label">3. 常年在册人员资质说明</label>
+                    <p class="ent-reg-hint">需提交：工程师/技术员职称证、特种作业证（高压/焊工/制冷等）、技工等级证。</p>
+                    <div class="ent-reg-upload-card" style="height: 100px;"><i class="fas fa-id-card-alt"></i><span>批量上传证书照片（可多选）</span></div>
+                    <textarea class="voice-textarea" style="height: 70px; margin-top:10px;" placeholder="在册人员概览简述（例如：高级职称2人，持证技工15人）"></textarea>
+                </div>
+                <div class="ent-reg-section">
+                    <label class="ent-reg-label">4. 企业往期业绩/宣传资料</label>
+                    <p class="ent-reg-hint">过往中标通知书、合同关键页截图或代表性工程现场完工照片。</p>
+                    <div class="ent-reg-upload-card"><i class="fas fa-award"></i><span>批量上传业绩证明材料</span></div>
+                </div>
+                <button class="btn-booking-main" onclick="alert('入驻资料已安全加密传输！审核专员将在3个工作日内与企业负责人联系进行现场验厂。')">确认无误并提交入驻申请</button>
             </div>
         </div>
     </div>
@@ -1125,7 +1226,7 @@
             submitWorkerOnboarding() {
                 const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
                 if(ids.some(i => !document.getElementById(i).value)) return alert('必填项未填写');
-                setTimeout(() => { this.state.workerRegStatus = 'pending'; this.closeOverlay('worker-onboarding-overlay'); setTimeout(() => { this.state.workerRegStatus = 'approved'; }, 1000); }, 1000);
+                setTimeout(() => { this.state.workerRegStatus = 'pending'; this.closeOverlay('worker-onboarding-overlay'); setTimeout(() => { this.state.workerRegStatus = 'approved'; }, 1500); }, 1000);
             },
             saveWorkerProfile() { alert('资料更新成功'); }
         };
@@ -1184,12 +1285,12 @@
             };
             app.renderPromos(); 
 
-            /* [PATCH: Enterprise Reg Hook Logic] */
-            const entLink = Array.from(document.querySelectorAll('.top-bar a')).find(el => el.innerText.includes('服务商入驻'));
-            if(entLink) {
-                entLink.href = "javascript:void(0)";
-                entLink.onclick = () => { 
-                    document.getElementById('ent-reg-overlay-v2').classList.add('active'); 
+            /* [PATCH: Enterprise Reg Final Hook] */
+            const entRegistrationBtn = Array.from(document.querySelectorAll('.top-bar a')).find(el => el.innerText.includes('服务商入驻'));
+            if(entRegistrationBtn) {
+                entRegistrationBtn.href = "javascript:void(0)";
+                entRegistrationBtn.onclick = () => { 
+                    document.getElementById('enterprise-reg-overlay-final').classList.add('active'); 
                     document.getElementById('backdrop').style.display = 'block'; 
                 };
             }
