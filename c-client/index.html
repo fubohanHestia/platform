@@ -1503,44 +1503,42 @@ onclick="app.submitWorkerOnboarding()">提交入驻资料并等待审核</button
        </div>
    </div>
 
-   <section id="ent-onboarding-view" class="view-section container">
-        <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('hub-view')">
-            <i class="fas fa-arrow-left"></i> 返回首页
-        </div>
-        <div class="worker-list-header">
-            <h2 style="font-size:32px;">企业商城入驻申请</h2>
-            <p style="color:#999; margin-top:5px;">请提交以下资质文件，平台将在3个工作日内完成合规性审核</p>
-        </div>
-        <div style="background:white; border-radius:20px; padding:30px; border:1px solid #eee; margin-top:20px;">
-            <div class="verify-form-group">
-                <label><i class="fas fa-file-contract"></i> 1. 企业营业执照</label>
-                <div class="photo-upload-placeholder" style="height:140px;">
-                    <i class="fas fa-camera" style="font-size:30px;"></i>
-                    <span style="font-size:12px; margin-top:8px;">点击上传营业执照副本扫描件 (JPG/PNG/PDF)</span>
-                </div>
-            </div>
-            <div class="verify-form-group">
-                <label><i class="fas fa-list-ul"></i> 2. 经营范围简介</label>
-                <textarea class="voice-textarea" id="ent-on-scope" style="height:100px;" placeholder="请详细描述企业主营业务、服务范围及擅长领域..."></textarea>
-            </div>
-            <div class="verify-form-group">
-                <label><i class="fas fa-id-card-alt"></i> 3. 在册人员技术资质证明</label>
-                <p style="font-size:12px; color:#999; margin-bottom:10px;">包含：工程师/技术员职称证、技工证、特种作业证书等</p>
-                <div class="photo-upload-placeholder" style="height:140px; border-style: solid; background: #f9f9f9;">
-                    <i class="fas fa-plus-circle" style="font-size:30px; color:var(--primary-blue);"></i>
-                    <span style="font-size:12px; margin-top:8px;">批量上传人员资质证书（最多20张）</span>
-                </div>
-            </div>
-            <div class="verify-form-group">
-                <label><i class="fas fa-trophy"></i> 4. 企业业绩宣传资料</label>
-                <div class="photo-upload-placeholder" style="height:140px;">
-                    <i class="fas fa-cloud-upload-alt" style="font-size:30px;"></i>
-                    <span style="font-size:12px; margin-top:8px;">上传过往中标通知书、合同关键页或业绩PPT</span>
-                </div>
-            </div>
-            <button class="btn-booking-main" style="background:var(--primary-blue);" onclick="app.submitEntOnboarding()">提交入驻审核</button>
-        </div>
-    </section>
+   <div id="ent-onboarding-overlay" class="overlay" style="z-index:9900;">
+       <div class="overlay-header">
+           <h3>企业服务商入驻商城</h3>
+           <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('ent-onboarding-overlay')"></i>
+       </div>
+       <div style="padding: 30px;">
+           <div style="background:#fff7e6; padding:20px; border-radius:12px; color:#d46b08; font-size:13px; line-height:1.6; margin-bottom:25px;">
+               <i class="fas fa-shield-check"></i> 请提交真实的工商注册信息，商城企业入驻需经过严格的法务与技术资质审查。
+           </div>
+           <div class="verify-form-group">
+               <label>1. 企业全称</label>
+               <input type="text" class="auth-input" id="ent-name" placeholder="需与营业执照名一致">
+           </div>
+           <div class="verify-form-group">
+               <label>2. 营业执照副本</label>
+               <div class="upload-placeholder-sm" style="height:140px;">
+                   <i class="fas fa-file-invoice" style="font-size:30px; margin-bottom:10px;"></i>
+                   <span>点击上传营业执照扫描件</span>
+               </div>
+           </div>
+           <div class="verify-form-group">
+               <label>3. 经营范围简介</label>
+               <textarea class="voice-textarea" id="ent-scope" style="height:100px;" placeholder="请详细描述企业核心经营领域及技术优势..."></textarea>
+           </div>
+           <div class="verify-form-group">
+               <label>4. 技术人员资质证明</label>
+               <p style="font-size:12px; color:#999; margin-bottom:8px;">包含工程师/技工证、特种作业操作证等复印件</p>
+               <div class="upload-placeholder-sm"><i class="fas fa-id-card-alt"></i><span>批量上传资质文件附件</span></div>
+           </div>
+           <div class="verify-form-group">
+               <label>5. 企业业绩宣传资料</label>
+               <div class="upload-placeholder-sm"><i class="fas fa-project-diagram"></i><span>上传历史典型案例及画册</span></div>
+           </div>
+           <button class="btn-booking-main" onclick="app.submitEntOnboarding()">提交企业入驻申请</button>
+       </div>
+   </div>
  
    <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
  
@@ -2110,24 +2108,35 @@ onclick="app.renderEnterprises('${item.name}')"><span>${item.full}</span></div>`
            };
            app.renderPromos(); // 补丁挂载后立即重新渲染
 
-           /* [PATCH: 增量注入 - 企业入驻逻辑与挂载] */
-            app.openEntOnboarding = function() {
-                this.switchView('ent-onboarding-view');
-            };
-            app.submitEntOnboarding = function() {
-                const scope = document.getElementById('ent-on-scope').value;
-                if(!scope) return alert('请完整填写经营范围简介');
-                alert('【提交成功】入驻申请已进入初审环节，平台合规部将在3个工作日内完成审核并联系您。');
-                this.switchView('hub-view');
-            };
-            // 自动寻找并绑定“服务商入驻”按钮，不改变原HTML结构
-            const entLink = Array.from(document.querySelectorAll('.top-bar a')).find(a => a.innerText.includes('服务商入驻'));
-            if(entLink) {
-                entLink.onclick = (e) => {
-                    e.preventDefault();
-                    app.openEntOnboarding();
-                };
-            }
+           /* [PATCH: Enterprise Onboarding Logic] */
+           window.addEventListener('load', () => {
+               const links = document.querySelectorAll('.top-bar a');
+               links.forEach(link => {
+                   if(link.innerText.includes('服务商入驻')) {
+                       link.href = "javascript:void(0)";
+                       link.onclick = () => app.openEntOnboarding();
+                   }
+               });
+           });
+           Object.assign(app, {
+               openEntOnboarding() {
+                   document.getElementById('ent-onboarding-overlay').classList.add('active');
+                   document.getElementById('backdrop').style.display = 'block';
+               },
+               submitEntOnboarding() {
+                   const name = document.getElementById('ent-name').value;
+                   if(!name) return alert('请至少填写企业名称');
+                   const btn = event.target;
+                   btn.innerText = "提交申请中...";
+                   btn.disabled = true;
+                   setTimeout(() => {
+                       alert('入驻资料已进入审核序列。商城法务部将在3个工作日内完成初审。');
+                       this.closeOverlay('ent-onboarding-overlay');
+                       btn.innerText = "提交企业入驻申请";
+                       btn.disabled = false;
+                   }, 1500);
+               }
+           });
        });
    </script>
 </body>
