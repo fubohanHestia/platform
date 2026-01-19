@@ -795,6 +795,22 @@
        .legal-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 25px; font-size: 13px; color: #666; cursor: pointer; }
        .legal-check input { width: 18px; height: 18px; margin-top: 2px; }
        .legal-check a { color: var(--primary-blue); text-decoration: none; font-weight: bold; }
+
+       /* --- [NEW: Personal & Identity - CSS] --- */
+       .user-asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 25px; }
+       .asset-item { background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center; }
+       .asset-val { display: block; font-size: 20px; font-weight: 800; color: var(--navy); }
+       .asset-label { font-size: 12px; color: #999; }
+       .menu-list { margin-top: 30px; }
+       .menu-item { 
+           display: flex; justify-content: space-between; align-items: center; 
+           padding: 18px 0; border-bottom: 1px solid #f0f0f0; cursor: pointer;
+       }
+       .verify-status { font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+       .status-no { background: #fff1f0; color: #ff4d4f; }
+       .status-yes { background: #f6ffed; color: #52c41a; }
+       .verify-form-group { margin-bottom: 25px; }
+       .verify-form-group label { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
    </style>
 </head>
 <body>
@@ -1037,6 +1053,73 @@
        </div>
    </div>
 
+   <div id="user-overlay" class="overlay">
+       <div class="overlay-header"><h3>个人中心</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('user-overlay')"></i></div>
+       <div style="padding: 20px;">
+           <div class="section-box" style="display:flex; align-items:center; gap:25px; border-bottom:none;">
+               <img id="u-avatar" src="https://i.pravatar.cc/100?u=user" style="width:80px; height:80px; border-radius:50%; border:3px solid var(--white); box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+               <div>
+                   <h2 id="u-nickname" style="font-size:24px; margin-bottom:5px;">未登录</h2>
+                   <p id="u-phone" style="color:#999; font-size:14px;">138****0000</p>
+               </div>
+           </div>
+
+           <div class="user-asset-grid">
+               <div class="asset-item"><span class="asset-val">12</span><span class="asset-label">我的预约</span></div>
+               <div class="asset-item"><span class="asset-val">850</span><span class="asset-label">信用分</span></div>
+               <div class="asset-item"><span class="asset-val">0.00</span><span class="asset-label">钱包余额</span></div>
+           </div>
+
+           <div class="menu-list">
+               <div class="menu-item" onclick="app.openVerify()">
+                   <span><i class="fas fa-id-card" style="margin-right:15px; color:var(--primary-blue)"></i>实名认证状态</span>
+                   <span id="u-verify-tag" class="verify-status status-no">未认证</span>
+               </div>
+               <div class="menu-item" onclick="alert('历史订单功能开发中')">
+                   <span><i class="fas fa-clipboard-list" style="margin-right:15px; color:#34A853"></i>全部服务订单</span>
+                   <i class="fas fa-chevron-right" style="color:#ccc"></i>
+               </div>
+               <div class="menu-item" onclick="alert('地址管理功能开发中')">
+                   <span><i class="fas fa-map-marker-alt" style="margin-right:15px; color:#EA4335"></i>我的服务地址</span>
+                   <i class="fas fa-chevron-right" style="color:#ccc"></i>
+               </div>
+               <div class="menu-item" style="margin-top:40px; border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold;" onclick="location.reload()">
+                   退出登录
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <div id="verify-overlay" class="overlay" style="z-index:9500;">
+       <div class="overlay-header"><h3>实名认证</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('verify-overlay')"></i></div>
+       <div style="padding: 30px;">
+           <div style="background:#fff7e6; padding:20px; border-radius:12px; margin-bottom:30px; color:#d46b08; font-size:13px; line-height:1.6;">
+               <i class="fas fa-shield-alt"></i> 根据《中华人民共和国网络安全法》，为保障劳务交易安全，用户须完成实名认证后方可进行大额支付及查看详细施工单。
+           </div>
+
+           <div class="verify-form-group">
+               <label>真实姓名</label>
+               <input type="text" class="auth-input" id="v-name" placeholder="请输入您的合法姓名">
+           </div>
+
+           <div class="verify-form-group">
+               <label>身份证号</label>
+               <input type="text" class="auth-input" id="v-idcard" placeholder="18位身份证号码">
+           </div>
+
+           <div class="verify-form-group">
+               <label>现场人脸/证件核验照片</label>
+               <div class="photo-upload-placeholder" style="width:100%; height:180px;">
+                   <i class="fas fa-id-badge" style="font-size:40px; margin-bottom:10px;"></i>
+                   <span>点击拍摄/上传身份证正面照</span>
+               </div>
+           </div>
+
+           <button class="btn-booking-main" onclick="app.doVerify()">提交人工审核</button>
+           <p style="text-align:center; margin-top:20px; color:#999; font-size:12px;">审核通常在 10 分钟内完成</p>
+       </div>
+   </div>
+
    <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
  
    <script>
@@ -1052,7 +1135,9 @@
                 selectedTime: null,
                 /* --- [NEW: Auth System - State] --- */
                 isLoggedIn: false,
-                userInfo: null
+                userInfo: null,
+                /* --- [NEW: Identity - State] --- */
+                isVerified: false
            },
  
            subcatData: {
@@ -1222,6 +1307,32 @@
                
                this.closeAuth();
                alert('登录成功！');
+           },
+
+           /* --- [NEW: Identity - Logic] --- */
+           openUserCenter() {
+               document.getElementById('u-nickname').innerText = this.state.userInfo.nickname;
+               document.getElementById('u-phone').innerText = this.state.userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+               document.getElementById('user-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
+           },
+           openVerify() {
+               if(this.state.isVerified) return alert('您已完成实名认证，无需重复操作');
+               document.getElementById('verify-overlay').classList.add('active');
+           },
+           doVerify() {
+               const name = document.getElementById('v-name').value;
+               const id = document.getElementById('v-idcard').value;
+               if(!name || id.length < 15) return alert('请填写完整的实名信息');
+               
+               alert('正在连接公安部数据库核验...');
+               setTimeout(() => {
+                   this.state.isVerified = true;
+                   document.getElementById('u-verify-tag').innerText = "已实名";
+                   document.getElementById('u-verify-tag').className = "verify-status status-yes";
+                   this.closeOverlay('verify-overlay');
+                   alert('实名认证成功！');
+               }, 1500);
            }
        };
  
@@ -1232,12 +1343,12 @@
 
        /* --- [NEW: Auth System - DOM Patch] --- */
        window.addEventListener('DOMContentLoaded', () => {
-           // 补丁逻辑：找到原代码中的“登录 / 注册”节点并强行绑定点击事件，避免修改HTML源码
            const loginBtn = document.getElementById('top-login-btn');
            if(loginBtn) {
                loginBtn.onclick = () => {
+                   /* --- [PATCHED LOGIC] --- */
                    if(!app.state.isLoggedIn) app.openAuth();
-                   else alert('已登录，个人中心建设中...');
+                   else app.openUserCenter(); // 登录后点击触发个人中心
                };
            }
            app.initData();
