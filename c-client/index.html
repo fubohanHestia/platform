@@ -1,3382 +1,1550 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-   <meta
-charset="UTF-8">
-   <meta
-name="viewport" content="width=device-width,
-initial-scale=1.0">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>智能劳务技术网 - 专业蓝领劳务直聘平台</title>
-   <link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <style>
        /* --- [I. 核心品牌视觉变量定义] --- */
        :root {
-         
- --primary-blue: #2A5CAA;
-         
- --primary-orange: #FF6B35;
-         
- --navy: #1a1a2e;
-         
- --gold: #D4AF37;
-         
- --silver: #A8A8A8;
-         
- --success: #28A745;
-         
- --bg: #f4f7f9;
-         
- --white: #ffffff;
-         
- --border: #eeeeee;
-         
- --text-main: #333333;
-         
- --text-gray: #999999;
+         --primary-blue: #2A5CAA;
+         --primary-orange: #FF6B35;
+         --navy: #1a1a2e;
+         --gold: #D4AF37;
+         --silver: #A8A8A8;
+         --success: #28A745;
+         --bg: #f4f7f9;
+         --white: #ffffff;
+         --border: #eeeeee;
+         --text-main: #333333;
+         --text-gray: #999999;
        }
- 
+
        /* --- [II. 全局布局：页脚黑框强制置底] --- */
        html, body {
-         
- height: 100%;
-         
- margin: 0;
-         
- padding: 0;
+         height: 100%;
+         margin: 0;
+         padding: 0;
        }
        
        body { 
-         
- display: flex; 
-         
- flex-direction: column; 
-         
- min-height: 100vh; 
-         
- background-color: var(--bg); 
-         
- color: var(--text-main); 
-         
- font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-         
- -webkit-font-smoothing: antialiased;
-         
- overflow-x: hidden;
+         display: flex; 
+         flex-direction: column; 
+         min-height: 100vh; 
+         background-color: var(--bg); 
+         color: var(--text-main); 
+         font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+         -webkit-font-smoothing: antialiased;
+         overflow-x: hidden;
        }
- 
-     
- .main-content-wrapper {
-         
- flex: 1 0 auto; /* 核心逻辑：撑开中部内容区域 */
+
+       .main-content-wrapper {
+         flex: 1 0 auto; /* 核心逻辑：撑开中部内容区域 */
        }
- 
+
        /* 底部黑框页脚 */
        footer { 
-         
- flex-shrink: 0; 
-         
- background-color: var(--navy); 
-         
- color: #ffffff; 
-         
- padding-top: 40px;
-         
- padding-bottom: 40px;
-         
- text-align: center; 
-         
- font-size: 14px; 
-         
- border-top: 4px solid var(--primary-blue);
-         
- position: relative;
-         
- z-index: 100;
+         flex-shrink: 0; 
+         background-color: var(--navy); 
+         color: #ffffff; 
+         padding-top: 40px;
+         padding-bottom: 40px;
+         text-align: center; 
+         font-size: 14px; 
+         border-top: 4px solid var(--primary-blue);
+         position: relative;
+         z-index: 100;
        }
- 
+
        * { 
-         
- box-sizing: border-box; 
+         box-sizing: border-box; 
        }
- 
-       .container
- { 
-         
- max-width: 1200px; 
-         
- margin-left: auto;
-         
- margin-right: auto;
-         
- padding-left: 15px;
-         
- padding-right: 15px; 
+
+       .container { 
+         max-width: 1200px; 
+         margin-left: auto;
+         margin-right: auto;
+         padding-left: 15px;
+         padding-right: 15px; 
        }
- 
+
        /* --- [III. 头部与搜索组件] --- */
        .top-bar { 
-         
- background-color: var(--primary-blue); 
-         
- color: white; 
-         
- padding-top: 8px;
-         
- padding-bottom: 8px;
-         
- font-size: 13px; 
-         
- position: relative;
-         
- z-index: 1100;
+         background-color: var(--primary-blue); 
+         color: white; 
+         padding-top: 8px;
+         padding-bottom: 8px;
+         font-size: 13px; 
+         position: relative;
+         z-index: 1100;
        }
- 
-       .top-bar
- .container { 
-         
- display: flex; 
-         
- justify-content: space-between; 
-         
- align-items: center;
+
+       .top-bar .container { 
+         display: flex; 
+         justify-content: space-between; 
+         align-items: center;
        }
        
        header { 
-         
- background-color: var(--white); 
-         
- box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
-         
- position: sticky; 
-         
- top: 0; 
-         
- z-index: 1000; 
+         background-color: var(--white); 
+         box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+         position: sticky; 
+         top: 0; 
+         z-index: 1000; 
        }
- 
-       .main-header
- { 
-         
- padding-top: 15px;
-         
- padding-bottom: 15px;
-         
- display: flex; 
-         
- align-items: center; 
-         
- justify-content: space-between; 
+
+       .main-header { 
+         padding-top: 15px;
+         padding-bottom: 15px;
+         display: flex; 
+         align-items: center; 
+         justify-content: space-between; 
        }
- 
+
        .logo { 
-         
- font-size: 26px; 
-         
- font-weight: 800; 
-         
- color: var(--primary-blue); 
-         
- text-decoration: none; 
-         
- display: flex; 
-         
- align-items: center; 
-         
- gap: 8px; 
+         font-size: 26px; 
+         font-weight: 800; 
+         color: var(--primary-blue); 
+         text-decoration: none; 
+         display: flex; 
+         align-items: center; 
+         gap: 8px; 
        }
- 
-       .logo span
- { 
-         
- color: var(--primary-orange); 
+
+       .logo span { 
+         color: var(--primary-orange); 
        }
- 
+
        /* 全局通用搜索框（二级页面专用） */
-       .header-search
- { 
-         
- flex: 1; 
-         
- max-width: 500px; 
-         
- margin-left: 30px;
-         
- margin-right: 30px;
-         
- position: relative; 
-         
- display: none; 
+       .header-search { 
+         flex: 1; 
+         max-width: 500px; 
+         margin-left: 30px;
+         margin-right: 30px;
+         position: relative; 
+         display: none; 
        }
- 
-       .header-search
- input { 
-         
- width: 100%; 
-         
- padding-top: 10px;
-         
- padding-bottom: 10px;
-         
- padding-left: 20px;
-         
- padding-right: 20px;
-         
- border: 2px solid #eeeeee; 
-         
- border-radius: 25px; 
-         
- outline: none; 
-         
- font-size: 14px;
+
+       .header-search input { 
+         width: 100%; 
+         padding-top: 10px;
+         padding-bottom: 10px;
+         padding-left: 20px;
+         padding-right: 20px;
+         border: 2px solid #eeeeee; 
+         border-radius: 25px; 
+         outline: none; 
+         font-size: 14px;
        }
- 
-       .header-search
- button { 
-         
- position: absolute; 
-         
- right: 5px; 
-         
- top: 5px; 
-         
- border: none; 
-         
- background-color: var(--primary-blue); 
-         
- color: white; 
-         
- padding: 6px 15px;
-         
- border-radius: 20px; 
-         
- cursor: pointer; 
+
+       .header-search button { 
+         position: absolute; 
+         right: 5px; 
+         top: 5px; 
+         border: none; 
+         background-color: var(--primary-blue); 
+         color: white; 
+         padding: 6px 15px;
+         border-radius: 20px; 
+         cursor: pointer; 
        }
- 
+
        nav { 
-         
- border-top: 1px solid #eeeeee; 
-         
- background-color: var(--white); 
+         border-top: 1px solid #eeeeee; 
+         background-color: var(--white); 
        }
- 
-       .nav-links
- { 
-         
- display: flex; 
-         
- list-style: none; 
-         
- margin: 0;
-         
- padding: 0;
+
+       .nav-links { 
+         display: flex; 
+         list-style: none; 
+         margin: 0;
+         padding: 0;
        }
- 
-       .nav-links li a
- { 
-         
- display: block; 
-         
- padding: 12px 20px;
-         
- text-decoration: none; 
-         
- color: #333333; 
-         
- font-weight: 600; 
-         
- font-size: 14px; 
-         
- transition: color 0.3s ease;
+
+       .nav-links li a { 
+         display: block; 
+         padding: 12px 20px;
+         text-decoration: none; 
+         color: #333333; 
+         font-weight: 600; 
+         font-size: 14px; 
+         transition: color 0.3s ease;
        }
- 
-       .nav-links li
- a:hover { 
-         
- color: var(--primary-blue); 
+
+       .nav-links li a:hover { 
+         color: var(--primary-blue); 
        }
- 
+
        /* --- [IV. 首页样式：单搜索框设计] --- */
-       .view-section
- { 
-         
- display: none; 
-         
- padding-bottom: 50px; 
+       .view-section { 
+         display: none; 
+         padding-bottom: 50px; 
        }
- 
-     
- .view-section.active { 
-         
- display: block; 
+
+       .view-section.active { 
+         display: block; 
        }
- 
-       .home-hero
- { 
-         
- background-color: var(--white); 
-         
- padding-top: 60px;
-         
- padding-bottom: 60px;
-         
- text-align: center; 
+
+       .home-hero { 
+         background-color: var(--white); 
+         padding-top: 60px;
+         padding-bottom: 60px;
+         text-align: center; 
        }
- 
-     
- .home-search-container { 
-         
- max-width: 700px; 
-         
- margin-left: auto;
-         
- margin-right: auto;
-         
- position: relative; 
+
+       .home-search-container { 
+         max-width: 700px; 
+         margin-left: auto;
+         margin-right: auto;
+         position: relative; 
        }
- 
-     
- .home-search-container input { 
-         
- width: 100%; 
-         
- padding: 22px 35px;
-         
- border-radius: 45px; 
-         
- border: 1px solid #dddddd; 
-         
- background-color: #f8f9fa; 
-         
- font-size: 18px; 
-         
- box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-         
- transition: all 0.3s ease; 
+
+       .home-search-container input { 
+         width: 100%; 
+         padding: 22px 35px;
+         border-radius: 45px; 
+         border: 1px solid #dddddd; 
+         background-color: #f8f9fa; 
+         font-size: 18px; 
+         box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+         transition: all 0.3s ease; 
        }
- 
-     
- .home-search-container i { 
-         
- position: absolute; 
-         
- right: 30px; 
-         
- top: 24px; 
-         
- color: #666666; 
-         
- font-size: 24px; 
-         
- cursor: pointer; 
+
+       .home-search-container i { 
+         position: absolute; 
+         right: 30px; 
+         top: 24px; 
+         color: #666666; 
+         font-size: 24px; 
+         cursor: pointer; 
        }
- 
-       .home-categories
- { 
-         
- display: flex; 
-         
- justify-content: space-around; 
-         
- padding: 40px 0; 
-         
- max-width: 1100px; 
-         
- margin-left: auto;
-         
- margin-right: auto;
+
+       .home-categories { 
+         display: flex; 
+         justify-content: space-around; 
+         padding: 40px 0; 
+         max-width: 1100px; 
+         margin-left: auto;
+         margin-right: auto;
        }
- 
-       .cat-item
- { 
-         
- text-align: center; 
-         
- cursor: pointer; 
-         
- width: 150px; 
-         
- transition: transform 0.3s ease; 
+
+       .cat-item { 
+         text-align: center; 
+         cursor: pointer; 
+         width: 150px; 
+         transition: transform 0.3s ease; 
        }
- 
-       .cat-item:hover
- { 
-         
- transform: translateY(-8px); 
+
+       .cat-item:hover { 
+         transform: translateY(-8px); 
        }
- 
-       .cat-item
- .icon-box { 
-         
- width: 85px; 
-         
- height: 85px; 
-         
- border-radius: 25px; 
-         
- margin: 0 auto 15px;
-         
- display: flex; 
-         
- align-items: center; 
-         
- justify-content: center; 
-         
- font-size: 40px; 
-         
- color: white; 
-         
- box-shadow: 0 12px 20px rgba(0,0,0,0.1); 
+
+       .cat-item .icon-box { 
+         width: 85px; 
+         height: 85px; 
+         border-radius: 25px; 
+         margin: 0 auto 15px;
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         font-size: 40px; 
+         color: white; 
+         box-shadow: 0 12px 20px rgba(0,0,0,0.1); 
        }
- 
-       .cat-item p
- { 
-         
- font-weight: bold; 
-         
- font-size: 16px; 
-         
- color: #444444; 
+
+       .cat-item p { 
+         font-weight: bold; 
+         font-size: 16px; 
+         color: #444444; 
        }
- 
+
        /* --- [V. 细分服务按钮卡片] --- */
-       .subcat-grid
- { 
-         
- display: grid; 
-         
- grid-template-columns: repeat(2, 1fr); 
-         
- gap: 20px; 
-         
- margin-top: 30px; 
+       .subcat-grid { 
+         display: grid; 
+         grid-template-columns: repeat(2, 1fr); 
+         gap: 20px; 
+         margin-top: 30px; 
        }
- 
-       .subcat-btn
- { 
-         
- background-color: var(--white); 
-         
- padding: 25px; 
-         
- border-radius: 15px; 
-         
- border: 1px solid #eeeeee; 
-         
- cursor: pointer; 
-         
- display: flex; 
-         
- justify-content: space-between; 
-         
- align-items: center;
-         
- transition: all 0.3s ease; 
-         
- box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+
+       .subcat-btn { 
+         background-color: var(--white); 
+         padding: 25px; 
+         border-radius: 15px; 
+         border: 1px solid #eeeeee; 
+         cursor: pointer; 
+         display: flex; 
+         justify-content: space-between; 
+         align-items: center;
+         transition: all 0.3s ease; 
+         box-shadow: 0 4px 6px rgba(0,0,0,0.02);
        }
- 
-     
- .subcat-btn:hover { 
-         
- border-color: var(--primary-orange); 
-         
- background-color: #fffaf5; 
-         
- transform: translateX(10px); 
+
+       .subcat-btn:hover { 
+         border-color: var(--primary-orange); 
+         background-color: #fffaf5; 
+         transform: translateX(10px); 
        }
- 
-       .subcat-btn span
- { 
-         
- font-size: 18px; 
-         
- font-weight: 600; 
-         
- color: #444444; 
+
+       .subcat-btn span { 
+         font-size: 18px; 
+         font-weight: 600; 
+         color: #444444; 
        }
- 
+
        /* --- [VI. 技工导览列表] --- */
-     
- .worker-list-header { 
-         
- margin-bottom: 25px; 
-         
- border-left: 6px solid var(--primary-orange); 
-         
- padding-left: 20px; 
+       .worker-list-header { 
+         margin-bottom: 25px; 
+         border-left: 6px solid var(--primary-orange); 
+         padding-left: 20px; 
        }
- 
-     
- .worker-list-header h2 { 
-         
- font-size: 28px; 
-         
- color: var(--navy); 
+
+       .worker-list-header h2 { 
+         font-size: 28px; 
+         color: var(--navy); 
        }
- 
-       .sort-bar
- { 
-         
- display: flex; 
-         
- gap: 10px; 
-         
- padding: 15px 0;
-         
- background-color: var(--bg); 
-         
- position: sticky; 
-         
- top: 130px; 
-         
- z-index: 100; 
-         
- border-bottom: 1px solid #eeeeee; 
+
+       .sort-bar { 
+         display: flex; 
+         gap: 10px; 
+         padding: 15px 0;
+         background-color: var(--bg); 
+         position: sticky; 
+         top: 130px; 
+         z-index: 100; 
+         border-bottom: 1px solid #eeeeee; 
        }
- 
-       .sort-btn
- { 
-         
- padding: 10px 20px;
-         
- border-radius: 25px; 
-         
- border: 1px solid #dddddd; 
-         
- background-color: var(--white); 
-         
- cursor: pointer; 
-         
- font-size: 14px; 
-         
- font-weight: 600; 
+
+       .sort-btn { 
+         padding: 10px 20px;
+         border-radius: 25px; 
+         border: 1px solid #dddddd; 
+         background-color: var(--white); 
+         cursor: pointer; 
+         font-size: 14px; 
+         font-weight: 600; 
        }
- 
-       .sort-btn.active
- { 
-         
- background-color: var(--primary-blue); 
-         
- color: white; 
-         
- border-color: var(--primary-blue); 
+
+       .sort-btn.active { 
+         background-color: var(--primary-blue); 
+         color: white; 
+         border-color: var(--primary-blue); 
        }
- 
-       .worker-card
- { 
-         
- background-color: var(--white); 
-         
- border-radius: 15px; 
-         
- padding: 25px; 
-         
- margin-bottom: 20px; 
-         
- display: flex; 
-         
- align-items: center; 
-         
- position: relative; 
-         
- border: 1px solid #eeeeee; 
-         
- cursor: pointer; 
-         
- transition: all 0.3s ease;
+
+       .worker-card { 
+         background-color: var(--white); 
+         border-radius: 15px; 
+         padding: 25px; 
+         margin-bottom: 20px; 
+         display: flex; 
+         align-items: center; 
+         position: relative; 
+         border: 1px solid #eeeeee; 
+         cursor: pointer; 
+         transition: all 0.3s ease;
        }
- 
-     
- .worker-card:hover { 
-         
- border-color: var(--primary-orange); 
-         
- box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+
+       .worker-card:hover { 
+         border-color: var(--primary-orange); 
+         box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
        }
- 
-       .worker-avatar
- { 
-         
- width: 110px; 
-         
- height: 110px; 
-         
- border-radius: 15px; 
-         
- object-fit: cover; 
-         
- margin-right: 30px; 
-         
- flex-shrink: 0; 
-         
- border: 1px solid #f0f0f0; 
+
+       .worker-avatar { 
+         width: 110px; 
+         height: 110px; 
+         border-radius: 15px; 
+         object-fit: cover; 
+         margin-right: 30px; 
+         flex-shrink: 0; 
+         border: 1px solid #f0f0f0; 
        }
- 
-     
- .worker-main-info { 
-         
- flex: 1; 
+
+       .worker-main-info { 
+         flex: 1; 
        }
- 
-       .worker-price
- { 
-         
- text-align: right; 
-         
- min-width: 140px; 
-         
- color: var(--primary-orange); 
+
+       .worker-price { 
+         text-align: right; 
+         min-width: 140px; 
+         color: var(--primary-orange); 
        }
- 
-       .worker-price b
- { 
-         
- font-size: 32px; 
+
+       .worker-price b { 
+         font-size: 32px; 
        }
- 
+
        /* --- [VII. 详情图层与预约置顶按钮] --- */
        .overlay { 
-         
- position: fixed; 
-         
- top: 0; 
-         
- right: -100%; 
-         
- width: 100%; 
-         
- max-width: 700px; 
-         
- height: 100%; 
-         
- background-color: var(--white); 
-         
- z-index: 2000; 
-         
- transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
-         
- box-shadow: -15px 0 50px rgba(0,0,0,0.15); 
-         
- overflow-y: auto; 
+         position: fixed; 
+         top: 0; 
+         right: -100%; 
+         width: 100%; 
+         max-width: 700px; 
+         height: 100%; 
+         background-color: var(--white); 
+         z-index: 2000; 
+         transition: right 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+         box-shadow: -15px 0 50px rgba(0,0,0,0.15); 
+         overflow-y: auto; 
        }
- 
-       .overlay.active
- { 
-         
- right: 0; 
+
+       .overlay.active { 
+         right: 0; 
        }
- 
-       .overlay-header
- { 
-         
- position: sticky; 
-         
- top: 0; 
-         
- background-color: var(--white); 
-         
- padding: 20px 30px; 
-         
- border-bottom: 1px solid #eeeeee; 
-         
- display: flex; 
-         
- justify-content: space-between; 
-         
- align-items: center; 
-         
- z-index: 1000; 
+
+       .overlay-header { 
+         position: sticky; 
+         top: 0; 
+         background-color: var(--white); 
+         padding: 20px 30px; 
+         border-bottom: 1px solid #eeeeee; 
+         display: flex; 
+         justify-content: space-between; 
+         align-items: center; 
+         z-index: 1000; 
        }
        
-       .section-box
- { 
-         
- padding: 30px; 
-         
- border-bottom: 10px solid #f5f5f5; 
+       .section-box { 
+         padding: 30px; 
+         border-bottom: 10px solid #f5f5f5; 
        }
- 
-       .score-display
- { 
-         
- background-color: #fffaf0; 
-         
- padding: 20px 30px; 
-         
- border-radius: 15px; 
-         
- border: 1px solid #ffe58f; 
-         
- display: inline-flex; 
-         
- align-items: baseline; 
-         
- gap: 12px; 
+
+       .score-display { 
+         background-color: #fffaf0; 
+         padding: 20px 30px; 
+         border-radius: 15px; 
+         border: 1px solid #ffe58f; 
+         display: inline-flex; 
+         align-items: baseline; 
+         gap: 12px; 
        }
        
-       .overlay-footer
- { 
-         
- position: sticky; 
-         
- bottom: 0; 
-         
- width: 100%; 
-         
- padding: 25px 30px; 
-         
- background-color: var(--white); 
-         
- border-top: 1px solid #eeeeee; 
-         
- z-index: 1100; 
-         
- box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
+       .overlay-footer { 
+         position: sticky; 
+         bottom: 0; 
+         width: 100%; 
+         padding: 25px 30px; 
+         background-color: var(--white); 
+         border-top: 1px solid #eeeeee; 
+         z-index: 1100; 
+         box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
        }
- 
-     
- .btn-booking-main { 
-         
- background-color: var(--primary-orange); 
-         
- color: white; 
-         
- border: none; 
-         
- padding: 20px; 
-         
- border-radius: 15px; 
-         
- width: 100%; 
-         
- font-size: 22px; 
-         
- font-weight: bold; 
-         
- cursor: pointer; 
-         
- transition: transform 0.2s ease; 
+
+       .btn-booking-main { 
+         background-color: var(--primary-orange); 
+         color: white; 
+         border: none; 
+         padding: 20px; 
+         border-radius: 15px; 
+         width: 100%; 
+         font-size: 22px; 
+         font-weight: bold; 
+         cursor: pointer; 
+         transition: transform 0.2s ease; 
        }
- 
-       .review-card
- { 
-         
- padding: 25px 0; 
-         
- border-bottom: 1px solid #eeeeee; 
+
+       .review-card { 
+         padding: 25px 0; 
+         border-bottom: 1px solid #eeeeee; 
        }
- 
-       .ba-slider
- { 
-         
- position: relative; 
-         
- width: 100%; 
-         
- height: 260px; 
-         
- border-radius: 12px; 
-         
- overflow: hidden; 
-         
- margin: 15px 0; 
-         
- border: 1px solid #eeeeee; 
-         
- cursor: ew-resize; 
+
+       .ba-slider { 
+         position: relative; 
+         width: 100%; 
+         height: 260px; 
+         border-radius: 12px; 
+         overflow: hidden; 
+         margin: 15px 0; 
+         border: 1px solid #eeeeee; 
+         cursor: ew-resize; 
        }
- 
+
        .ba-img { 
-         
- width: 100%; 
-         
- height: 100%; 
-         
- background-size: cover; 
-         
- background-position: center; 
-         
- position: absolute; 
-         
- top: 0; 
-         
- left: 0; 
+         width: 100%; 
+         height: 100%; 
+         background-size: cover; 
+         background-position: center; 
+         position: absolute; 
+         top: 0; 
+         left: 0; 
        }
- 
-       .ba-before
- { 
-         
- z-index: 2; 
-         
- width: 50%; 
-         
- border-right: 3px solid white; 
-         
- filter: grayscale(1); 
+
+       .ba-before { 
+         z-index: 2; 
+         width: 50%; 
+         border-right: 3px solid white; 
+         filter: grayscale(1); 
        }
- 
+
        /* --- [VIII. 预约多模态抽屉] --- */
        .drawer { 
-         
- position: fixed; 
-         
- bottom: -100%; 
-         
- left: 0; 
-         
- width: 100%; 
-         
- background-color: var(--white); 
-         
- z-index: 3000; 
-         
- border-radius: 35px 35px 0 0; 
-         
- transition: bottom 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
-         
- padding: 40px; 
-         
- box-shadow: 0 -15px 40px rgba(0,0,0,0.2); 
-         
- display: none; 
+         position: fixed; 
+         bottom: -100%; 
+         left: 0; 
+         width: 100%; 
+         background-color: var(--white); 
+         z-index: 3000; 
+         border-radius: 35px 35px 0 0; 
+         transition: bottom 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+         padding: 40px; 
+         box-shadow: 0 -15px 40px rgba(0,0,0,0.2); 
+         display: none; 
        }
- 
-       .drawer.active
- { 
-         
- display: block; 
-         
- bottom: 0; 
+
+       .drawer.active { 
+         display: block; 
+         bottom: 0; 
        }
        
-       .slot-grid
- { 
-         
- display: grid; 
-         
- grid-template-columns: repeat(7, 1fr); 
-         
- gap: 12px; 
-         
- margin-top: 15px; 
+       .slot-grid { 
+         display: grid; 
+         grid-template-columns: repeat(7, 1fr); 
+         gap: 12px; 
+         margin-top: 15px; 
        }
- 
-       .slot-item
- { 
-         
- padding: 15px; 
-         
- border-radius: 12px; 
-         
- border: 2px solid #eeeeee; 
-         
- text-align: center; 
-         
- cursor: pointer; 
-         
- transition: all 0.3s ease; 
-         
- font-weight: bold; 
+
+       .slot-item { 
+         padding: 15px; 
+         border-radius: 12px; 
+         border: 2px solid #eeeeee; 
+         text-align: center; 
+         cursor: pointer; 
+         transition: all 0.3s ease; 
+         font-weight: bold; 
        }
- 
-     
- .slot-item.active { 
-         
- border-color: var(--primary-orange); 
-         
- background-color: var(--primary-orange); 
-         
- color: white; 
+
+       .slot-item.active { 
+         border-color: var(--primary-orange); 
+         background-color: var(--primary-orange); 
+         color: white; 
        }
        
-       .input-group
- { 
-         
- margin-top: 25px; 
+       .input-group { 
+         margin-top: 25px; 
        }
- 
+
        .input-label {
-         
- font-weight: bold;
-         
- margin-bottom: 10px;
-         
- display: block;
-         
- font-size: 16px;
+         font-weight: bold;
+         margin-bottom: 10px;
+         display: block;
+         font-size: 16px;
        }
- 
-     
- .photo-upload-placeholder { 
-         
- width: 100px; 
-         
- height: 100px; 
-         
- border: 2px dashed #dddddd; 
-         
- border-radius: 12px; 
-         
- display: flex; 
-         
- flex-direction: column; 
-         
- align-items: center; 
-         
- justify-content: center; 
-         
- color: #999999; 
-         
- cursor: pointer; 
+
+       .photo-upload-placeholder { 
+         width: 100%; 
+         height: 100px; 
+         border: 2px dashed #dddddd; 
+         border-radius: 12px; 
+         display: flex; 
+         flex-direction: column; 
+         align-items: center; 
+         justify-content: center; 
+         color: #999999; 
+         cursor: pointer; 
        }
- 
-       .voice-textarea
- { 
-         
- width: 100%; 
-         
- height: 100px; 
-         
- padding: 15px; 
-         
- border-radius: 12px; 
-         
- border: 1px solid #dddddd; 
-         
- outline: none; 
-         
- background-color: #f9f9f9; 
-         
- resize: none; 
-         
- margin-top: 10px; 
+
+       .voice-textarea { 
+         width: 100%; 
+         height: 100px; 
+         padding: 15px; 
+         border-radius: 12px; 
+         border: 1px solid #dddddd; 
+         outline: none; 
+         background-color: #f9f9f9; 
+         resize: none; 
+         margin-top: 10px; 
        }
- 
+
        /* --- [IX. 订单追踪与状态流转] --- */
-     
- .progress-container { 
-         
- width: 100%; 
-         
- padding: 50px 20px; 
-         
- position: relative; 
+       .progress-container { 
+         width: 100%; 
+         padding: 50px 20px; 
+         position: relative; 
        }
- 
+
        .p-axis { 
-         
- display: flex; 
-         
- justify-content: space-between; 
-         
- position: relative; 
+         display: flex; 
+         justify-content: space-between; 
+         position: relative; 
        }
- 
-       .p-axis::before
- { 
-         
- content: ""; 
-         
- position: absolute; 
-         
- top: 16px; 
-         
- left: 10px; 
-         
- right: 10px; 
-         
- height: 2px; 
-         
- background-color: #eeeeee; 
-         
- z-index: 0; 
+
+       .p-axis::before { 
+         content: ""; 
+         position: absolute; 
+         top: 16px; 
+         left: 10px; 
+         right: 10px; 
+         height: 2px; 
+         background-color: #eeeeee; 
+         z-index: 0; 
        }
- 
+
        .node { 
-         
- width: 34px; 
-         
- height: 34px; 
-         
- background-color: var(--white); 
-         
- border: 2px solid #eeeeee; 
-         
- border-radius: 50%; 
-         
- display: flex; 
-         
- align-items: center; 
-         
- justify-content: center; 
-         
- font-size: 14px; 
-         
- font-weight: bold; 
-         
- position: relative; 
-         
- z-index: 1; 
+         width: 34px; 
+         height: 34px; 
+         background-color: var(--white); 
+         border: 2px solid #eeeeee; 
+         border-radius: 50%; 
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         font-size: 14px; 
+         font-weight: bold; 
+         position: relative; 
+         z-index: 1; 
        }
- 
-       .node.active
- { 
-         
- border-color: var(--success); 
-         
- background-color: var(--success); 
-         
- color: white; 
+
+       .node.active { 
+         border-color: var(--success); 
+         background-color: var(--success); 
+         color: white; 
        }
- 
-       .node-label
- { 
-         
- position: absolute; 
-         
- top: 45px; 
-         
- white-space: nowrap; 
-         
- font-size: 13px; 
-         
- color: #999999; 
-         
- left: 50%; 
-         
- transform: translateX(-50%); 
+
+       .node-label { 
+         position: absolute; 
+         top: 45px; 
+         white-space: nowrap; 
+         font-size: 13px; 
+         color: #999999; 
+         left: 50%; 
+         transform: translateX(-50%); 
        }
- 
+
        /* --- [X. 淘宝级三维评价体系核心修复] --- */
-       .rating-overlay
- { 
-         
- position: fixed; 
-         
- top: 0; 
-         
- left: 0; 
-         
- width: 100%; 
-         
- height: 100%; 
-         
- background-color: var(--white); 
-         
- z-index: 5000; 
-         
- display: none; 
-         
- padding: 40px; 
-           /*关键修复点：允许内容在溢出时纵向滚动 */
-         
- overflow-y: auto; 
-         
- -webkit-overflow-scrolling: touch;
+       .rating-overlay { 
+         position: fixed; 
+         top: 0; 
+         left: 0; 
+         width: 100%; 
+         height: 100%; 
+         background-color: var(--white); 
+         z-index: 5000; 
+         display: none; 
+         padding: 40px; 
+         overflow-y: auto; 
+         -webkit-overflow-scrolling: touch;
        }
- 
-     
- .rating-inner-content {
-         
- max-width: 650px;
-         
- margin: 0 auto;
-           /*关键修复点：底部留白，防止按钮贴底 */
-         
- padding-bottom: 100px; 
+
+       .rating-inner-content {
+         max-width: 650px;
+         margin: 0 auto;
+         padding-bottom: 100px; 
        }
- 
+
        .dim-row { 
-         
- display: flex; 
-         
- justify-content: space-between; 
-         
- align-items: center; 
-         
- margin-bottom: 25px; 
-         
- padding: 0 40px; 
+         display: flex; 
+         justify-content: space-between; 
+         align-items: center; 
+         margin-bottom: 25px; 
+         padding: 0 40px; 
        }
- 
-       .rating-stars
- { 
-         
- display: flex; 
-         
- gap: 15px; 
-         
- font-size: 32px; 
-         
- color: #dddddd; 
-         
- cursor: pointer; 
+
+       .rating-stars { 
+         display: flex; 
+         gap: 15px; 
+         font-size: 32px; 
+         color: #dddddd; 
+         cursor: pointer; 
        }
- 
-       .rating-stars
- i.active { 
-         
- color: #ffc107; 
+
+       .rating-stars i.active { 
+         color: #ffc107; 
        }
- 
+
        /* --- [XI. IM 聊天系统] --- */
-       .chat-overlay
- { 
-         
- position: fixed; 
-         
- top: 0; 
-         
- right: -100%; 
-         
- width: 100%; 
-         
- max-width: 500px; 
-         
- height: 100%; 
-         
- background-color: var(--white); 
-         
- z-index: 6000; 
-         
- transition: right 0.5s ease; 
-         
- display: flex; 
-         
- flex-direction: column; 
+       .chat-overlay { 
+         position: fixed; 
+         top: 0; 
+         right: -100%; 
+         width: 100%; 
+         max-width: 500px; 
+         height: 100%; 
+         background-color: var(--white); 
+         z-index: 6000; 
+         transition: right 0.5s ease; 
+         display: flex; 
+         flex-direction: column; 
        }
- 
-     
- .chat-overlay.active { 
-         
- right: 0; 
+
+       .chat-overlay.active { 
+         right: 0; 
        }
- 
-       .chat-messages
- { 
-         
- flex: 1; 
-         
- padding: 25px; 
-         
- overflow-y: auto; 
-         
- background-color: #f0f2f5; 
-         
- display: flex; 
-         
- flex-direction: column; 
-         
- gap: 15px; 
+
+       .chat-messages { 
+         flex: 1; 
+         padding: 25px; 
+         overflow-y: auto; 
+         background-color: #f0f2f5; 
+         display: flex; 
+         flex-direction: column; 
+         gap: 15px; 
        }
- 
-       .msg-bubble
- { 
-         
- max-width: 80%; 
-         
- padding: 12px 18px; 
-         
- border-radius: 18px; 
-         
- font-size: 15px; 
-         
- line-height: 1.5; 
+
+       .msg-bubble { 
+         max-width: 80%; 
+         padding: 12px 18px; 
+         border-radius: 18px; 
+         font-size: 15px; 
+         line-height: 1.5; 
        }
- 
-       .msg-bubble.me
- { 
-         
- align-self: flex-end; 
-         
- background-color: var(--primary-blue); 
-         
- color: white; 
-         
- border-bottom-right-radius: 2px; 
+
+       .msg-bubble.me { 
+         align-self: flex-end; 
+         background-color: var(--primary-blue); 
+         color: white; 
+         border-bottom-right-radius: 2px; 
        }
- 
-     
- .msg-bubble.other { 
-         
- align-self: flex-start; 
-         
- background-color: var(--white); 
-         
- border: 1px solid #e0e0e0; 
-         
- border-bottom-left-radius: 2px; 
+
+       .msg-bubble.other { 
+         align-self: flex-start; 
+         background-color: var(--white); 
+         border: 1px solid #e0e0e0; 
+         border-bottom-left-radius: 2px; 
        }
- 
-       .fab-container
- { 
-         
- position: fixed; 
-         
- bottom: 30px; 
-         
- right: 30px; 
-          z-index: 4500; 
+
+       .fab-container { 
+         position: fixed; 
+         bottom: 30px; 
+         right: 30px; 
+         z-index: 4500; 
        }
- 
-       .fab-main
- { 
-         
- width: 70px; 
-         
- height: 70px; 
-         
- background-color: var(--primary-orange); 
-         
- color: white; 
-         
- border-radius: 50%; 
-         
- display: flex; 
-         
- align-items: center; 
-         
- justify-content: center; 
-         
- font-size: 30px; 
-         
- cursor: pointer; 
-         
- box-shadow: 0 10px 30px rgba(255,107,53,0.3); 
-         
- transition: transform 0.3s ease; 
+
+       .fab-main { 
+         width: 70px; 
+         height: 70px; 
+         background-color: var(--primary-orange); 
+         color: white; 
+         border-radius: 50%; 
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         font-size: 30px; 
+         cursor: pointer; 
+         box-shadow: 0 10px 30px rgba(255,107,53,0.3); 
+         transition: transform 0.3s ease; 
        }
- 
-       .fab-menu
- { 
-         
- position: absolute; 
-         
- bottom: 85px; 
-         
- right: 0; 
-         
- display: none; 
-         
- flex-direction: column; 
-         
- gap: 15px; 
-         
- width: 200px; 
+
+       .fab-menu { 
+         position: absolute; 
+         bottom: 85px; 
+         right: 0; 
+         display: none; 
+         flex-direction: column; 
+         gap: 15px; 
+         width: 200px; 
        }
- 
-       .fab-item
- { 
-         
- background-color: var(--white); 
-         
- padding: 15px; 
-         
- border-radius: 15px; 
-         
- box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-         
- border: 1px solid #eeeeee; 
-         
- font-size: 15px; 
-         
- font-weight: bold; 
-         
- display: flex; 
-         
- align-items: center; 
-         
- gap: 12px; 
-         
- cursor: pointer; 
+
+       .fab-item { 
+         background-color: var(--white); 
+         padding: 15px; 
+         border-radius: 15px; 
+         box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+         border: 1px solid #eeeeee; 
+         font-size: 15px; 
+         font-weight: bold; 
+         display: flex; 
+         align-items: center; 
+         gap: 12px; 
+         cursor: pointer; 
        }
- 
-     
- .fab-item.disabled { 
-         
- filter: grayscale(1); 
-         
- opacity: 0.5; 
-         
- cursor: not-allowed; 
+
+       .fab-item.disabled { 
+         filter: grayscale(1); 
+         opacity: 0.5; 
+         cursor: not-allowed; 
        }
- 
-       .backdrop
- { 
-         
- display: none; 
-         
- position: fixed; 
-         
- top: 0; 
-         
- left: 0; 
-         
- width: 100%; 
-         
- height: 100%; 
-         
- background-color: rgba(0,0,0,0.6); 
-         
- z-index: 1500; 
+
+       .backdrop { 
+         display: none; 
+         position: fixed; 
+         top: 0; 
+         left: 0; 
+         width: 100%; 
+         height: 100%; 
+         background-color: rgba(0,0,0,0.6); 
+         z-index: 1500; 
        }
- 
-       /* --- [NEW:
- Auth System - CSS] --- */
+
+       /* --- [NEW: Auth System - CSS] --- */
        .auth-overlay {
-         
- position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-         
- background: rgba(0,0,0,0.7); z-index: 9000;
-         
- display: none; align-items: center; justify-content: center;
-         
- backdrop-filter: blur(5px);
+         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+         background: rgba(0,0,0,0.7); z-index: 9000;
+         display: none; align-items: center; justify-content: center;
+         backdrop-filter: blur(5px);
        }
        .auth-card {
-         
- background: var(--white); width: 90%; max-width: 400px;
-         
- padding: 40px; border-radius: 24px; box-shadow: 0 20px 60px
- rgba(0,0,0,0.2);
-         
- position: relative; animation: modalPop 0.3s ease;
+         background: var(--white); width: 90%; max-width: 400px;
+         padding: 40px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+         position: relative; animation: modalPop 0.3s ease;
        }
-       @keyframes
- modalPop { from { transform: scale(0.9); opacity: 0; } to { transform:
- scale(1); opacity: 1; } }
-       .auth-tab {
- font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 30px;
- text-align: center; }
-     
- .auth-input-group { margin-bottom: 20px; position: relative; }
+       @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+       .auth-tab { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 30px; text-align: center; }
+       .auth-input-group { margin-bottom: 20px; position: relative; }
        .auth-input {
-         
- width: 100%; padding: 16px 20px; border-radius: 12px;
-         
- border: 1.5px solid #ddd; outline: none; font-size: 16px; transition: all
- 0.3s;
+         width: 100%; padding: 16px 20px; border-radius: 12px;
+         border: 1.5px solid #ddd; outline: none; font-size: 16px; transition: all 0.3s;
        }
-     
- .auth-input:focus { border-color: var(--primary-blue); background:
- #f0f7ff; }
+       .auth-input:focus { border-color: var(--primary-blue); background: #f0f7ff; }
        .btn-send-code {
-         
- position: absolute; right: 10px; top: 8px; background: var(--bg);
-         
- border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px;
-         
- color: var(--primary-blue); font-weight: bold; cursor: pointer;
+         position: absolute; right: 10px; top: 8px; background: var(--bg);
+         border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px;
+         color: var(--primary-blue); font-weight: bold; cursor: pointer;
        }
-       .legal-check {
- display: flex; align-items: flex-start; gap: 10px; margin-bottom: 25px;
- font-size: 13px; color: #666; cursor: pointer; }
-       .legal-check
- input { width: 18px; height: 18px; margin-top: 2px; }
-       .legal-check a {
- color: var(--primary-blue); text-decoration: none; font-weight: bold; }
- 
-       /* --- [NEW:
- Personal Center - Layout Patch] --- */
-       .user-asset-grid
- { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px
- 0; padding: 0 10px; }
-       .asset-item
- { 
-         
- background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align:
- center; 
-         
- display: flex; flex-direction: column; align-items: center;
- justify-content: center;
-         
- min-height: 85px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-       }
-       .asset-val {
- display: block; font-size: 20px; font-weight: 800; color: var(--navy);
- margin-bottom: 5px; }
-       .asset-label {
- font-size: 12px; color: #999; white-space: nowrap; }
-       .menu-list {
- padding: 0 10px; margin-top: 20px; }
-       .menu-item
- { 
-         
- display: flex; justify-content: space-between; align-items: center; 
-         
- padding: 20px 18px; background: #ffffff; border: 1px solid #f0f0f0; 
-         
- border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition:
- 0.2s;
-       }
-     
- .menu-item:active { background: #f9f9f9; transform: scale(0.98); }
-       .menu-item-left
- { display: flex; align-items: center; gap: 15px; font-weight: bold; }
-       .menu-item
- i.main-icon { font-size: 18px; width: 20px; text-align: center; }
-       .verify-status {
- font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
-       .status-no {
- background: #fff1f0; color: #ff4d4f; }
-       .status-yes {
- background: #f6ffed; color: #52c41a; }
-     
- .verify-form-group { margin-bottom: 25px; }
-     
- .verify-form-group label { display: block; font-weight: bold;
- margin-bottom: 10px; font-size: 14px; }
- 
-       /* --- [NEW:
- Payment & Orders - CSS] --- */
-       .recharge-grid {
- display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom:
- 30px; }
-       .recharge-card {
- border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center;
- cursor: pointer; transition: 0.3s; }
-     
- .recharge-card.active { border-color: var(--primary-orange); background:
- #fffaf5; }
-       .recharge-card b
- { font-size: 24px; color: var(--primary-orange); }
-       .order-item {
- background: white; border: 1px solid #eee; border-radius: 15px; padding: 20px;
- margin-bottom: 15px; }
-       .order-meta {
- display: flex; justify-content: space-between; font-size: 12px; color: #999;
- margin-bottom: 10px; }
-       .order-body {
- display: flex; gap: 15px; align-items: center; }
-       .order-info h4 {
- margin: 0; font-size: 16px; }
-     
- .order-status-tag { font-size: 12px; padding: 2px 8px; border-radius:
- 4px; background: #e6f7ff; color: var(--primary-blue); }
- 
-       /* --- [NEW:
- Worker Dashboard - CSS Patch] --- */
-     
- .dashboard-header { background: var(--navy); color: white; padding: 40px
- 30px; }
-       .dashboard-tabs
- { display: flex; background: white; border-bottom: 1px solid #eee; position:
- sticky; top: 0; z-index: 10; }
-       .dash-tab {
- flex: 1; text-align: center; padding: 15px; font-weight: bold; color: #999;
- cursor: pointer; border-bottom: 3px solid transparent; }
-       .dash-tab.active
- { color: var(--primary-orange); border-bottom-color: var(--primary-orange); }
-     
- .dash-content-section { display: none; padding: 25px; }
-     
- .dash-content-section.active { display: block; }
-       .stat-row {
- display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top:
- 20px; }
-       .stat-card {
- background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; }
-       .income-btn {
- background: var(--success); color: white; border: none; padding: 10px 20px;
- border-radius: 12px; cursor: pointer; font-weight: bold; }
-       .gender-selector
- { display: flex; gap: 15px; margin-top: 10px; }
-       .gender-opt {
- flex: 1; padding: 12px; border: 1.5px solid #ddd; border-radius: 10px;
- text-align: center; cursor: pointer; font-weight: bold; }
-     
- .gender-opt.active { border-color: var(--primary-blue); color:
- var(--primary-blue); background: #f0f7ff; }
-     
- .upload-placeholder-sm { width: 100%; height: 100px; border: 2px dashed
- #ddd; border-radius: 12px; display: flex; flex-direction: column; align-items:
- center; justify-content: center; color: #999; cursor: pointer; }
+       .legal-check { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 25px; font-size: 13px; color: #666; cursor: pointer; }
+       .legal-check input { width: 18px; height: 18px; margin-top: 2px; }
+       .legal-check a { color: var(--primary-blue); text-decoration: none; font-weight: bold; }
 
-       /* --- [PATCH: Enterprise System - CSS] --- */
-       .ent-upload-box {
-           width: 100%; height: 120px; border: 2px dashed #ccc; border-radius: 15px;
-           display: flex; flex-direction: column; align-items: center; justify-content: center;
-           color: #666; cursor: pointer; background: #fafafa; margin-top: 10px; transition: 0.3s;
+       /* --- [NEW: Personal Center - Layout Patch] --- */
+       .user-asset-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; padding: 0 10px; }
+       .asset-item { 
+         background: #f8f9fa; padding: 15px 5px; border-radius: 12px; text-align: center; 
+         display: flex; flex-direction: column; align-items: center; justify-content: center;
+         min-height: 85px; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
        }
-       .ent-upload-box:hover { border-color: var(--primary-blue); color: var(--primary-blue); background: #f0f7ff; }
-       .ent-dashboard-header { background: linear-gradient(135deg, var(--primary-blue), #1e3c72); color: white; padding: 40px; border-bottom: 5px solid var(--gold); }
+       .asset-val { display: block; font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
+       .asset-label { font-size: 12px; color: #999; white-space: nowrap; }
+       .menu-list { padding: 0 10px; margin-top: 20px; }
+       .menu-item { 
+         display: flex; justify-content: space-between; align-items: center; 
+         padding: 20px 18px; background: #ffffff; border: 1px solid #f0f0f0; 
+         border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.2s;
+       }
+       .menu-item:active { background: #f9f9f9; transform: scale(0.98); }
+       .menu-item-left { display: flex; align-items: center; gap: 15px; font-weight: bold; }
+       .menu-item i.main-icon { font-size: 18px; width: 20px; text-align: center; }
+       .verify-status { font-size: 12px; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+       .status-no { background: #fff1f0; color: #ff4d4f; }
+       .status-yes { background: #f6ffed; color: #52c41a; }
+       .verify-form-group { margin-bottom: 25px; }
+       .verify-form-group label { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
+
+       /* --- [NEW: Payment & Orders - CSS] --- */
+       .recharge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+       .recharge-card { border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
+       .recharge-card.active { border-color: var(--primary-orange); background: #fffaf5; }
+       .recharge-card b { font-size: 24px; color: var(--primary-orange); }
+       .order-item { background: white; border: 1px solid #eee; border-radius: 15px; padding: 20px; margin-bottom: 15px; }
+       .order-meta { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-bottom: 10px; }
+       .order-body { display: flex; gap: 15px; align-items: center; }
+       .order-info h4 { margin: 0; font-size: 16px; }
+       .order-status-tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; background: #e6f7ff; color: var(--primary-blue); }
+
+       /* --- [NEW: Worker Dashboard - CSS Patch] --- */
+       .dashboard-header { background: var(--navy); color: white; padding: 40px 30px; }
+       .dashboard-tabs { display: flex; background: white; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 10; }
+       .dash-tab { flex: 1; text-align: center; padding: 15px; font-weight: bold; color: #999; cursor: pointer; border-bottom: 3px solid transparent; }
+       .dash-tab.active { color: var(--primary-orange); border-bottom-color: var(--primary-orange); }
+       .dash-content-section { display: none; padding: 25px; }
+       .dash-content-section.active { display: block; }
+       .stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+       .stat-card { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; }
+       .income-btn { background: var(--success); color: white; border: none; padding: 10px 20px; border-radius: 12px; cursor: pointer; font-weight: bold; }
+       .gender-selector { display: flex; gap: 15px; margin-top: 10px; }
+       .gender-opt { flex: 1; padding: 12px; border: 1.5px solid #ddd; border-radius: 10px; text-align: center; cursor: pointer; font-weight: bold; }
+       .gender-opt.active { border-color: var(--primary-blue); color: var(--primary-blue); background: #f0f7ff; }
+       .upload-placeholder-sm { width: 100%; height: 100px; border: 2px dashed #ddd; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; cursor: pointer; }
+
+       /* --- [PATCH: Special Services Styles] --- */
+       .promo-card-v2 {
+           position: relative;
+           height: 180px;
+           border-radius: 15px;
+           overflow: hidden;
+           background-size: cover;
+           background-position: center;
+           cursor: pointer;
+           transition: transform 0.3s ease;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+       }
+       .promo-card-v2:hover {
+           transform: scale(1.02);
+       }
+       .promo-card-v2::before {
+           content: "";
+           position: absolute;
+           top: 0; left: 0; right: 0; bottom: 0;
+           background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+           z-index: 1;
+       }
+       .promo-card-v2 span {
+           position: relative;
+           z-index: 2;
+           color: white;
+           font-size: 18px;
+           font-weight: 800;
+           text-align: center;
+           padding: 0 15px;
+           line-height: 1.4;
+           text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+       }
+       .promo-grid {
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           gap: 20px;
+           margin-top: 25px;
+       }
+       #promo-full-view .promo-grid {
+           grid-template-columns: repeat(2, 1fr);
+       }
    </style>
 </head>
 <body>
- 
-   <div
-class="main-content-wrapper">
-       <div
-class="top-bar"><div class="container">
-         
- <div><i class="fas fa-tools"></i> 专业蓝领劳务·匠心服务热线：400-888-9999</div>
-         
- <div><a href="#" style="color:white;
- text-decoration: none;">帮助中心</a> |
-<a href="javascript:void(0)" onclick="app.openEntOnboarding()" style="color:white; text-decoration:
- none;">服务商入驻</a></div>
-     
- </div></div>
- 
-     
- <header><div class="container">
-         
- <div class="main-header">
-           
-    <a href="javascript:void(0)"
- onclick="app.switchView('hub-view')" class="logo">智能劳务技术<span>网</span></a>
-           
-    <div class="header-search"
- id="header-search-box">
-           
-        <input type="text" placeholder="快速搜索，如：装修水电、搬运..." id="secondary-search">
-           
-        <button
- onclick="app.handleSearch('secondary')"><i class="fas
- fa-search"></i> 搜索</button>
-           
-    </div>
-           
-    <div id="top-login-btn" style="font-weight:
- bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
-         
- </div>
+
+   <div class="main-content-wrapper">
+       <div class="top-bar"><div class="container">
+         <div><i class="fas fa-tools"></i> 专业蓝领劳务·匠心服务热线：400-888-9999</div>
+         <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="#" style="color:white; text-decoration: none;">服务商入驻</a></div>
+       </div></div>
+
+       <header><div class="container">
+         <div class="main-header">
+            <a href="javascript:void(0)" onclick="app.switchView('hub-view')" class="logo">智能劳务技术<span>网</span></a>
+            <div class="header-search" id="header-search-box">
+                <input type="text" placeholder="快速搜索，如：装修水电、搬运..." id="secondary-search">
+                <button onclick="app.handleSearch('secondary')"><i class="fas fa-search"></i> 搜索</button>
+            </div>
+            <div id="top-login-btn" style="font-weight: bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
+         </div>
        </div>
-     
- <nav><div class="container"><ul
- class="nav-links">
+       <nav><div class="container"><ul class="nav-links">
+         <li><a href="javascript:void(0)" onclick="app.switchView('hub-view')">首页导览</a></li>
+         <li><a href="javascript:void(0)" onclick="app.filterGold()" style="color:var(--gold)"><i class="fas fa-crown"></i> 金牌师傅池</a></li>
+         <li><a href="#">保障协议</a></li><li><a href="#">行业资讯</a></li>
+       </ul></div></nav></header>
+
+       <section id="hub-view" class="view-section active">
+         <div class="home-hero">
+            <div class="home-search-container">
+                <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="hero-search-input">
+                <i class="fas fa-search" onclick="app.handleSearch('hero')"></i>
+            </div>
+         </div>
          
- <li><a href="javascript:void(0)"
- onclick="app.switchView('hub-view')">首页导览</a></li>
+         <div class="home-categories">
+            <div class="cat-item" onclick="app.handleCatClick(1)"><div class="icon-box" style="background:#4285F4"><i class="fas fa-bolt"></i></div><p>水电暖通</p></div>
+            <div class="cat-item" onclick="app.handleCatClick(2)"><div class="icon-box" style="background:#EA4335"><i class="fas fa-hammer"></i></div><p>装饰装修</p></div>
+            <div class="cat-item" onclick="app.handleCatClick(3)"><div class="icon-box" style="background:#34A853"><i class="fas fa-couch"></i></div><p>家具门窗</p></div>
+            <div class="cat-item" onclick="app.handleCatClick(4)"><div class="icon-box" style="background:#FBBC05"><i class="fas fa-truck-loading"></i></div><p>搬运装卸</p></div>
+            <div class="cat-item" onclick="app.handleCatClick(5)"><div class="icon-box" style="background:#A142F4"><i class="fas fa-microchip"></i></div><p>智能家居</p></div>
+         </div>
          
- <li><a href="javascript:void(0)"
- onclick="app.filterGold()"
- style="color:var(--gold)"><i class="fas
- fa-crown"></i> 金牌师傅池</a></li>
-         
- <li><a href="#">保障协议</a></li><li><a href="#">行业资讯</a></li>
-     
- </ul></div></nav></header>
- 
-       <section
- id="hub-view" class="view-section active">
-         
- <div class="home-hero">
-           
-    <div class="home-search-container">
-           
-        <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="hero-search-input">
-           
-        <i class="fas fa-search"
- onclick="app.handleSearch('hero')"></i>
-           
-    </div>
-         
- </div>
-         
- <div class="home-categories">
-           
-    <div class="cat-item"
- onclick="app.handleCatClick(1)"><div class="icon-box"
- style="background:#4285F4"><i class="fas
- fa-bolt"></i></div><p>水电暖通</p></div>
-           
-    <div class="cat-item"
- onclick="app.handleCatClick(2)"><div class="icon-box"
- style="background:#EA4335"><i class="fas
- fa-hammer"></i></div><p>装饰装修</p></div>
-           
-    <div class="cat-item"
- onclick="app.handleCatClick(3)"><div class="icon-box"
- style="background:#34A853"><i class="fas
- fa-couch"></i></div><p>家具门窗</p></div>
-           
-    <div class="cat-item"
- onclick="app.handleCatClick(4)"><div class="icon-box"
- style="background:#FBBC05"><i class="fas fa-truck-loading"></i></div><p>搬运装卸</p></div>
-           
-    <div class="cat-item"
- onclick="app.handleCatClick(5)"><div class="icon-box"
- style="background:#A142F4"><i class="fas
- fa-microchip"></i></div><p>智能家居</p></div>
-         
- </div>
-         
- <div class="container promo-section">
-           
-    <div style="display:flex; justify-content:space-between;
- align-items: center;">
-           
-        <h3 style="font-size: 24px; border-left:
- 6px solid var(--navy); padding-left: 15px;">专项技术服务推广</h3>
-           
-        <span style="color:#999;
- cursor:pointer;" onclick="alert('系统模块更新中')">更多项目
- ></span>
-           
-    </div>
-           
-    <div class="promo-grid">
-           
-        <div class="promo-card"
- onclick="alert('工程集采维护中')"><img
- src="https://images.unsplash.com/photo-1504307651254-35680f3366d4?w=600"></div>
-           
-        <div class="promo-card"
- onclick="alert('数字化对接系统维护中')"><img
- src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600"></div>
-           
-        <div class="promo-card"
- onclick="alert('招投标模块维护中')"><img
- src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600"></div>
-           
-    </div>
-         
- </div>
+         <div class="container promo-section">
+            <div style="display:flex; justify-content:space-between; align-items: center;">
+                <h3 style="font-size: 24px; border-left: 6px solid var(--navy); padding-left: 15px;">专项技术服务推广</h3>
+                <span style="color:#999; cursor:pointer;" onclick="app.switchView('promo-full-view')">更多项目 ></span>
+            </div>
+            <div class="promo-grid" id="home-promo-grid">
+                </div>
+         </div>
        </section>
- 
-       <section
- id="subcat-view" class="view-section container">
-         
- <div style="padding: 20px 0; color: var(--primary-blue); cursor:
- pointer; font-weight: bold;"
- onclick="app.switchView('hub-view')"><i class="fas
- fa-arrow-left"></i> 返回首页</div>
-         
- <h2 id="subcat-title" style="margin-bottom:30px;
- font-size: 32px;">细分服务</h2>
-         
- <div id="subcat-list"
- class="subcat-grid"></div>
+
+       <section id="promo-full-view" class="view-section container">
+           <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('hub-view')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+           <h2 style="margin-bottom:30px; font-size: 32px; border-left: 8px solid var(--primary-orange); padding-left: 20px;">全部专项技术服务</h2>
+           <div class="promo-grid" id="full-promo-grid">
+                </div>
        </section>
- 
-       <section
- id="worker-view" class="view-section container">
-         
- <div style="padding: 15px 0; color: var(--primary-blue); cursor:
- pointer; font-weight: bold;"
- onclick="app.switchView('subcat-view')"><i class="fas
- fa-arrow-left"></i> 返回细分</div>
-         
- <div class="worker-list-header">
-           
-    <h2 id="current-worker-subcat">细分分类技工导览</h2>
-         
- </div>
-         
- <div class="sort-bar" id="sort-bar-container">
-           
-    <button class="sort-btn active"
- data-sort="dist">距离最近</button>
-           
-    <button class="sort-btn"
- data-sort="rating">好评最高</button>
-           
-    <button class="sort-btn"
- data-sort="price">价格低到高</button>
-           
-    <button class="sort-btn"
- data-sort="count">次数最多</button>
-         
- </div>
-         
- <div id="worker-list" style="margin-top:
- 30px;"></div>
+
+       <section id="subcat-view" class="view-section container">
+         <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('hub-view')"><i class="fas fa-arrow-left"></i> 返回首页</div>
+         <h2 id="subcat-title" style="margin-bottom:30px; font-size: 32px;">细分服务</h2>
+         <div id="subcat-list" class="subcat-grid"></div>
+       </section>
+
+       <section id="worker-view" class="view-section container">
+         <div style="padding: 15px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('subcat-view')"><i class="fas fa-arrow-left"></i> 返回细分</div>
+         <div class="worker-list-header">
+            <h2 id="current-worker-subcat">细分分类技工导览</h2>
+         </div>
+         <div class="sort-bar" id="sort-bar-container">
+            <button class="sort-btn active" data-sort="dist">距离最近</button>
+            <button class="sort-btn" data-sort="rating">好评最高</button>
+            <button class="sort-btn" data-sort="price">价格低到高</button>
+            <button class="sort-btn" data-sort="count">次数最多</button>
+         </div>
+         <div id="worker-list" style="margin-top: 30px;"></div>
        </section>
    </div>
- 
-   <div
- id="profile-overlay" class="overlay">
-       <div
- class="overlay-header"><h3>技工详情档案</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('profile-overlay')"></i></div>
-       <div
- style="padding: 10px 0;">
-         
- <div class="section-box" style="display:flex;
- align-items:center; gap:35px;">
-           
-    <img id="p-avatar" src=""
- style="width:130px; height:130px; border-radius:20px; object-fit:cover;
- border: 1px solid #eeeeee;">
-           
-    <div>
-           
-        <h2 id="p-name" style="font-size:
- 32px; margin-bottom: 12px;">师傅名称</h2>
-           
-        <div class="score-display">
-           
-            <span id="p-avg-score"
- style="font-size: 36px; color: var(--primary-orange); font-weight:
- 800;">5.0</span>
-           
-            <span style="font-size: 15px;
- color: #666666;">/ 5.0 综合评价</span>
-           
-        </div>
-           
-    </div>
-         
- </div>
-         
- <div class="section-box">
-           
-    <p style="font-weight: bold; margin-bottom: 18px;
- font-size: 18px; color: var(--navy);">专业资质认证</p>
-           
-    <div id="p-certs"></div>
-           
-    <div style="margin-top: 20px; display: flex; gap:
- 30px;">
-           
-        <span style="color:var(--primary-blue);
- font-weight:bold; font-size:14px;"><i class="fas
- fa-check-circle"></i> 实名认证通过</span>
-           
-        <span style="color:var(--success);
- font-weight:bold; font-size:14px;"><i class="fas
- fa-shield-alt"></i> 100万工程险</span>
-           
-    </div>
-         
- </div>
-         
- <div class="section-box">
-           
-    <p style="font-weight: bold; margin-bottom: 18px;
- font-size: 18px; color: var(--navy);">淘宝级带图评价 (10+ 条随机返图)</p>
-           
-    <div id="p-reviews"></div>
-         
- </div>
+
+   <div id="profile-overlay" class="overlay">
+       <div class="overlay-header"><h3>技工详情档案</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('profile-overlay')"></i></div>
+       <div style="padding: 10px 0;">
+         <div class="section-box" style="display:flex; align-items:center; gap:35px;">
+            <img id="p-avatar" src="" style="width:130px; height:130px; border-radius:20px; object-fit:cover; border: 1px solid #eeeeee;">
+            <div>
+                <h2 id="p-name" style="font-size: 32px; margin-bottom: 12px;">师傅名称</h2>
+                <div class="score-display">
+                    <span id="p-avg-score" style="font-size: 36px; color: var(--primary-orange); font-weight: 800;">5.0</span>
+                    <span style="font-size: 15px; color: #666666;">/ 5.0 综合评价</span>
+                </div>
+            </div>
+         </div>
+         <div class="section-box">
+            <p style="font-weight: bold; margin-bottom: 18px; font-size: 18px; color: var(--navy);">专业资质认证</p>
+            <div id="p-certs"></div>
+            <div style="margin-top: 20px; display: flex; gap: 30px;">
+                <span style="color:var(--primary-blue); font-weight:bold; font-size:14px;"><i class="fas fa-check-circle"></i> 实名认证通过</span>
+                <span style="color:var(--success); font-weight:bold; font-size:14px;"><i class="fas fa-shield-alt"></i> 100万工程险</span>
+            </div>
+         </div>
+         <div class="section-box">
+            <p style="font-weight: bold; margin-bottom: 18px; font-size: 18px; color: var(--navy);">淘宝级带图评价 (10+ 条随机返图)</p>
+            <div id="p-reviews"></div>
+         </div>
        </div>
-       <div
- class="overlay-footer"><button
- class="btn-booking-main" onclick="app.openBooking()">立即预约服务</button></div>
+       <div class="overlay-footer"><button class="btn-booking-main" onclick="app.openBooking()">立即预约服务</button></div>
    </div>
- 
-   <div
- id="booking-drawer" class="drawer">
-       <div
- style="display:flex; justify-content:space-between;
- margin-bottom:30px;"><h3>选择预约时段与需求</h3><i class="fas fa-times"
- style="font-size: 28px; cursor: pointer;"
- onclick="app.closeAll()"></i></div>
-       
-       <p
- class="input-label">1. 选择未来 7 天内方便的上门时间：</p>
-       <div
- style="display:grid; grid-template-columns: repeat(7, 1fr); gap: 12px;
- margin-bottom:30px;" id="slot-grid"></div>
- 
-       <div
- class="input-group">
-         
- <p class="input-label">2. 故障拍照/视频上传：</p>
-         
- <div class="photo-upload-placeholder"><i
- class="fas fa-camera" style="font-size:
- 30px;"></i><span style="font-size: 12px;
- margin-top:5px;">点击上传现场图</span></div>
+
+   <div id="booking-drawer" class="drawer">
+       <div style="display:flex; justify-content:space-between; margin-bottom:30px;"><h3>选择预约时段与需求</h3><i class="fas fa-times" style="font-size: 28px; cursor: pointer;" onclick="app.closeAll()"></i></div>
+       <p class="input-label">1. 选择未来 7 天内方便的上门时间：</p>
+       <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-bottom:30px;" id="slot-grid"></div>
+       <div class="input-group">
+         <p class="input-label">2. 故障拍照/视频上传：</p>
+         <div class="photo-upload-placeholder"><i class="fas fa-camera" style="font-size: 30px;"></i><span style="font-size: 12px; margin-top:5px;">点击上传现场图</span></div>
        </div>
- 
-       <div
- class="input-group">
-         
- <p class="input-label">3. 语音/文字需求详述：</p>
-         
- <textarea class="voice-textarea" placeholder="请详细描述技术需求..."></textarea>
+       <div class="input-group">
+         <p class="input-label">3. 语音/文字需求详述：</p>
+         <textarea class="voice-textarea" placeholder="请详细描述技术需求..."></textarea>
        </div>
- 
-       <div
- class="input-group" style="background-color:#f0f7ff;
- padding:20px; border-radius:15px; margin-bottom:30px;">
-         
- <p style="font-weight:bold;
- color:var(--primary-blue);"><i class="fas
- fa-location-arrow"></i> 师傅距离您所在位置：<span id="worker-dist-val">--</span>
- km</p>
+       <div class="input-group" style="background-color:#f0f7ff; padding:20px; border-radius:15px; margin-bottom:30px;">
+         <p style="font-weight:bold; color:var(--primary-blue);"><i class="fas fa-location-arrow"></i> 师傅距离您所在位置：<span id="worker-dist-val">--</span> km</p>
        </div>
- 
-       <button
- class="btn-booking-main" onclick="app.confirmBooking()">支付定金并确认预约</button>
+       <button class="btn-booking-main" onclick="app.confirmBooking()">支付定金并确认预约</button>
    </div>
- 
-   <div
- id="order-overlay" class="overlay" style="z-index:
- 4000;">
-       <div
- class="overlay-header"><h3>订单履约动态追踪</h3><i class="fas fa-times"
- style="cursor:pointer;"
- onclick="app.closeOverlay('order-overlay')"></i></div>
-       <div
- style="padding:40px; text-align:center;">
-         
- <div style="background-color:#fff3e0; padding:35px;
- border-radius:25px; border: 2px dashed var(--primary-orange);
- margin-bottom:50px;">
-           
-    <p style="color: #666666; font-size: 16px;">安全开工核销码</p>
-           
-    <h1 id="check-code" style="letter-spacing:18px;
- color:var(--primary-blue); font-size:64px; margin:20px
- 0;">9711</h1>
-           
-    <p style="font-size: 14px; color: #999999;">施工开始前，请核对一致后再点击确认施工</p>
-         
- </div>
-           
-    
-         
- <div class="progress-container">
-           
-    <div class="p-axis" id="order-p-bar">
-           
-        <div class="node active">1<span
- class="node-label">已预约</span></div>
-           
-        <div class="node">2<span
- class="node-label">待上门</span></div>
-           
-        <div class="node">3<span
- class="node-label">施工中</span></div>
-           
-        <div class="node">4<span
- class="node-label">验收结算</span></div>
-           
-    </div>
-         
- </div>
- 
-         
- <div id="order-actions"
- style="margin-top:80px;">
-           
-    <button class="btn-booking-main"
- style="background-color:var(--primary-blue)"
- onclick="app.simFlow('start')">模拟：师傅点击已出发</button>
-         
- </div>
-       </div>
-   </div>
- 
-   <div
- id="rating-page" class="rating-overlay">
-       <div
- class="rating-inner-content">
-         
- <h2 style="text-align:center; margin-bottom:40px; font-size:
- 32px;">服务完成 - 评价反馈</h2>
-         
- <p style="text-align:center; color: #666; font-size: 18px;
- margin-bottom: 40px;">您的评价是平台积累信用资产的核心环节</p>
-           
-    
-         
- <div class="dim-row">
-           
-    <span style="font-weight: bold; font-size:
- 18px;">服务态度</span>
-           
-    <div class="rating-stars"
- data-dim="attitude">
-           
-        <i class="fas fa-star"
- data-idx="1"></i><i class="fas fa-star"
- data-idx="2"></i>
-           
-        <i class="fas fa-star"
- data-idx="3"></i><i class="fas fa-star"
- data-idx="4"></i>
-           
-        <i class="fas fa-star"
- data-idx="5"></i>
-           
-    </div>
-         
- </div>
-         
- <div class="dim-row">
-           
-    <span style="font-weight: bold; font-size:
- 18px;">专业技能</span>
-           
-    <div class="rating-stars"
- data-dim="skill">
-           
-        <i class="fas fa-star"
- data-idx="1"></i><i class="fas fa-star"
- data-idx="2"></i>
-           
-        <i class="fas fa-star"
- data-idx="3"></i><i class="fas fa-star"
- data-idx="4"></i>
-           
-        <i class="fas fa-star"
- data-idx="5"></i>
-           
-    </div>
-         
- </div>
-         
- <div class="dim-row">
-           
-    <span style="font-weight: bold; font-size:
- 18px;">响应速度</span>
-           
-    <div class="rating-stars"
- data-dim="speed">
-           
-        <i class="fas fa-star"
- data-idx="1"></i><i class="fas fa-star"
- data-idx="2"></i>
-           
-        <i class="fas fa-star"
- data-idx="3"></i><i class="fas fa-star"
- data-idx="4"></i>
-           
-        <i class="fas fa-star"
- data-idx="5"></i>
-           
-    </div>
-         
- </div>
- 
-         
- <p style="font-weight: bold; margin-left: 40px; margin-top:
- 30px;">深度点评：</p>
-         
- <textarea class="voice-textarea" style="height:150px;
- margin: 10px 40px; width: calc(100% - 80px);" placeholder="描述施工细节或师傅人品..."></textarea>
-           
-    
-         
- <div style="margin: 20px 40px;">
-           
-    <p style="font-weight: bold; margin-bottom:
- 10px;">完工实拍返图：</p>
-           
-    <div class="photo-upload-placeholder"
- style="width: 100%; height: 150px;"><i class="fas
- fa-plus"></i></div>
-         
- </div>
- 
-         
- <div style="padding: 0 40px;">
-           
-    <button class="btn-booking-main"
- style="margin-top:30px;" onclick="app.finishRating()">确认提交评价并结算</button>
-         
- </div>
-       </div>
-   </div>
- 
-   <div
- id="chat-overlay" class="chat-overlay">
-       <div
- class="overlay-header"><h3 id="chat-title">客服对话</h3><i class="fas fa-times"
- style="font-size:24px; cursor:pointer;"
- onclick="app.closeOverlay('chat-overlay')"></i></div>
-       <div
- class="chat-messages" id="chat-content"></div>
-       <div
- style="padding:20px; display:flex; gap:15px; background-color:
- var(--white); border-top:1px solid #eeeeee;">
-         
- <input type="text" id="chat-input"
- placeholder="输入内容..."
- style="flex:1; padding:15px; border-radius:30px; border:1px solid #dddddd;
- outline:none;">
-         
- <button onclick="app.sendChat()"
- style="background-color:var(--primary-blue); color:white; border:none;
- padding-left: 25px; padding-right: 25px; border-radius:30px; cursor:pointer;
- font-weight:bold;">发送</button>
-       </div>
-   </div>
- 
-   <div
- class="fab-container">
-       <div
- class="fab-menu" id="fab-menu">
-         
- <div class="fab-item disabled" id="fab-worker"
- onclick="app.openChat('worker')">
-           
-    <i class="fas fa-user-wrench"
- style="color:var(--primary-orange)"></i> 联系师傅 (预约激活)
-         
- </div>
-         
- <div class="fab-item"
- onclick="app.openChat('service')">
-           
-    <i class="fas fa-headset"
- style="color:var(--primary-blue)"></i> 平台官方客服 (24H)
-         
- </div>
-       </div>
-       <div
- class="fab-main" onclick="app.toggleFab()"><i
- class="fas fa-comment-dots"></i></div>
-   </div>
- 
-   <div
- class="backdrop" id="backdrop"
- onclick="app.closeAll()"></div>
- 
-   <div
- id="auth-overlay" class="auth-overlay">
-       <div
- class="auth-card">
-         
- <i class="fas fa-times" style="position:absolute;
- right:25px; top:25px; cursor:pointer; font-size:20px; color:#ccc;"
- onclick="app.closeAuth()"></i>
-         
- <div class="auth-tab">登录 / 注册</div>
-           
-    
-         
- <div class="auth-input-group">
-           
-   <input type="text" class="auth-input"
- id="auth-phone" placeholder="请输入手机号" maxlength="11">
-         
- </div>
-           
-    
-         
- <div class="auth-input-group">
-           
-   <input type="text" class="auth-input"
- id="auth-code" placeholder="验证码" maxlength="6">
-           
-   <button class="btn-send-code" id="btn-sms"
- onclick="app.handleSMS()">获取验证码</button>
-         
- </div>
- 
-         
- <label class="legal-check">
-           
-   <input type="checkbox" id="auth-agree">
-           
-   <span>我已阅读并同意 <a
- href="#">《用户服务协议》</a>与 <a href="#">《隐私政策》</a></span>
-         
- </label>
- 
-         
- <button class="btn-booking-main"
- onclick="app.doLogin()">立即进入匠心世界</button>
-           
-    
-         
- <p style="text-align:center; margin-top:30px; font-size:12px;
- color:#999;">未注册手机号验证后将自动创建账号</p>
-       </div>
-   </div>
- 
-   <div
- id="user-overlay" class="overlay">
-       <div
- class="overlay-header"><h3>个人中心</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('user-overlay')"></i></div>
-       <div
- style="padding: 20px;">
-         
- <div class="section-box" style="display:flex;
- align-items:center; gap:25px; border-bottom:none;">
-           
-   <img id="u-avatar"
- src="https://i.pravatar.cc/100?u=user" style="width:80px;
- height:80px; border-radius:50%; border:3px solid var(--white); box-shadow:0 5px
- 15px rgba(0,0,0,0.1);">
-           
-   <div>
-           
-       <h2 id="u-nickname"
- style="font-size:24px; margin-bottom:5px;">未登录</h2>
-           
-       <p id="u-phone" style="color:#999;
- font-size:14px;">138****0000</p>
-           
-   </div>
-         
- </div>
- 
-         
- <div class="user-asset-grid">
-           
-   <div class="asset-item"
- onclick="app.openOrders()"><span class="asset-val"
- id="u-order-count">0</span><span
- class="asset-label">我的预约</span></div>
-           
-   <div class="asset-item"><span
- class="asset-val">850</span><span
- class="asset-label">信用分</span></div>
-           
-   <div class="asset-item"
- onclick="app.openPayment()"><span class="asset-val"
- id="u-balance">0.00</span><span
- class="asset-label">钱包余额</span></div>
-         
- </div>
- 
-         
- <div class="menu-list" id="main-menu-list">
-           
-   <div class="menu-item"
- onclick="app.openVerify()">
-           
-       <div class="menu-item-left"><i
- class="fas fa-id-card main-icon"
- style="color:var(--primary-blue)"></i>实名认证状态</div>
-           
-       <span id="u-verify-tag"
- class="verify-status status-no">未认证</span>
-           
-   </div>
-           
-   <div class="menu-item"
- onclick="app.openOrders()">
-           
-       <div class="menu-item-left"><i
- class="fas fa-clipboard-list main-icon"
- style="color:#34A853"></i>全部服务订单</div>
-           
-       <i class="fas fa-chevron-right"
- style="color:#ccc"></i>
-           
-   </div>
-           
-   <div class="menu-item" onclick="alert('地址管理功能开发中')">
-           
-       <div class="menu-item-left"><i
- class="fas fa-map-marker-alt main-icon"
- style="color:#EA4335"></i>我的服务地址</div>
-           
-       <i class="fas fa-chevron-right"
- style="color:#ccc"></i>
-           
-   </div>
-           
-   <div class="menu-item" style="margin-top:20px;
- border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold;
- background:#fff1f0;" onclick="location.reload()">
-           
-       退出登录
-           
-   </div>
-         
- </div>
-       </div>
-   </div>
- 
-   <div
- id="verify-overlay" class="overlay"
- style="z-index:9500;">
-       <div
- class="overlay-header"><h3>实名认证</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('verify-overlay')"></i></div>
-       <div
- style="padding: 30px;">
-         
- <div style="background:#fff7e6; padding:20px; border-radius:12px;
- margin-bottom:30px; color:#d46b08; font-size:13px; line-height:1.6;">
-           
-   <i class="fas fa-shield-alt"></i> 根据《中华人民共和国网络安全法》，为保障劳务交易安全，用户须完成实名认证后方可进行大额支付及查看详细施工单。
-         
- </div>
- 
-         
- <div class="verify-form-group">
-           
-   <label>真实姓名</label>
-           
-   <input type="text" class="auth-input"
- id="v-name" placeholder="请输入您的合法姓名">
-         
- </div>
- 
-         
- <div class="verify-form-group">
-           
-   <label>身份证号</label>
-           
-   <input type="text" class="auth-input"
- id="v-idcard" placeholder="18位身份证号码">
-         
- </div>
- 
-         
- <div class="verify-form-group">
-           
-   <label>现场人脸/证件核验照片</label>
-           
-   <div class="photo-upload-placeholder"
- style="width:100%; height:180px;">
-           
-       <i class="fas fa-id-badge"
- style="font-size:40px; margin-bottom:10px;"></i>
-           
-       <span>点击拍摄/上传身份证正面照</span>
-           
-   </div>
-         
- </div>
- 
-         
- <button class="btn-booking-main"
- onclick="app.doVerify()">提交人工审核</button>
-         
- <p style="text-align:center; margin-top:20px; color:#999;
- font-size:12px;">审核通常在 10 分钟内完成</p>
-       </div>
-   </div>
- 
-   <div
- id="payment-overlay" class="overlay"
- style="z-index:9600;">
-       <div
- class="overlay-header"><h3>资金账户</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('payment-overlay')"></i></div>
-       <div
- style="padding: 30px;">
-         
- <div style="text-align:center; margin-bottom:40px;">
-           
-   <p style="color:#999; font-size:14px;">当前可用余额 (元)</p>
-           
-   <h1 style="font-size:48px; color:var(--navy);
- margin-top:10px;" id="p-balance-display">0.00</h1>
-         
- </div>
-         
- <p style="font-weight:bold; margin-bottom:20px;">快速充值</p>
-         
- <div class="recharge-grid">
-           
-   <div class="recharge-card"
- onclick="app.selectRecharge(50, this)"><span>充值</span><br><b>¥50</b></div>
-           
-   <div class="recharge-card active"
- onclick="app.selectRecharge(100, this)"><span>充值</span><br><b>¥100</b></div>
-           
-   <div class="recharge-card"
- onclick="app.selectRecharge(200, this)"><span>充值</span><br><b>¥200</b></div>
-           
-   <div class="recharge-card"
- onclick="app.selectRecharge(500, this)"><span>充值</span><br><b>¥500</b></div>
-         
- </div>
-         
- <button class="btn-booking-main"
- onclick="app.doRecharge()">立即在线支付</button>
-       </div>
-   </div>
- 
-   <div
- id="orders-overlay" class="overlay"
- style="z-index:9400; background-color: #f8f9fa;">
-       <div
- class="overlay-header"><h3>我的服务订单</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('orders-overlay')"></i></div>
-       <div
- id="orders-list-container" style="padding: 20px;">
-         
- </div>
-   </div>
- 
-   <div
- id="worker-dashboard-overlay" class="overlay"
- style="z-index:9800; background:#f8f9fa;">
-       <div
- class="dashboard-header">
-         
- <div style="display:flex; justify-content:space-between;
- align-items:flex-start;">
-           
-   <div>
-           
-       <h2 style="font-size:28px;">师傅管理工作台</h2>
-           
-       <p style="opacity:0.7; font-size:14px;
- margin-top:5px;">接单状态：在线接单中...</p>
-           
-   </div>
-           
-   <i class="fas fa-times" style="font-size:28px;
- cursor:pointer;"
- onclick="app.closeOverlay('worker-dashboard-overlay')"></i>
-         
- </div>
-         
- <div class="stat-row">
-           
-   <div class="stat-card"><small>累计收益</small><div style="font-size:22px; font-weight:bold;
- margin-top:5px;">¥ 12,850.00</div></div>
-           
-   <div class="stat-card"><small>职业评级</small><div style="font-size:22px; font-weight:bold;
- margin-top:5px; color:var(--gold);">L5 资深师傅</div></div>
-         
- </div>
-       </div>
-       
-       <div
- class="dashboard-tabs">
-         
- <div class="dash-tab active" id="tab-orders"
- onclick="app.switchDashTab('orders')">实时接单中心</div>
-         
- <div class="dash-tab" id="tab-profile"
- onclick="app.switchDashTab('profile')">职业资料修改</div>
-       </div>
- 
-       <div
- id="dash-orders" class="dash-content-section active">
-         
- <div style="background:white; border-radius:15px; padding:20px;
- border:1px solid #eee; margin-bottom:15px;">
-           
-   <div style="display:flex; justify-content:space-between;
- margin-bottom:12px;">
-           
-       <span class="order-status-tag"
- style="background:#fff7e6; color:#fa8c16;">距离 2.4km</span>
-           
-       <b
- style="color:var(--primary-orange);">预估: ¥260.00</b>
-           
-   </div>
-           
-   <h4 style="font-size:18px;">紧急：卫生间给排水管道渗水修复</h4>
-           
-   <p style="color:#666; font-size:14px; margin:10px
- 0;"><i class="fas fa-map-marker-alt"></i> 历下区泺源大街中银大厦 1802室</p>
-           
-   <button class="income-btn" style="width:100%;
- margin-top:10px;" onclick="alert('接单成功，请务必于 30 分钟内联系业主。')">立即抢单</button>
-         
- </div>
-       </div>
- 
-       <div
- id="dash-profile" class="dash-content-section">
-         
- <div style="background:white; border-radius:15px;
- padding:25px;">
-           
-   <div class="verify-form-group"><label>1. 真实姓名</label><input type="text"
- class="auth-input" id="wd-name" value="陈建国"></div>
-           
-   <div class="verify-form-group"><label>2. 性别</label><div class="gender-selector"><div
- class="gender-opt active" onclick="app.selectDashGender('男', this)">男</div><div
- class="gender-opt" onclick="app.selectDashGender('女', this)">女</div></div></div>
-           
-   <div class="verify-form-group"><label>3. 身份证号</label><input type="text"
- class="auth-input" id="wd-id"
- value="3701**********9912" readonly
- style="background:#f5f5f5;"></div>
-           
-   <div class="verify-form-group"><label>4. 职业近照</label><div
- class="upload-placeholder-sm"><i class="fas
- fa-camera"></i><span>更换证件照</span></div></div>
-           
-   <div class="verify-form-group"><label>5. 体检证明文件</label><div
- class="upload-placeholder-sm"><i class="fas
- fa-file-medical"></i><span>更新报告</span></div></div>
-           
-   <div class="verify-form-group"><label>6. 专业特长</label><input type="text"
- class="auth-input" id="wd-skill" value="给排水、消防水、电气焊"></div>
-           
-   <div class="verify-form-group"><label>7. 从业年限</label><input type="number"
- class="auth-input" id="wd-years"
- value="15"></div>
-           
-   <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea"
- id="wd-intro" style="height:120px;">15年水暖工老牌经验，持有高级焊工证，承诺施工质保3年。</textarea></div>
-           
-   <button class="btn-booking-main"
- onclick="app.saveWorkerProfile()">确认修改资料</button>
-         
- </div>
-       </div>
-   </div>
- 
-   <div
- id="worker-onboarding-overlay" class="overlay"
- style="z-index:9700;">
-       <div
- class="overlay-header"><h3>成为匠心师傅</h3><i class="fas fa-times"
- style="font-size:28px; cursor:pointer;"
- onclick="app.closeOverlay('worker-onboarding-overlay')"></i></div>
-       <div
- style="padding: 30px;">
-         
- <div style="background:#f0f7ff; padding:15px; border-radius:10px;
- color:var(--primary-blue); font-size:13px; margin-bottom:25px;">
-           
-   <i class="fas fa-info-circle"></i> 请如实填写以下信息。审核通过后，您将获得平台专属职业等级。
-         
- </div>
-           
-    
-         
- <div class="verify-form-group"><label>1. 真实姓名</label><input type="text"
- class="auth-input" id="wo-name" placeholder="与证件姓名一致"></div>
-           
-    
-         
- <div class="verify-form-group">
-           
-   <label>2. 性别</label>
-           
-   <div class="gender-selector">
-           
-       <div class="gender-opt active"
- onclick="app.selectWoGender('男', this)">男</div>
-           
-       <div class="gender-opt"
- onclick="app.selectWoGender('女', this)">女</div>
-           
-   </div>
-         
- </div>
- 
-         
- <div class="verify-form-group"><label>3. 身份证号码</label><input type="text"
- class="auth-input" id="wo-id" placeholder="18位二代身份证号"></div>
-           
-    
-         
- <div class="verify-form-group"><label>4. 职业近照</label><div
- class="upload-placeholder-sm"><i class="fas
- fa-user-tie"></i><span>上传清晰正面生活/职业照</span></div></div>
-           
-    
-         
- <div class="verify-form-group"><label>5. 近期体检证明</label><div
- class="upload-placeholder-sm"><i class="fas
- fa-heartbeat"></i><span>上传近半年体检报告图片</span></div></div>
-           
-    
-         
- <div class="verify-form-group"><label>6. 专业特长</label><input type="text"
- class="auth-input" id="wo-skill" placeholder="如：精装修瓦工、消防电维修等"></div>
-           
-    
-         
- <div class="verify-form-group"><label>7. 从业年限</label><input type="number"
- class="auth-input" id="wo-years" placeholder="请填写数字"></div>
-           
-    
-         
- <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea"
- id="wo-intro" style="height:150px;" placeholder="请详细介绍您的技术优势、过往工程案例及服务态度，这关乎您的初始评级。"></textarea></div>
- 
-         
- <button class="btn-booking-main"
- onclick="app.submitWorkerOnboarding()">提交入驻资料并等待审核</button>
+
+   <div id="order-overlay" class="overlay" style="z-index: 4000;">
+       <div class="overlay-header"><h3>订单履约动态追踪</h3><i class="fas fa-times" style="cursor:pointer;" onclick="app.closeOverlay('order-overlay')"></i></div>
+       <div style="padding:40px; text-align:center;">
+         <div style="background-color:#fff3e0; padding:35px; border-radius:25px; border: 2px dashed var(--primary-orange); margin-bottom:50px;">
+            <p style="color: #666666; font-size: 16px;">安全开工核销码</p>
+            <h1 id="check-code" style="letter-spacing:18px; color:var(--primary-blue); font-size:64px; margin:20px 0;">9711</h1>
+            <p style="font-size: 14px; color: #999999;">施工开始前，请核对一致后再点击确认施工</p>
+         </div>
+         <div class="progress-container">
+            <div class="p-axis" id="order-p-bar">
+                <div class="node active">1<span class="node-label">已预约</span></div>
+                <div class="node">2<span class="node-label">待上门</span></div>
+                <div class="node">3<span class="node-label">施工中</span></div>
+                <div class="node">4<span class="node-label">验收结算</span></div>
+            </div>
+         </div>
+         <div id="order-actions" style="margin-top:80px;">
+            <button class="btn-booking-main" style="background-color:var(--primary-blue)" onclick="app.simFlow('start')">模拟：师傅点击已出发</button>
+         </div>
        </div>
    </div>
 
-   <div id="ent-onboarding-overlay" class="overlay" style="z-index:9900;">
-       <div class="overlay-header"><h3>企业服务商入驻申请</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('ent-onboarding-overlay')"></i></div>
+   <div id="rating-page" class="rating-overlay">
+       <div class="rating-inner-content">
+         <h2 style="text-align:center; margin-bottom:40px; font-size: 32px;">服务完成 - 评价反馈</h2>
+         <p style="text-align:center; color: #666; font-size: 18px; margin-bottom: 40px;">您的评价是平台积累信用资产的核心环节</p>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">服务态度</span>
+            <div class="rating-stars" data-dim="attitude">
+                <i class="fas fa-star" data-idx="1"></i><i class="fas fa-star" data-idx="2"></i>
+                <i class="fas fa-star" data-idx="3"></i><i class="fas fa-star" data-idx="4"></i>
+                <i class="fas fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">专业技能</span>
+            <div class="rating-stars" data-dim="skill">
+                <i class="fas fa-star" data-idx="1"></i><i class="fas fa-star" data-idx="2"></i>
+                <i class="fas fa-star" data-idx="3"></i><i class="fas fa-star" data-idx="4"></i>
+                <i class="fas fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">响应速度</span>
+            <div class="rating-stars" data-dim="speed">
+                <i class="fas fa-star" data-idx="1"></i><i class="fas fa-star" data-idx="2"></i>
+                <i class="fas fa-star" data-idx="3"></i><i class="fas fa-star" data-idx="4"></i>
+                <i class="fas fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <p style="font-weight: bold; margin-left: 40px; margin-top: 30px;">深度点评：</p>
+         <textarea class="voice-textarea" style="height:150px; margin: 10px 40px; width: calc(100% - 80px);" placeholder="描述施工细节或师傅人品..."></textarea>
+         <div style="margin: 20px 40px;">
+            <p style="font-weight: bold; margin-bottom: 10px;">完工实拍返图：</p>
+            <div class="photo-upload-placeholder" style="width: 100%; height: 150px;"><i class="fas fa-plus"></i></div>
+         </div>
+         <div style="padding: 0 40px;">
+            <button class="btn-booking-main" style="margin-top:30px;" onclick="app.finishRating()">确认提交评价并结算</button>
+         </div>
+       </div>
+   </div>
+
+   <div id="chat-overlay" class="chat-overlay">
+       <div class="overlay-header"><h3 id="chat-title">客服对话</h3><i class="fas fa-times" style="font-size:24px; cursor:pointer;" onclick="app.closeOverlay('chat-overlay')"></i></div>
+       <div class="chat-messages" id="chat-content"></div>
+       <div style="padding:20px; display:flex; gap:15px; background-color: var(--white); border-top:1px solid #eeeeee;">
+         <input type="text" id="chat-input" placeholder="输入内容..." style="flex:1; padding:15px; border-radius:30px; border:1px solid #dddddd; outline:none;">
+         <button onclick="app.sendChat()" style="background-color:var(--primary-blue); color:white; border:none; padding-left: 25px; padding-right: 25px; border-radius:30px; cursor:pointer; font-weight:bold;">发送</button>
+       </div>
+   </div>
+
+   <div class="fab-container">
+       <div class="fab-menu" id="fab-menu">
+         <div class="fab-item disabled" id="fab-worker" onclick="app.openChat('worker')">
+            <i class="fas fa-user-wrench" style="color:var(--primary-orange)"></i> 联系师傅 (预约激活)
+         </div>
+         <div class="fab-item" onclick="app.openChat('service')">
+            <i class="fas fa-headset" style="color:var(--primary-blue)"></i> 平台官方客服 (24H)
+         </div>
+       </div>
+       <div class="fab-main" onclick="app.toggleFab()"><i class="fas fa-comment-dots"></i></div>
+   </div>
+
+   <div class="backdrop" id="backdrop" onclick="app.closeAll()"></div>
+
+   <div id="auth-overlay" class="auth-overlay">
+       <div class="auth-card">
+         <i class="fas fa-times" style="position:absolute; right:25px; top:25px; cursor:pointer; font-size:20px; color:#ccc;" onclick="app.closeAuth()"></i>
+         <div class="auth-tab">登录 / 注册</div>
+         <div class="auth-input-group">
+           <input type="text" class="auth-input" id="auth-phone" placeholder="请输入手机号" maxlength="11">
+         </div>
+         <div class="auth-input-group">
+           <input type="text" class="auth-input" id="auth-code" placeholder="验证码" maxlength="6">
+           <button class="btn-send-code" id="btn-sms" onclick="app.handleSMS()">获取验证码</button>
+         </div>
+         <label class="legal-check">
+           <input type="checkbox" id="auth-agree">
+           <span>我已阅读并同意 <a href="#">《用户服务协议》</a>与 <a href="#">《隐私政策》</a></span>
+         </label>
+         <button class="btn-booking-main" onclick="app.doLogin()">立即进入匠心世界</button>
+         <p style="text-align:center; margin-top:30px; font-size:12px; color:#999;">未注册手机号验证后将自动创建账号</p>
+       </div>
+   </div>
+
+   <div id="user-overlay" class="overlay">
+       <div class="overlay-header"><h3>个人中心</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('user-overlay')"></i></div>
+       <div style="padding: 20px;">
+         <div class="section-box" style="display:flex; align-items:center; gap:25px; border-bottom:none;">
+           <img id="u-avatar" src="https://i.pravatar.cc/100?u=user" style="width:80px; height:80px; border-radius:50%; border:3px solid var(--white); box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+           <div>
+               <h2 id="u-nickname" style="font-size:24px; margin-bottom:5px;">未登录</h2>
+               <p id="u-phone" style="color:#999; font-size:14px;">138****0000</p>
+           </div>
+         </div>
+         <div class="user-asset-grid">
+           <div class="asset-item" onclick="app.openOrders()"><span class="asset-val" id="u-order-count">0</span><span class="asset-label">我的预约</span></div>
+           <div class="asset-item"><span class="asset-val">850</span><span class="asset-label">信用分</span></div>
+           <div class="asset-item" onclick="app.openPayment()"><span class="asset-val" id="u-balance">0.00</span><span class="asset-label">钱包余额</span></div>
+         </div>
+         <div class="menu-list" id="main-menu-list">
+           <div class="menu-item" onclick="app.openVerify()">
+               <div class="menu-item-left"><i class="fas fa-id-card main-icon" style="color:var(--primary-blue)"></i>实名认证状态</div>
+               <span id="u-verify-tag" class="verify-status status-no">未认证</span>
+           </div>
+           <div class="menu-item" onclick="app.openOrders()">
+               <div class="menu-item-left"><i class="fas fa-clipboard-list main-icon" style="color:#34A853"></i>全部服务订单</div>
+               <i class="fas fa-chevron-right" style="color:#ccc"></i>
+           </div>
+           <div class="menu-item" onclick="alert('地址管理功能开发中')">
+               <div class="menu-item-left"><i class="fas fa-map-marker-alt main-icon" style="color:#EA4335"></i>我的服务地址</div>
+               <i class="fas fa-chevron-right" style="color:#ccc"></i>
+           </div>
+           <div class="menu-item" style="margin-top:20px; border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold; background:#fff1f0;" onclick="location.reload()">
+               退出登录
+           </div>
+         </div>
+       </div>
+   </div>
+
+   <div id="verify-overlay" class="overlay" style="z-index:9500;">
+       <div class="overlay-header"><h3>实名认证</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('verify-overlay')"></i></div>
        <div style="padding: 30px;">
-           <div style="background:#fff2e8; padding:15px; border-radius:10px; color:#d4380d; font-size:13px; margin-bottom:25px;">
-               <i class="fas fa-building"></i> 企业入驻需上传法律效力文件，平台将在2个工作日内完成资质核验。
+         <div style="background:#fff7e6; padding:20px; border-radius:12px; margin-bottom:30px; color:#d46b08; font-size:13px; line-height:1.6;">
+           <i class="fas fa-shield-alt"></i> 根据《中华人民共和国网络安全法》，为保障劳务交易安全，用户须完成实名认证后方可进行大额支付及查看详细施工单。
+         </div>
+         <div class="verify-form-group">
+           <label>真实姓名</label>
+           <input type="text" class="auth-input" id="v-name" placeholder="请输入您的合法姓名">
+         </div>
+         <div class="verify-form-group">
+           <label>身份证号</label>
+           <input type="text" class="auth-input" id="v-idcard" placeholder="18位身份证号码">
+         </div>
+         <div class="verify-form-group">
+           <label>现场人脸/证件核验照片</label>
+           <div class="photo-upload-placeholder" style="width:100%; height:180px;">
+               <i class="fas fa-id-badge" style="font-size:40px; margin-bottom:10px;"></i>
+               <span>点击拍摄/上传身份证正面照</span>
            </div>
-           <div class="verify-form-group"><label>1. 营业执照扫描件</label><div class="ent-upload-box"><i class="fas fa-file-invoice"></i><span>上传加盖公章的营业执照</span></div></div>
-           <div class="verify-form-group"><label>2. 经营范围简介</label><textarea class="voice-textarea" id="ent-scope" style="height:100px;" placeholder="请简述贵司主营业务领域及优势..."></textarea></div>
-           <div class="verify-form-group"><label>3. 技术团队职称证书 (多图)</label><div class="ent-upload-box"><i class="fas fa-certificate"></i><span>上传工程师、技术员、技工职称证书/特种作业证</span></div></div>
-           <div class="verify-form-group"><label>4. 业绩宣传资料 (PDF/图片)</label><div class="ent-upload-box"><i class="fas fa-project-diagram"></i><span>上传过往工程业绩合同或宣传册</span></div></div>
-           <button class="btn-booking-main" onclick="app.submitEntOnboarding()">提交企业资料并等待审核</button>
+         </div>
+         <button class="btn-booking-main" onclick="app.doVerify()">提交人工审核</button>
+         <p style="text-align:center; margin-top:20px; color:#999; font-size:12px;">审核通常在 10 分钟内完成</p>
        </div>
    </div>
 
-   <div id="ent-dashboard-overlay" class="overlay" style="z-index:9950; background:#f0f2f5;">
-       <div class="ent-dashboard-header">
-           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-               <div><h2 style="font-size:28px;"><i class="fas fa-shield-halved"></i> 企业账号操作中心</h2><p style="opacity:0.8; margin-top:5px;">当前状态：企业资质已认证 (官方合作伙伴)</p></div>
-               <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('ent-dashboard-overlay')"></i>
-           </div>
-       </div>
-       <div style="padding:100px 30px; text-align:center;">
-           <i class="fas fa-construction" style="font-size:80px; color:#ddd;"></i>
-           <h3 style="margin-top:30px; color:#999;">企业管理后台正在深度构建中</h3>
-           <p style="color:#bbb; margin-top:10px;">后续将开放：工程大单投标、技工库团队分配、财税结算系统等功能</p>
+   <div id="payment-overlay" class="overlay" style="z-index:9600;">
+       <div class="overlay-header"><h3>资金账户</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('payment-overlay')"></i></div>
+       <div style="padding: 30px;">
+         <div style="text-align:center; margin-bottom:40px;">
+           <p style="color:#999; font-size:14px;">当前可用余额 (元)</p>
+           <h1 style="font-size:48px; color:var(--navy); margin-top:10px;" id="p-balance-display">0.00</h1>
+         </div>
+         <p style="font-weight:bold; margin-bottom:20px;">快速充值</p>
+         <div class="recharge-grid">
+           <div class="recharge-card" onclick="app.selectRecharge(50, this)"><span>充值</span><br><b>¥50</b></div>
+           <div class="recharge-card active" onclick="app.selectRecharge(100, this)"><span>充值</span><br><b>¥100</b></div>
+           <div class="recharge-card" onclick="app.selectRecharge(200, this)"><span>充值</span><br><b>¥200</b></div>
+           <div class="recharge-card" onclick="app.selectRecharge(500, this)"><span>充值</span><br><b>¥500</b></div>
+         </div>
+         <button class="btn-booking-main" onclick="app.doRecharge()">立即在线支付</button>
        </div>
    </div>
- 
-   <footer><div
- class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
- 
+
+   <div id="orders-overlay" class="overlay" style="z-index:9400; background-color: #f8f9fa;">
+       <div class="overlay-header"><h3>我的服务订单</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('orders-overlay')"></i></div>
+       <div id="orders-list-container" style="padding: 20px;"></div>
+   </div>
+
+   <div id="worker-dashboard-overlay" class="overlay" style="z-index:9800; background:#f8f9fa;">
+       <div class="dashboard-header">
+         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+           <div>
+               <h2 style="font-size:28px;">师傅管理工作台</h2>
+               <p style="opacity:0.7; font-size:14px; margin-top:5px;">接单状态：在线接单中...</p>
+           </div>
+           <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('worker-dashboard-overlay')"></i>
+         </div>
+         <div class="stat-row">
+           <div class="stat-card"><small>累计收益</small><div style="font-size:22px; font-weight:bold; margin-top:5px;">¥ 12,850.00</div></div>
+           <div class="stat-card"><small>职业评级</small><div style="font-size:22px; font-weight:bold; margin-top:5px; color:var(--gold);">L5 资深师傅</div></div>
+         </div>
+       </div>
+       <div class="dashboard-tabs">
+         <div class="dash-tab active" id="tab-orders" onclick="app.switchDashTab('orders')">实时接单中心</div>
+         <div class="dash-tab" id="tab-profile" onclick="app.switchDashTab('profile')">职业资料修改</div>
+       </div>
+       <div id="dash-orders" class="dash-content-section active">
+         <div style="background:white; border-radius:15px; padding:20px; border:1px solid #eee; margin-bottom:15px;">
+           <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+               <span class="order-status-tag" style="background:#fff7e6; color:#fa8c16;">距离 2.4km</span>
+               <b style="color:var(--primary-orange);">预估: ¥260.00</b>
+           </div>
+           <h4 style="font-size:18px;">紧急：卫生间给排水管道渗水修复</h4>
+           <p style="color:#666; font-size:14px; margin:10px 0;"><i class="fas fa-map-marker-alt"></i> 历下区泺源大街中银大厦 1802室</p>
+           <button class="income-btn" style="width:100%; margin-top:10px;" onclick="alert('接单成功，请务必于 30 分钟内联系业主。')">立即抢单</button>
+         </div>
+       </div>
+       <div id="dash-profile" class="dash-content-section">
+         <div style="background:white; border-radius:15px; padding:25px;">
+           <div class="verify-form-group"><label>1. 真实姓名</label><input type="text" class="auth-input" id="wd-name" value="陈建国"></div>
+           <div class="verify-form-group"><label>2. 性别</label><div class="gender-selector"><div class="gender-opt active" onclick="app.selectDashGender('男', this)">男</div><div class="gender-opt" onclick="app.selectDashGender('女', this)">女</div></div></div>
+           <div class="verify-form-group"><label>3. 身份证号</label><input type="text" class="auth-input" id="wd-id" value="3701**********9912" readonly style="background:#f5f5f5;"></div>
+           <div class="verify-form-group"><label>4. 职业近照</label><div class="upload-placeholder-sm"><i class="fas fa-camera"></i><span>更换证件照</span></div></div>
+           <div class="verify-form-group"><label>5. 体检证明文件</label><div class="upload-placeholder-sm"><i class="fas fa-file-medical"></i><span>更新报告</span></div></div>
+           <div class="verify-form-group"><label>6. 专业特长</label><input type="text" class="auth-input" id="wd-skill" value="给排水、消防水、电气焊"></div>
+           <div class="verify-form-group"><label>7. 从业年限</label><input type="number" class="auth-input" id="wd-years" value="15"></div>
+           <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea" id="wd-intro" style="height:120px;">15年水暖工老牌经验，持有高级焊工证，承诺施工质保3年。</textarea></div>
+           <button class="btn-booking-main" onclick="app.saveWorkerProfile()">确认修改资料</button>
+         </div>
+       </div>
+   </div>
+
+   <div id="worker-onboarding-overlay" class="overlay" style="z-index:9700;">
+       <div class="overlay-header"><h3>成为匠心师傅</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('worker-onboarding-overlay')"></i></div>
+       <div style="padding: 30px;">
+         <div style="background:#f0f7ff; padding:15px; border-radius:10px; color:var(--primary-blue); font-size:13px; margin-bottom:25px;">
+           <i class="fas fa-info-circle"></i> 请如实填写以下信息。审核通过后，您将获得平台专属职业等级。
+         </div>
+         <div class="verify-form-group"><label>1. 真实姓名</label><input type="text" class="auth-input" id="wo-name" placeholder="与证件姓名一致"></div>
+         <div class="verify-form-group">
+           <label>2. 性别</label>
+           <div class="gender-selector">
+               <div class="gender-opt active" onclick="app.selectWoGender('男', this)">男</div>
+               <div class="gender-opt" onclick="app.selectWoGender('女', this)">女</div>
+           </div>
+         </div>
+         <div class="verify-form-group"><label>3. 身份证号码</label><input type="text" class="auth-input" id="wo-id" placeholder="18位二代身份证号"></div>
+         <div class="verify-form-group"><label>4. 职业近照</label><div class="upload-placeholder-sm"><i class="fas fa-user-tie"></i><span>上传清晰正面生活/职业照</span></div></div>
+         <div class="verify-form-group"><label>5. 近期体检证明</label><div class="upload-placeholder-sm"><i class="fas fa-heartbeat"></i><span>上传近半年体检报告图片</span></div></div>
+         <div class="verify-form-group"><label>6. 专业特长</label><input type="text" class="auth-input" id="wo-skill" placeholder="如：精装修瓦工、消防电维修等"></div>
+         <div class="verify-form-group"><label>7. 从业年限</label><input type="number" class="auth-input" id="wo-years" placeholder="请填写数字"></div>
+         <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea" id="wo-intro" style="height:150px;" placeholder="请详细介绍您的技术优势、过往工程案例及服务态度，这关乎您的初始评级。"></textarea></div>
+         <button class="btn-booking-main" onclick="app.submitWorkerOnboarding()">提交入驻资料并等待审核</button>
+       </div>
+   </div>
+
+   <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
+
    <script>
        const app = {
-         
-  state: { 
-             
-     workers: [], 
-             
-     sortType: 'dist', 
-             
-     currentSubcat: '', 
-             
-     isBooked: false, 
-             
-     isFinished: false, 
-             
-     chatTarget: 'service',
-             
-     activeWorker: null,
-             
-     selectedTime: null,
-             
-     /* --- [NEW: Auth System - State] --- */
-             
-     isLoggedIn: false,
-             
-     userInfo: null,
-             
-     /* --- [NEW: Identity - State] --- */
-             
-     isVerified: false,
-             
-     /* --- [NEW: Wallet & Orders - State] --- */
-             
-     walletBalance: 0.0,
-             
-     userOrders: [],
-             
-     rechargeSelected: 100,
-             
-     /* --- [NEW: Worker Registration - State] --- */
-             
-     workerRegStatus: 'none', // none, pending, approved
-             
-     woGender: '男',
-             
-     workerGender: '男',
+         state: { 
+            workers: [], 
+            sortType: 'dist', 
+            currentSubcat: '', 
+            isBooked: false, 
+            isFinished: false, 
+            chatTarget: 'service',
+            activeWorker: null,
+            selectedTime: null,
+            isLoggedIn: false,
+            userInfo: null,
+            isVerified: false,
+            walletBalance: 0.0,
+            userOrders: [],
+            rechargeSelected: 100,
+            workerRegStatus: 'none', 
+            woGender: '男',
+            workerGender: '男'
+         },
 
-     /* [PATCH: Enterprise State] */
-     entRegStatus: 'none' 
-            },
- 
-          
- subcatData: {
-            
-     1: ["给排水，消防水",
- "强弱电，消防电", "通风空调采暖", "电气焊"],
-            
-     2: ["木工", "瓦工", "油漆大白工",
- "装修水电工", "装修保洁"],
-            
-     3: ["固定家具制作，家具维修",
- "门窗制作，维修"],
-            
-     4: ["带车搬运装卸",
- "力工"],
-            
-     5: []
-            },
- 
-          
- initData() {
-            
-     const names = ['张建国','王大明','赵全能','刘师傅','陈工','周师傅','吴大志','郑师傅','孙师傅','钱师傅'];
-            
-     this.state.workers = Array.from({length: 12}, (_, i) => ({ id:
- i, name: names[i % names.length], tier: i % 4 === 0 ? '高级师傅 (Gold)' : '优质师傅 (Silver)',
- rating: (4.4 + Math.random() * 0.6).toFixed(1), price: [260, 150, 100, 200][i %
- 4], dist: (0.5 + Math.random() * 5).toFixed(1), count: 800 +
- Math.floor(Math.random() * 2000), exp: (8 + Math.floor(Math.random() * 10)) + '年', certs: ['高级电工证', '诚信上岗证'] }));
-            },
- 
-          
- switchView(id) { 
-            
-    document.querySelectorAll('.view-section').forEach(v =>
- v.classList.remove('active'));
-            
-    document.getElementById(id).classList.add('active');
-            
-    document.getElementById('header-search-box').style.display = (id
- === 'hub-view') ? 'none' : 'block';
-            
-     window.scrollTo(0,0);
-            },
- 
-          
- handleSearch(type) {
-            
-     const inputId = type === 'hero' ? 'hero-search-input' :
- 'secondary-search';
-            
-     const keyword = document.getElementById(inputId).value.trim();
-            
-     if(!keyword) return alert('请输入服务分类');
-            
-     this.state.currentSubcat = keyword;
-            
-     this.renderWorkers();
-            },
- 
-          
- handleCatClick(id) {
-            
-     const subs = this.subcatData[id];
-            
-     if(subs.length === 0) { this.state.currentSubcat = "智能家居/家电维修"; return
- this.renderWorkers(); }
-            
-     const catNames = ["水电暖通", "装饰装修",
- "家具门窗", "搬运装卸", "智能家居"];
-            
-    document.getElementById('subcat-title').innerText =
- catNames[id-1];
-            
-    document.getElementById('subcat-list').innerHTML = subs.map(s
- => `<div class="subcat-btn"
- onclick="app.renderWorkers('${s}')"><span>${s}</span><i
- class="fas fa-chevron-right"></i></div>`).join('');
-            
-     this.switchView('subcat-view');
-            },
- 
-          
- renderWorkers(subcatName) {
-            
-     if(subcatName) this.state.currentSubcat = subcatName;
-            
-    document.getElementById('current-worker-subcat').innerText =
- this.state.currentSubcat;
-            
-     const list = document.getElementById('worker-list');
-            
-     let sorted = [...this.state.workers];
-            
-     if(this.state.sortType === 'dist') sorted.sort((a,b) => a.dist
- - b.dist);
-            
-     else if(this.state.sortType === 'rating') sorted.sort((a,b) =>
- b.rating - a.rating);
-            
-     else if(this.state.sortType === 'price') sorted.sort((a,b) =>
- a.price - b.price);
-            
-     else if(this.state.sortType === 'count') sorted.sort((a,b) =>
- b.count - a.count);
- 
-            
-     list.innerHTML = sorted.map(w => `
-            
-        <div class="worker-card"
- onclick="app.openProfile(${w.id})">
-            
-            <img
- src="https://i.pravatar.cc/130?u=${w.id}"
- class="worker-avatar">
-            
-            <div
- class="worker-main-info"><h3>${w.name}</h3><p>⭐ 评分 ${w.rating} | 已服务 ${w.count}次</p><p style="color:var(--primary-blue);
- font-weight:bold; margin-top:8px;">距离您：${w.dist}km</p></div>
-            
-            <div
- class="worker-price">¥<b>${w.price}</b>起</div>
-            
-        </div>`).join('');
-            
-     this.switchView('worker-view');
-            },
- 
-          
- openProfile(id) {
-            
-     const w = this.state.workers.find(i => i.id === id);
-            
-     this.state.activeWorker = w;
-            
-    document.getElementById('p-avatar').src =
- `https://i.pravatar.cc/130?u=${w.id}`;
-            
-    document.getElementById('p-name').innerText = w.name;
-            
-    document.getElementById('p-avg-score').innerText = w.rating;
-            
-    document.getElementById('p-certs').innerHTML = w.certs.map(c =>
- `<span style="background-color:#f0f7ff; color:var(--primary-blue);
- padding:4px 10px; border-radius:4px; font-size:12px; margin-right:8px;">${c}</span>`).join('');
-            
-     
-            
-     let revHtml = "";
-            
-     for(let i=0; i<10; i++) {
-            
-         const img =
- `https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&sig=${i}`;
-            
-         revHtml += `<div
- class="review-card"><div style="display:flex;
- align-items:center; gap:12px; margin-bottom:12px;"><img
- src="https://i.pravatar.cc/40?u=${i}"
- style="border-radius:50%"><span>业主 138****${1100+i}</span><span style="color:#ffc107;
- margin-left:auto">⭐⭐⭐⭐⭐</span></div><p
- style="font-size:15px; color:#444444; margin-bottom:15px">师傅手艺特别好，施工标准！</p><div class="ba-slider"
- onmousemove="app.handleBA(event)"><div class="ba-img"
- style="background-image:url('${img}')"></div><div
- class="ba-img ba-before" style="background-image:url('${img}')"></div></div></div>`;
-            
-     }
-            
-    document.getElementById('p-reviews').innerHTML = revHtml;
-            
- 
-  document.getElementById('profile-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            },
- 
-          
- openBooking() { 
-            
-    this.closeOverlay('profile-overlay'); 
-            
-     const dr = document.getElementById('booking-drawer');
-            
-     dr.style.display = 'block';
-            
-     setTimeout(() => dr.classList.add('active'), 10);
-            
-    document.getElementById('worker-dist-val').innerText =
- this.state.activeWorker.dist;
-            
-     this.renderSlots(); 
-            },
- 
-          
- renderSlots() { document.getElementById('slot-grid').innerHTML = ['周一','周二','周三','周四','周五','周六','周日'].map(d => `<div class="slot-item"
- onclick="app.selectSlot(this)">${d}<br>有空</div>`).join(''); },
-            
-          
- selectSlot(el) { document.querySelectorAll('.slot-item').forEach(s =>
- s.classList.remove('active')); el.classList.add('active');
- this.state.selectedTime = el.innerText; },
- 
-          
- confirmBooking() {
-            
-     if(!this.state.selectedTime) return alert('请点选一个服务时间');
-            
-     this.closeAll();
-            
-     this.state.isBooked = true;
-            
-     const fabW = document.getElementById('fab-worker');
-            
-    fabW.classList.remove('disabled'); fabW.innerHTML = `<i
- class="fas fa-user-wrench"
- style="color:var(--primary-orange)"></i> 联系${this.state.activeWorker.name}师傅`;
-            
-    document.getElementById('check-code').innerText = Math.floor(1000
- + Math.random()*9000);
-            
-    document.getElementById('order-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            },
- 
-          
- simFlow(step) {
-            
-     const ns = document.querySelectorAll('#order-p-bar .node'); const
- ac = document.getElementById('order-actions');
-            
-     if(step === 'start') {
-            
-        ns[1].classList.add('active');
-            
-         ac.innerHTML = `<p
- style="margin-bottom:15px; color:var(--primary-blue);
- font-weight:bold;">师傅正在路上，预计 15 分钟送达</p><input type="text" id="cin"
- placeholder="核销码"
- style="width:100%; padding:20px; border:1px solid #ddd;
- border-radius:15px; text-align:center; font-size:32px; letter-spacing:15px;
- margin-bottom:20px;"><button class="btn-booking-main"
- onclick="app.simFlow('work')">验证并开始施工</button>`;
-            
-     } else if(step === 'work') {
-            
-        if(document.getElementById('cin').value ===
- document.getElementById('check-code').innerText) {
-            
-            ns[2].classList.add('active');
-            
-             ac.innerHTML = `<div
- style="text-align:center; padding:30px;"><i class="fas
- fa-tools fa-spin" style="font-size:45px; color:var(--primary-blue)"></i><p
- style="margin-top:20px; font-weight:bold;">施工中，计时已启动...</p><div style="margin-top:20px; display:flex;
- gap:15px; justify-content:center;"><button style="padding:10px
- 20px; border-radius:8px; border:1px solid #ddd;
- background:white;"><i class="fas fa-phone"></i> 实时联系</button><button style="padding:10px 20px;
- border-radius:8px; border:1px solid #ff4d4f; color:white;
- background:#ff4d4f;">违约申诉</button></div></div><button
- class="btn-booking-main"
- onclick="app.simFlow('finish')">确认施工完成并验收</button>`;
-            
-         } else alert('核销码错误');
-            
-     } else if(step === 'finish') {
-            
-        ns[3].classList.add('active');
-            
-      
- document.getElementById('order-overlay').classList.remove('active');
-            
-        document.getElementById('rating-page').style.display
- = 'block';
-            
-     }
-            },
- 
-          
- finishRating() { alert('评价已提交，感谢对平台的支持！');
- this.state.isFinished = true;
- document.getElementById('fab-worker').classList.add('disabled');
- document.getElementById('fab-worker').innerText = "服务结束"; document.getElementById('rating-page').style.display =
- 'none'; this.closeAll(); this.switchView('hub-view'); },
- 
-          
- openChat(type) { if(type === 'worker' && (!this.state.isBooked ||
- this.state.isFinished)) return; this.state.chatTarget = type;
- document.getElementById('chat-title').innerText = type === 'worker' ? `与师傅对话` : '在线客服';
- document.getElementById('chat-overlay').classList.add('active');
- document.getElementById('chat-content').innerHTML = `<div
- class="msg-bubble other">您好！请问需要什么帮助？</div>`; document.getElementById('backdrop').style.display =
- 'block'; this.toggleFab(); },
-          
- sendChat() { const v = document.getElementById('chat-input').value;
- if(!v) return; document.getElementById('chat-content').innerHTML += `<div
- class="msg-bubble me">${v}</div>`; document.getElementById('chat-input').value
- = ''; },
-          
- toggleFab() { const m = document.getElementById('fab-menu');
- m.style.display = m.style.display==='flex'?'none':'flex'; },
-          
- handleBA(e) { const r = e.currentTarget.getBoundingClientRect(); const p
- = ((e.clientX - r.left) / r.width) * 100;
- e.currentTarget.querySelector('.ba-before').style.width = p + "%"; },
-          
- closeOverlay(id) {
- document.getElementById(id).classList.remove('active');
- document.getElementById('backdrop').style.display = 'none'; },
-          
- closeAll() { document.querySelectorAll('.overlay, .drawer').forEach(el
- => el.classList.remove('active')); setTimeout(() =>
- document.querySelectorAll('.drawer').forEach(el => el.style.display =
- 'none'), 500); document.getElementById('backdrop').style.display = 'none'; },
-          
- handleSort(btn) { document.querySelectorAll('.sort-btn').forEach(b =>
- b.classList.remove('active')); btn.classList.add('active'); this.state.sortType
- = btn.getAttribute('data-sort'); this.renderWorkers(); },
-          
- filterGold() { this.state.sortType = 'rating'; this.renderWorkers('金牌精选'); },
- 
-            /*
- --- [NEW: Auth System - Logic] --- */
-          
- openAuth() {
-            
-    document.getElementById('auth-overlay').style.display = 'flex';
-            
-    document.body.style.overflow = 'hidden';
-            },
-          
- closeAuth() {
-            
-    document.getElementById('auth-overlay').style.display = 'none';
-            
-    document.body.style.overflow = 'auto';
-            },
-          
- handleSMS() {
-            
-    const phone = document.getElementById('auth-phone').value;
-            
-    if(!/^1[3-9]\d{9}$/.test(phone)) return alert('请输入正确的11位手机号');
-            
-    
-            
-    let count = 60;
-            
-    const btn = document.getElementById('btn-sms');
-            
-    btn.disabled = true;
-            
-    const timer = setInterval(() => {
-            
-        btn.innerText = `${count--}s后重发`;
-            
-        if(count < 0) { clearInterval(timer);
- btn.innerText = '获取验证码'; btn.disabled =
- false; }
-            
-    }, 1000);
-            
-    alert('【模拟验证码已发送】验证码为：123456');
-            },
-          
- doLogin() {
-            
-    const phone = document.getElementById('auth-phone').value;
-            
-    const code = document.getElementById('auth-code').value;
-            
-    const agree = document.getElementById('auth-agree').checked;
- 
-            
-    if(!phone || !code) return alert('请完整填写信息');
-            
-    if(code !== '123456') return alert('验证码错误，请尝试 123456');
-            
-    if(!agree) return alert('请先勾选并同意用户协议');
- 
-            
-    // 执行登录成功逻辑
-            
-    this.state.isLoggedIn = true;
-            
-    this.state.userInfo = { phone: phone, nickname: '用户_' + phone.slice(-4) };
-            
-    
-            
-    // 更新UI补丁
-            
-    document.getElementById('top-login-btn').innerText = `欢迎您，${this.state.userInfo.nickname}`;
-            
-    document.getElementById('top-login-btn').style.color =
- 'var(--primary-orange)';
-            
-    
-            
-    this.closeAuth();
-            
-    alert('登录成功！');
-            },
- 
-            /*
- --- [NEW: Identity - Logic] --- */
-          
- openUserCenter() {
-            
-    document.getElementById('u-nickname').innerText =
- this.state.userInfo.nickname;
-            
-    document.getElementById('u-phone').innerText =
- this.state.userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
-            
-    document.getElementById('user-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            
-    this.syncWalletUI();
-            
-    this.patchWorkerEntry(); // 动态修复补丁：注入入驻或工作台按钮
-            },
-          
- openVerify() {
-            
-    if(this.state.isVerified) return alert('您已完成实名认证，无需重复操作');
-            
-    document.getElementById('verify-overlay').classList.add('active');
-            },
-          
- doVerify() {
-            
-    const name = document.getElementById('v-name').value;
-            
-    const id = document.getElementById('v-idcard').value;
-            
-    if(!name || id.length < 15) return alert('请填写完整的实名信息');
-            
-    
-            
-    alert('正在连接公安部数据库核验...');
-            
-    setTimeout(() => {
-            
-        this.state.isVerified = true;
-            
-        document.getElementById('u-verify-tag').innerText =
- "已实名";
-            
-        document.getElementById('u-verify-tag').className =
- "verify-status status-yes";
-            
-        this.closeOverlay('verify-overlay');
-            
-        alert('实名认证成功！');
-            
-    }, 1500);
-            },
- 
-            /*
- --- [NEW: Wallet & Orders - Logic] --- */
-          
- syncWalletUI() {
-            
-    const bal = this.state.walletBalance.toFixed(2);
-            
-    document.getElementById('u-balance').innerText = bal;
-            
-    document.getElementById('p-balance-display').innerText = bal;
-            
-    document.getElementById('u-order-count').innerText =
- this.state.userOrders.length;
-            },
-          
- openPayment() {
-            
-    this.closeOverlay('user-overlay');
-            
- 
-  document.getElementById('payment-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            },
-          
- selectRecharge(amt, el) {
-            
-    document.querySelectorAll('.recharge-card').forEach(c =>
- c.classList.remove('active'));
-            
-    el.classList.add('active');
-            
-    this.state.rechargeSelected = amt;
-            },
-          
- doRecharge() {
-            
-    alert(`正在跳转微信/支付宝支付 ¥${this.state.rechargeSelected}...`);
-            
-    setTimeout(() => {
-            
-        this.state.walletBalance +=
- this.state.rechargeSelected;
-            
-        this.syncWalletUI();
-            
-        alert('充值成功！');
-            
-        this.closeOverlay('payment-overlay');
-            
-        this.openUserCenter();
-            
-    }, 1000);
-            },
-          
- openOrders() {
-            
-    this.closeOverlay('user-overlay');
-            
-    const container =
- document.getElementById('orders-list-container');
-            
-    if(this.state.userOrders.length === 0) {
-            
-        container.innerHTML = `<div
- style="text-align:center; padding:100px 0;"><i class="fas
- fa-box-open" style="font-size:48px; color:#eee;"></i><p
- style="color:#999; margin-top:20px;">暂无订单记录</p></div>`;
-            
-    } else {
-            
-        container.innerHTML = this.state.userOrders.map(o
- => `
-            
-            <div
- class="order-item">
-            
-                <div
- class="order-meta"><span>单号：${o.id}</span><span>${o.time}</span></div>
-            
-                <div
- class="order-body">
-            
-                    <img
- src="https://i.pravatar.cc/50?u=${o.worker}"
- style="border-radius:10px;">
-            
-                    <div
- class="order-info">
-            
-                      
- <h4>${o.service}</h4>
-            
-                      
- <p style="font-size:13px; color:#666;">师傅：${o.worker}</p>
-            
-                  
- </div>
-            
-                    <div
- style="margin-left:auto; text-align:right;">
-            
-                      
- <b
- style="color:var(--primary-orange);">¥${o.price}</b><br>
-            
-                      
- <span class="order-status-tag">${o.status}</span>
-            
-                  
- </div>
-            
+         subcatData: {
+            1: ["给排水，消防水", "强弱电，消防电", "通风空调采暖", "电气焊"],
+            2: ["木工", "瓦工", "油漆大白工", "装修水电工", "装修保洁"],
+            3: ["固定家具制作，家具维修", "门窗制作，维修"],
+            4: ["带车搬运装卸", "力工"],
+            5: []
+         },
+
+         /* [PATCH: Special Services Data] */
+         promoData: [
+            { name: "消防设施", full: "消防设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1583501763793-019672f10b8f?w=600" },
+            { name: "机电设施", full: "机电设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1581092334651-ddf26d9a1930?w=600" },
+            { name: "电梯设施", full: "电梯设施维修，维保", img: "https://images.unsplash.com/photo-1545127398-14699f999344?w=600" },
+            { name: "暖通空调", full: "暖通空调设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1504307651254-35680f3366d4?w=600" },
+            { name: "园林绿化", full: "园林绿化设施运维", img: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600" },
+            { name: "市政公用", full: "市政公用设施改造，维修", img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600" },
+            { name: "人防设施", full: "人防设施维修，维保", img: "https://images.unsplash.com/photo-1517089152318-42ec560349c1?w=600" },
+            { name: "电力设施", full: "电力设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600" },
+            { name: "人力资源", full: "人力资源外包服务", img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600" }
+         ],
+
+         initData() {
+            const names = ['张建国','王大明','赵全能','刘师傅','陈工','周师傅','吴大志','郑师傅','孙师傅','钱师傅'];
+            this.state.workers = Array.from({length: 12}, (_, i) => ({ id: i, name: names[i % names.length], tier: i % 4 === 0 ? '高级师傅 (Gold)' : '优质师傅 (Silver)', rating: (4.4 + Math.random() * 0.6).toFixed(1), price: [260, 150, 100, 200][i % 4], dist: (0.5 + Math.random() * 5).toFixed(1), count: 800 + Math.floor(Math.random() * 2000), exp: (8 + Math.floor(Math.random() * 10)) + '年', certs: ['高级电工证', '诚信上岗证'] }));
+            this.renderPromos(); // 增量初始化
+         },
+
+         /* [PATCH: Promo Rendering Logic] */
+         renderPromos() {
+            const homeGrid = document.getElementById('home-promo-grid');
+            const fullGrid = document.getElementById('full-promo-grid');
+            
+            const createHtml = (item) => `
+                <div class="promo-card-v2" style="background-image:url('${item.img}')" onclick="app.renderWorkers('${item.name}')">
+                    <span>${item.full}</span>
                 </div>
-            
-            </div>
-            
-        `).join('');
-            
-    }
-            
-    document.getElementById('orders-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            },
- 
-            /*
- --- [NEW: Worker Dashboard - Logic Patch] --- */
-          
- patchWorkerEntry() {
-            
-    // 动态补丁：在不改动原有HTML的情况下，控制个人中心的动态按钮显示
-            
-    if(document.getElementById('dynamic-worker-btn'))
- document.getElementById('dynamic-worker-btn').remove(); 
-            
-    const menuList = document.getElementById('main-menu-list');
-            
-    if(!menuList) return;
-            
-    const logoutBtn = menuList.lastElementChild;
-            
-    const workerBtn = document.createElement('div');
-            
-    workerBtn.id = 'dynamic-worker-btn';
-            
-    workerBtn.className = 'menu-item';
-            
-    
-            
-    if(this.state.workerRegStatus === 'none') {
-            
-        workerBtn.innerHTML = `<div
- class="menu-item-left"><i class="fas fa-user-plus
- main-icon" style="color:var(--primary-orange)"></i>申请成为匠心师傅</div><i class="fas fa-chevron-right"
- style="color:#ccc"></i>`;
-            
-        workerBtn.onclick = () => {
- this.closeOverlay('user-overlay');
- document.getElementById('worker-onboarding-overlay').classList.add('active');
- };
-            
-    } else if(this.state.workerRegStatus === 'pending') {
-            
-        workerBtn.innerHTML = `<div
- class="menu-item-left"><i class="fas fa-hourglass-half
- main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
-            
-        workerBtn.onclick = () => alert('平台已收到您的入驻资料，目前处于“人工审核+L级评定”阶段，请耐心等待。');
-            
-    } else if(this.state.workerRegStatus === 'approved') {
-            
-        workerBtn.style.border = '1.5px solid
- var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
-            
-        workerBtn.innerHTML = `<div
- class="menu-item-left"
- style="color:var(--primary-orange)"><i class="fas fa-tools
- main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right"
- style="color:var(--primary-orange)"></i>`;
-            
-        workerBtn.onclick = () => {
- this.closeOverlay('user-overlay');
- document.getElementById('worker-dashboard-overlay').classList.add('active'); };
-            
-    }
-            
-    menuList.insertBefore(workerBtn, logoutBtn);
-            },
-          
- openWorkerDashboard() {
-            
-    this.closeOverlay('user-overlay');
-            
- 
-  document.getElementById('worker-dashboard-overlay').classList.add('active');
-            
-    document.getElementById('backdrop').style.display = 'block';
-            },
-          
- switchDashTab(tab) {
-            
-    document.querySelectorAll('.dash-tab').forEach(t =>
- t.classList.remove('active'));
-            
-    document.querySelectorAll('.dash-content-section').forEach(s =>
- s.classList.remove('active'));
-            
-    document.getElementById(`tab-${tab}`).classList.add('active');
-            
-    document.getElementById(`dash-${tab}`).classList.add('active');
-            },
-          
- selectDashGender(g, el) {
-            
-    document.querySelectorAll('#worker-dashboard-overlay
- .gender-opt').forEach(o => o.classList.remove('active'));
-            
-    el.classList.add('active'); this.state.workerGender = g;
-            },
-          
- selectWoGender(g, el) {
-            
-    document.querySelectorAll('#worker-onboarding-overlay
- .gender-opt').forEach(o => o.classList.remove('active'));
-            
-    el.classList.add('active'); this.state.woGender = g;
-            },
-          
- submitWorkerOnboarding() {
-            
-    const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years',
- 'wo-intro'];
-            
-    if(ids.some(i => !document.getElementById(i).value)) return
- alert('请填齐所有 8 项资料（姓名/证件/特长/年限/介绍均为必填）');
-            
-    alert('资料已安全加密，正传输至后台审核部...');
-            
-    setTimeout(() => {
-            
-        this.state.workerRegStatus = 'pending';
-            
-        this.closeOverlay('worker-onboarding-overlay');
-            
-        alert('提交成功！我们将根据您的自我介绍为您进行等级评定。\n\n[开发环境模拟]：1.5秒后将自动模拟审核通过状态。');
-            
-        // 模拟后台审核通过
-            
-        setTimeout(() => {
-            
-            this.state.workerRegStatus =
- 'approved';
-            
-            alert('【系统消息】：恭喜！您的师傅入驻申请已审核通过。\n当前初始评级：L5 资深师傅');
-            
-        }, 1500);
-            
-    }, 1000);
-            },
-          
- saveWorkerProfile() {
-            
-    alert('资料更新成功，职业档案已同步生效。');
-            },
+            `;
 
-     /* [PATCH: Enterprise Logic] */
-     openEntOnboarding() {
-         if(this.state.entRegStatus === 'approved') {
-             document.getElementById('ent-dashboard-overlay').classList.add('active');
-             document.getElementById('backdrop').style.display = 'block';
-         } else {
-             document.getElementById('ent-onboarding-overlay').classList.add('active');
-             document.getElementById('backdrop').style.display = 'block';
-         }
-     },
-     submitEntOnboarding() {
-         if(!document.getElementById('ent-scope').value) return alert('请填写经营范围简介');
-         alert('企业资质资料已上传！\n1. 营业执照已进入真伪核验\n2. 技术职称资料进入人工复核\n3. 业绩资料进入平台信用分计算');
-         setTimeout(() => {
-             this.state.entRegStatus = 'approved';
-             this.closeOverlay('ent-onboarding-overlay');
-             alert('【企业审核通过】\n贵司已成功入驻！再次点击“服务商入驻”即可进入企业管理台。');
-         }, 1500);
-     }
-        };
- 
-      
- document.addEventListener('click', (e) => {
-          
- const btn = e.target.closest('.sort-btn'); if(btn) app.handleSort(btn);
-          
- const star = e.target.closest('.rating-stars i'); if(star) { const idx =
- star.dataset.idx; star.parentElement.querySelectorAll('i').forEach((s, i) =>
- s.classList.toggle('active', i < idx)); }
-        });
- 
-        /* --- [NEW:
- Patch Installation & Logic Hooking] --- */
-      
- window.addEventListener('DOMContentLoaded', () => {
-          
- const loginBtn = document.getElementById('top-login-btn');
-          
- if(loginBtn) {
-            
-    loginBtn.onclick = () => {
-            
-        if(!app.state.isLoggedIn) app.openAuth();
-            
-        else app.openUserCenter();
-            
-    };
+            if(homeGrid) homeGrid.innerHTML = this.promoData.slice(0, 3).map(createHtml).join('');
+            if(fullGrid) fullGrid.innerHTML = this.promoData.map(createHtml).join('');
+         },
+
+         switchView(id) { 
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('header-search-box').style.display = (id === 'hub-view') ? 'none' : 'block';
+            window.scrollTo(0,0);
+         },
+
+         handleSearch(type) {
+            const inputId = type === 'hero' ? 'hero-search-input' : 'secondary-search';
+            const keyword = document.getElementById(inputId).value.trim();
+            if(!keyword) return alert('请输入服务分类');
+            this.state.currentSubcat = keyword;
+            this.renderWorkers();
+         },
+
+         handleCatClick(id) {
+            const subs = this.subcatData[id];
+            if(subs.length === 0) { this.state.currentSubcat = "智能家居/家电维修"; return this.renderWorkers(); }
+            const catNames = ["水电暖通", "装饰装修", "家具门窗", "搬运装卸", "智能家居"];
+            document.getElementById('subcat-title').innerText = catNames[id-1];
+            document.getElementById('subcat-list').innerHTML = subs.map(s => `<div class="subcat-btn" onclick="app.renderWorkers('${s}')"><span>${s}</span><i class="fas fa-chevron-right"></i></div>`).join('');
+            this.switchView('subcat-view');
+         },
+
+         renderWorkers(subcatName) {
+            if(subcatName) this.state.currentSubcat = subcatName;
+            document.getElementById('current-worker-subcat').innerText = this.state.currentSubcat;
+            const list = document.getElementById('worker-list');
+            let sorted = [...this.state.workers];
+            if(this.state.sortType === 'dist') sorted.sort((a,b) => a.dist - b.dist);
+            else if(this.state.sortType === 'rating') sorted.sort((a,b) => b.rating - a.rating);
+            else if(this.state.sortType === 'price') sorted.sort((a,b) => a.price - b.price);
+            else if(this.state.sortType === 'count') sorted.sort((a,b) => b.count - a.count);
+
+            list.innerHTML = sorted.map(w => `
+                <div class="worker-card" onclick="app.openProfile(${w.id})">
+                    <img src="https://i.pravatar.cc/130?u=${w.id}" class="worker-avatar">
+                    <div class="worker-main-info"><h3>${w.name}</h3><p>⭐ 评分 ${w.rating} | 已服务 ${w.count}次</p><p style="color:var(--primary-blue); font-weight:bold; margin-top:8px;">距离您：${w.dist}km</p></div>
+                    <div class="worker-price">¥<b>${w.price}</b>起</div>
+                </div>`).join('');
+            this.switchView('worker-view');
+         },
+
+         openProfile(id) {
+            const w = this.state.workers.find(i => i.id === id);
+            this.state.activeWorker = w;
+            document.getElementById('p-avatar').src = `https://i.pravatar.cc/130?u=${w.id}`;
+            document.getElementById('p-name').innerText = w.name;
+            document.getElementById('p-avg-score').innerText = w.rating;
+            document.getElementById('p-certs').innerHTML = w.certs.map(c => `<span style="background-color:#f0f7ff; color:var(--primary-blue); padding:4px 10px; border-radius:4px; font-size:12px; margin-right:8px;">${c}</span>`).join('');
+            let revHtml = "";
+            for(let i=0; i<10; i++) {
+                const img = `https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&sig=${i}`;
+                revHtml += `<div class="review-card"><div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;"><img src="https://i.pravatar.cc/40?u=${i}" style="border-radius:50%"><span>业主 138****${1100+i}</span><span style="color:#ffc107; margin-left:auto">⭐⭐⭐⭐⭐</span></div><p style="font-size:15px; color:#444444; margin-bottom:15px">师傅手艺特别好，施工标准！</p><div class="ba-slider" onmousemove="app.handleBA(event)"><div class="ba-img" style="background-image:url('${img}')"></div><div class="ba-img ba-before" style="background-image:url('${img}')"></div></div></div>`;
             }
- 
-          
- const originalConfirm = app.confirmBooking;
-          
- app.confirmBooking = function() {
-            
-    const newOrder = {
-            
-        id: 'ORD' + Date.now().toString().slice(-8),
-            
-        service: this.state.currentSubcat,
-            
-        worker: this.state.activeWorker.name,
-            
-        price: this.state.activeWorker.price,
-            
-        status: '已预约',
-            
-        time: this.state.selectedTime
-            
-    };
-            
-    this.state.userOrders.push(newOrder);
-            
-    this.syncWalletUI();
-            
-    originalConfirm.apply(this);
-            };
- 
-          
- app.initData();
-        });
+            document.getElementById('p-reviews').innerHTML = revHtml;
+            document.getElementById('profile-overlay').classList.add('active');
+            document.getElementById('backdrop').style.display = 'block';
+         },
+
+         openBooking() { 
+            this.closeOverlay('profile-overlay'); 
+            const dr = document.getElementById('booking-drawer');
+            dr.style.display = 'block';
+            setTimeout(() => dr.classList.add('active'), 10);
+            document.getElementById('worker-dist-val').innerText = this.state.activeWorker.dist;
+            this.renderSlots(); 
+         },
+
+         renderSlots() { document.getElementById('slot-grid').innerHTML = ['周一','周二','周三','周四','周五','周六','周日'].map(d => `<div class="slot-item" onclick="app.selectSlot(this)">${d}<br>有空</div>`).join(''); },
+         selectSlot(el) { document.querySelectorAll('.slot-item').forEach(s => s.classList.remove('active')); el.classList.add('active'); this.state.selectedTime = el.innerText; },
+
+         confirmBooking() {
+            if(!this.state.selectedTime) return alert('请点选一个服务时间');
+            this.closeAll();
+            this.state.isBooked = true;
+            const fabW = document.getElementById('fab-worker');
+            fabW.classList.remove('disabled'); fabW.innerHTML = `<i class="fas fa-user-wrench" style="color:var(--primary-orange)"></i> 联系${this.state.activeWorker.name}师傅`;
+            document.getElementById('check-code').innerText = Math.floor(1000 + Math.random()*9000);
+            document.getElementById('order-overlay').classList.add('active');
+            document.getElementById('backdrop').style.display = 'block';
+         },
+
+         simFlow(step) {
+            const ns = document.querySelectorAll('#order-p-bar .node'); const ac = document.getElementById('order-actions');
+            if(step === 'start') {
+                ns[1].classList.add('active');
+                ac.innerHTML = `<p style="margin-bottom:15px; color:var(--primary-blue); font-weight:bold;">师傅正在路上，预计 15 分钟送达</p><input type="text" id="cin" placeholder="核销码" style="width:100%; padding:20px; border:1px solid #ddd; border-radius:15px; text-align:center; font-size:32px; letter-spacing:15px; margin-bottom:20px;"><button class="btn-booking-main" onclick="app.simFlow('work')">验证并开始施工</button>`;
+            } else if(step === 'work') {
+                if(document.getElementById('cin').value === document.getElementById('check-code').innerText) {
+                    ns[2].classList.add('active');
+                    ac.innerHTML = `<div style="text-align:center; padding:30px;"><i class="fas fa-tools fa-spin" style="font-size:45px; color:var(--primary-blue)"></i><p style="margin-top:20px; font-weight:bold;">施工中，计时已启动...</p><div style="margin-top:20px; display:flex; gap:15px; justify-content:center;"><button style="padding:10px 20px; border-radius:8px; border:1px solid #ddd; background:white;"><i class="fas fa-phone"></i> 实时联系</button><button style="padding:10px 20px; border-radius:8px; border:1px solid #ff4d4f; color:white; background:#ff4d4f;">违约申诉</button></div></div><button class="btn-booking-main" onclick="app.simFlow('finish')">确认施工完成并验收</button>`;
+                } else alert('核销码错误');
+            } else if(step === 'finish') {
+                ns[3].classList.add('active');
+                document.getElementById('order-overlay').classList.remove('active');
+                document.getElementById('rating-page').style.display = 'block';
+            }
+         },
+
+         finishRating() { alert('评价已提交，感谢对平台的支持！'); this.state.isFinished = true; document.getElementById('fab-worker').classList.add('disabled'); document.getElementById('fab-worker').innerText = "服务结束"; document.getElementById('rating-page').style.display = 'none'; this.closeAll(); this.switchView('hub-view'); },
+         openChat(type) { if(type === 'worker' && (!this.state.isBooked || this.state.isFinished)) return; this.state.chatTarget = type; document.getElementById('chat-title').innerText = type === 'worker' ? `与师傅对话` : '在线客服'; document.getElementById('chat-overlay').classList.add('active'); document.getElementById('chat-content').innerHTML = `<div class="msg-bubble other">您好！请问需要什么帮助？</div>`; document.getElementById('backdrop').style.display = 'block'; this.toggleFab(); },
+         sendChat() { const v = document.getElementById('chat-input').value; if(!v) return; document.getElementById('chat-content').innerHTML += `<div class="msg-bubble me">${v}</div>`; document.getElementById('chat-input').value = ''; },
+         toggleFab() { const m = document.getElementById('fab-menu'); m.style.display = m.style.display==='flex'?'none':'flex'; },
+         handleBA(e) { const r = e.currentTarget.getBoundingClientRect(); const p = ((e.clientX - r.left) / r.width) * 100; e.currentTarget.querySelector('.ba-before').style.width = p + "%"; },
+         closeOverlay(id) { document.getElementById(id).classList.remove('active'); document.getElementById('backdrop').style.display = 'none'; },
+         closeAll() { document.querySelectorAll('.overlay, .drawer').forEach(el => el.classList.remove('active')); setTimeout(() => document.querySelectorAll('.drawer').forEach(el => el.style.display = 'none'), 500); document.getElementById('backdrop').style.display = 'none'; },
+         handleSort(btn) { document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); this.state.sortType = btn.getAttribute('data-sort'); this.renderWorkers(); },
+         filterGold() { this.state.sortType = 'rating'; this.renderWorkers('金牌精选'); },
+
+         openAuth() { document.getElementById('auth-overlay').style.display = 'flex'; document.body.style.overflow = 'hidden'; },
+         closeAuth() { document.getElementById('auth-overlay').style.display = 'none'; document.body.style.overflow = 'auto'; },
+         handleSMS() {
+            const phone = document.getElementById('auth-phone').value;
+            if(!/^1[3-9]\d{9}$/.test(phone)) return alert('请输入正确的11位手机号');
+            let count = 60; const btn = document.getElementById('btn-sms'); btn.disabled = true;
+            const timer = setInterval(() => { btn.innerText = `${count--}s后重发`; if(count < 0) { clearInterval(timer); btn.innerText = '获取验证码'; btn.disabled = false; } }, 1000);
+            alert('【模拟验证码已发送】验证码为：123456');
+         },
+         doLogin() {
+            const phone = document.getElementById('auth-phone').value; const code = document.getElementById('auth-code').value; const agree = document.getElementById('auth-agree').checked;
+            if(!phone || !code) return alert('请完整填写信息'); if(code !== '123456') return alert('验证码错误，请尝试 123456'); if(!agree) return alert('请先勾选并同意用户协议');
+            this.state.isLoggedIn = true; this.state.userInfo = { phone: phone, nickname: '用户_' + phone.slice(-4) };
+            document.getElementById('top-login-btn').innerText = `欢迎您，${this.state.userInfo.nickname}`;
+            document.getElementById('top-login-btn').style.color = 'var(--primary-orange)';
+            this.closeAuth(); alert('登录成功！');
+         },
+
+         openUserCenter() {
+            document.getElementById('u-nickname').innerText = this.state.userInfo.nickname;
+            document.getElementById('u-phone').innerText = this.state.userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+            document.getElementById('user-overlay').classList.add('active');
+            document.getElementById('backdrop').style.display = 'block';
+            this.syncWalletUI(); this.patchWorkerEntry(); 
+         },
+         openVerify() { if(this.state.isVerified) return alert('您已完成实名认证，无需重复操作'); document.getElementById('verify-overlay').classList.add('active'); },
+         doVerify() {
+            const name = document.getElementById('v-name').value; const id = document.getElementById('v-idcard').value;
+            if(!name || id.length < 15) return alert('请填写完整的实名信息');
+            alert('正在连接公安部数据库核验...');
+            setTimeout(() => { this.state.isVerified = true; document.getElementById('u-verify-tag').innerText = "已实名"; document.getElementById('u-verify-tag').className = "verify-status status-yes"; this.closeOverlay('verify-overlay'); alert('实名认证成功！'); }, 1500);
+         },
+
+         syncWalletUI() { const bal = this.state.walletBalance.toFixed(2); document.getElementById('u-balance').innerText = bal; document.getElementById('p-balance-display').innerText = bal; document.getElementById('u-order-count').innerText = this.state.userOrders.length; },
+         openPayment() { this.closeOverlay('user-overlay'); document.getElementById('payment-overlay').classList.add('active'); document.getElementById('backdrop').style.display = 'block'; },
+         selectRecharge(amt, el) { document.querySelectorAll('.recharge-card').forEach(c => c.classList.remove('active')); el.classList.add('active'); this.state.rechargeSelected = amt; },
+         doRecharge() {
+            alert(`正在跳转微信/支付宝支付 ¥${this.state.rechargeSelected}...`);
+            setTimeout(() => { this.state.walletBalance += this.state.rechargeSelected; this.syncWalletUI(); alert('充值成功！'); this.closeOverlay('payment-overlay'); this.openUserCenter(); }, 1000);
+         },
+         openOrders() {
+            this.closeOverlay('user-overlay'); const container = document.getElementById('orders-list-container');
+            if(this.state.userOrders.length === 0) { container.innerHTML = `<div style="text-align:center; padding:100px 0;"><i class="fas fa-box-open" style="font-size:48px; color:#eee;"></i><p style="color:#999; margin-top:20px;">暂无订单记录</p></div>`; }
+            else { container.innerHTML = this.state.userOrders.map(o => `<div class="order-item"><div class="order-meta"><span>单号：${o.id}</span><span>${o.time}</span></div><div class="order-body"><img src="https://i.pravatar.cc/50?u=${o.worker}" style="border-radius:10px;"><div class="order-info"><h4>${o.service}</h4><p style="font-size:13px; color:#666;">师傅：${o.worker}</p></div><div style="margin-left:auto; text-align:right;"><b style="color:var(--primary-orange);">¥${o.price}</b><br><span class="order-status-tag">${o.status}</span></div></div></div>`).join(''); }
+            document.getElementById('orders-overlay').classList.add('active'); document.getElementById('backdrop').style.display = 'block';
+         },
+
+         patchWorkerEntry() {
+            if(document.getElementById('dynamic-worker-btn')) document.getElementById('dynamic-worker-btn').remove(); 
+            const menuList = document.getElementById('main-menu-list'); if(!menuList) return;
+            const logoutBtn = menuList.lastElementChild; const workerBtn = document.createElement('div');
+            workerBtn.id = 'dynamic-worker-btn'; workerBtn.className = 'menu-item';
+            if(this.state.workerRegStatus === 'none') {
+                workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-user-plus main-icon" style="color:var(--primary-orange)"></i>申请成为匠心师傅</div><i class="fas fa-chevron-right" style="color:#ccc"></i>`;
+                workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-onboarding-overlay').classList.add('active'); };
+            } else if(this.state.workerRegStatus === 'pending') {
+                workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-hourglass-half main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
+                workerBtn.onclick = () => alert('平台已收到您的入驻资料，目前处于“人工审核+L级评定”阶段，请耐心等待。');
+            } else if(this.state.workerRegStatus === 'approved') {
+                workerBtn.style.border = '1.5px solid var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
+                workerBtn.innerHTML = `<div class="menu-item-left" style="color:var(--primary-orange)"><i class="fas fa-tools main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right" style="color:var(--primary-orange)"></i>`;
+                workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-dashboard-overlay').classList.add('active'); };
+            }
+            menuList.insertBefore(workerBtn, logoutBtn);
+         },
+         openWorkerDashboard() { this.closeOverlay('user-overlay'); document.getElementById('worker-dashboard-overlay').classList.add('active'); document.getElementById('backdrop').style.display = 'block'; },
+         switchDashTab(tab) {
+            document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.dash-content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active'); document.getElementById(`dash-${tab}`).classList.add('active');
+         },
+         selectDashGender(g, el) { document.querySelectorAll('#worker-dashboard-overlay .gender-opt').forEach(o => o.classList.remove('active')); el.classList.add('active'); this.state.workerGender = g; },
+         selectWoGender(g, el) { document.querySelectorAll('#worker-onboarding-overlay .gender-opt').forEach(o => o.classList.remove('active')); el.classList.add('active'); this.state.woGender = g; },
+         submitWorkerOnboarding() {
+            const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
+            if(ids.some(i => !document.getElementById(i).value)) return alert('请填齐所有 8 项资料');
+            alert('资料已安全加密，正传输至后台审核部...');
+            setTimeout(() => { this.state.workerRegStatus = 'pending'; this.closeOverlay('worker-onboarding-overlay'); alert('提交成功！模拟审核中...'); setTimeout(() => { this.state.workerRegStatus = 'approved'; alert('【系统消息】：师傅入驻申请已审核通过。'); }, 1500); }, 1000);
+         },
+         saveWorkerProfile() { alert('资料更新成功，职业档案已同步生效。'); }
+       };
+
+       document.addEventListener('click', (e) => {
+         const btn = e.target.closest('.sort-btn'); if(btn) app.handleSort(btn);
+         const star = e.target.closest('.rating-stars i'); if(star) { const idx = star.dataset.idx; star.parentElement.querySelectorAll('i').forEach((s, i) => s.classList.toggle('active', i < idx)); }
+       });
+
+       window.addEventListener('DOMContentLoaded', () => {
+         const loginBtn = document.getElementById('top-login-btn');
+         if(loginBtn) { loginBtn.onclick = () => { if(!app.state.isLoggedIn) app.openAuth(); else app.openUserCenter(); }; }
+         const originalConfirm = app.confirmBooking;
+         app.confirmBooking = function() {
+            const newOrder = { id: 'ORD' + Date.now().toString().slice(-8), service: this.state.currentSubcat, worker: this.state.activeWorker.name, price: this.state.activeWorker.price, status: '已预约', time: this.state.selectedTime };
+            this.state.userOrders.push(newOrder); this.syncWalletUI(); originalConfirm.apply(this);
+         };
+         app.initData();
+       });
    </script>
 </body>
 </html>
