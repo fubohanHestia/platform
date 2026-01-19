@@ -811,6 +811,20 @@
        .status-yes { background: #f6ffed; color: #52c41a; }
        .verify-form-group { margin-bottom: 25px; }
        .verify-form-group label { display: block; font-weight: bold; margin-bottom: 10px; font-size: 14px; }
+
+       /* --- [NEW: Payment & Orders - CSS] --- */
+       .recharge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 30px; }
+       .recharge-card { 
+           border: 2px solid #eee; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s;
+       }
+       .recharge-card.active { border-color: var(--primary-orange); background: #fffaf5; }
+       .recharge-card b { font-size: 24px; color: var(--primary-orange); }
+       
+       .order-item { background: white; border: 1px solid #eee; border-radius: 15px; padding: 20px; margin-bottom: 15px; }
+       .order-meta { display: flex; justify-content: space-between; font-size: 12px; color: #999; margin-bottom: 10px; }
+       .order-body { display: flex; gap: 15px; align-items: center; }
+       .order-info h4 { margin: 0; font-size: 16px; }
+       .order-status-tag { font-size: 12px; padding: 2px 8px; border-radius: 4px; background: #e6f7ff; color: var(--primary-blue); }
    </style>
 </head>
 <body>
@@ -1065,9 +1079,9 @@
            </div>
 
            <div class="user-asset-grid">
-               <div class="asset-item"><span class="asset-val">12</span><span class="asset-label">我的预约</span></div>
+               <div class="asset-item" onclick="app.openOrders()"><span class="asset-val" id="u-order-count">0</span><span class="asset-label">我的预约</span></div>
                <div class="asset-item"><span class="asset-val">850</span><span class="asset-label">信用分</span></div>
-               <div class="asset-item"><span class="asset-val">0.00</span><span class="asset-label">钱包余额</span></div>
+               <div class="asset-item" onclick="app.openPayment()"><span class="asset-val" id="u-balance">0.00</span><span class="asset-label">钱包余额</span></div>
            </div>
 
            <div class="menu-list">
@@ -1075,7 +1089,7 @@
                    <span><i class="fas fa-id-card" style="margin-right:15px; color:var(--primary-blue)"></i>实名认证状态</span>
                    <span id="u-verify-tag" class="verify-status status-no">未认证</span>
                </div>
-               <div class="menu-item" onclick="alert('历史订单功能开发中')">
+               <div class="menu-item" onclick="app.openOrders()">
                    <span><i class="fas fa-clipboard-list" style="margin-right:15px; color:#34A853"></i>全部服务订单</span>
                    <i class="fas fa-chevron-right" style="color:#ccc"></i>
                </div>
@@ -1120,6 +1134,30 @@
        </div>
    </div>
 
+   <div id="payment-overlay" class="overlay" style="z-index:9600;">
+       <div class="overlay-header"><h3>资金账户</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('payment-overlay')"></i></div>
+       <div style="padding: 30px;">
+           <div style="text-align:center; margin-bottom:40px;">
+               <p style="color:#999; font-size:14px;">当前可用余额 (元)</p>
+               <h1 style="font-size:48px; color:var(--navy); margin-top:10px;" id="p-balance-display">0.00</h1>
+           </div>
+           <p style="font-weight:bold; margin-bottom:20px;">快速充值</p>
+           <div class="recharge-grid">
+               <div class="recharge-card" onclick="app.selectRecharge(50, this)"><span>充值</span><br><b>¥50</b></div>
+               <div class="recharge-card active" onclick="app.selectRecharge(100, this)"><span>充值</span><br><b>¥100</b></div>
+               <div class="recharge-card" onclick="app.selectRecharge(200, this)"><span>充值</span><br><b>¥200</b></div>
+               <div class="recharge-card" onclick="app.selectRecharge(500, this)"><span>充值</span><br><b>¥500</b></div>
+           </div>
+           <button class="btn-booking-main" onclick="app.doRecharge()">立即在线支付</button>
+       </div>
+   </div>
+
+   <div id="orders-overlay" class="overlay" style="z-index:9400; background-color: #f8f9fa;">
+       <div class="overlay-header"><h3>我的服务订单</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('orders-overlay')"></i></div>
+       <div id="orders-list-container" style="padding: 20px;">
+           </div>
+   </div>
+
    <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
  
    <script>
@@ -1137,7 +1175,11 @@
                 isLoggedIn: false,
                 userInfo: null,
                 /* --- [NEW: Identity - State] --- */
-                isVerified: false
+                isVerified: false,
+                /* --- [NEW: Wallet & Orders - State] --- */
+                walletBalance: 0.0,
+                userOrders: [],
+                rechargeSelected: 100
            },
  
            subcatData: {
@@ -1315,6 +1357,7 @@
                document.getElementById('u-phone').innerText = this.state.userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
                document.getElementById('user-overlay').classList.add('active');
                document.getElementById('backdrop').style.display = 'block';
+               this.syncWalletUI();
            },
            openVerify() {
                if(this.state.isVerified) return alert('您已完成实名认证，无需重复操作');
@@ -1333,6 +1376,60 @@
                    this.closeOverlay('verify-overlay');
                    alert('实名认证成功！');
                }, 1500);
+           },
+
+           /* --- [NEW: Wallet & Orders - Logic] --- */
+           syncWalletUI() {
+               const bal = this.state.walletBalance.toFixed(2);
+               document.getElementById('u-balance').innerText = bal;
+               document.getElementById('p-balance-display').innerText = bal;
+               document.getElementById('u-order-count').innerText = this.state.userOrders.length;
+           },
+           openPayment() {
+               this.closeOverlay('user-overlay');
+               document.getElementById('payment-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
+           },
+           selectRecharge(amt, el) {
+               document.querySelectorAll('.recharge-card').forEach(c => c.classList.remove('active'));
+               el.classList.add('active');
+               this.state.rechargeSelected = amt;
+           },
+           doRecharge() {
+               alert(`正在跳转微信/支付宝支付 ¥${this.state.rechargeSelected}...`);
+               setTimeout(() => {
+                   this.state.walletBalance += this.state.rechargeSelected;
+                   this.syncWalletUI();
+                   alert('充值成功！');
+                   this.closeOverlay('payment-overlay');
+                   this.openUserCenter();
+               }, 1000);
+           },
+           openOrders() {
+               this.closeOverlay('user-overlay');
+               const container = document.getElementById('orders-list-container');
+               if(this.state.userOrders.length === 0) {
+                   container.innerHTML = `<div style="text-align:center; padding:100px 0;"><i class="fas fa-box-open" style="font-size:48px; color:#eee;"></i><p style="color:#999; margin-top:20px;">暂无订单记录</p></div>`;
+               } else {
+                   container.innerHTML = this.state.userOrders.map(o => `
+                       <div class="order-item">
+                           <div class="order-meta"><span>单号：${o.id}</span><span>${o.time}</span></div>
+                           <div class="order-body">
+                               <img src="https://i.pravatar.cc/50?u=${o.worker}" style="border-radius:10px;">
+                               <div class="order-info">
+                                   <h4>${o.service}</h4>
+                                   <p style="font-size:13px; color:#666;">师傅：${o.worker}</p>
+                               </div>
+                               <div style="margin-left:auto; text-align:right;">
+                                   <b style="color:var(--primary-orange);">¥${o.price}</b><br>
+                                   <span class="order-status-tag">${o.status}</span>
+                               </div>
+                           </div>
+                       </div>
+                   `).join('');
+               }
+               document.getElementById('orders-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
            }
        };
  
@@ -1341,16 +1438,36 @@
            const star = e.target.closest('.rating-stars i'); if(star) { const idx = star.dataset.idx; star.parentElement.querySelectorAll('i').forEach((s, i) => s.classList.toggle('active', i < idx)); }
        });
 
-       /* --- [NEW: Auth System - DOM Patch] --- */
+       /* --- [NEW: Patch Installation & Logic Hooking] --- */
        window.addEventListener('DOMContentLoaded', () => {
+           // 1. 登录劫持
            const loginBtn = document.getElementById('top-login-btn');
            if(loginBtn) {
                loginBtn.onclick = () => {
-                   /* --- [PATCHED LOGIC] --- */
                    if(!app.state.isLoggedIn) app.openAuth();
-                   else app.openUserCenter(); // 登录后点击触发个人中心
+                   else app.openUserCenter();
                };
            }
+
+           // 2. 核心逻辑劫持：重写 confirmBooking 增加订单记录功能
+           const originalConfirm = app.confirmBooking;
+           app.confirmBooking = function() {
+               // 在执行原预约逻辑前，先生成订单数据
+               const newOrder = {
+                   id: 'ORD' + Date.now().toString().slice(-8),
+                   service: this.state.currentSubcat,
+                   worker: this.state.activeWorker.name,
+                   price: this.state.activeWorker.price,
+                   status: '已预约',
+                   time: this.state.selectedTime
+               };
+               this.state.userOrders.push(newOrder);
+               this.syncWalletUI();
+               
+               // 调用原始逻辑
+               originalConfirm.apply(this);
+           };
+
            app.initData();
        });
    </script>
