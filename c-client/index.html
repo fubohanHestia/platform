@@ -2,11 +2,14 @@
 <html lang="zh-CN">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width,
+initial-scale=1.0">
    <title>智能劳务技术网 - 专业蓝领劳务直聘平台</title>
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <style>
-       /* --- [I. 核心品牌视觉变量定义] --- */
+       /* --- [I. 核心品牌视觉变量定义] ---
+*/
        :root {
            --primary-blue: #2A5CAA;
            --primary-orange: #FF6B35;
@@ -21,7 +24,8 @@
            --text-gray: #999999;
        }
  
-       /* --- [II. 全局布局：页脚黑框强制置底] --- */
+       /* --- [II. 全局布局：页脚黑框强制置底]
+--- */
        html, body {
            height: 100%;
            margin: 0;
@@ -840,231 +844,1295 @@ font-size: 32px; color: var(--primary-blue); border: 1px solid #f0f0f0; }
        .ent-tags { display: flex; gap: 8px; margin-top: 10px; }
        .ent-tag { font-size: 12px; padding: 3px 10px; border-radius: 4px;
 background: #f0f7ff; color: var(--primary-blue); font-weight: bold; }
-
-       /* --- [PATCH: 企业入驻模块新增样式] --- */
-       .ent-verify-step { display: none; animation: fadeIn 0.4s ease; }
-       .ent-verify-step.active { display: block; }
-       .upload-list-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 10px; }
-       .upload-card-sm { border: 2px dashed #eee; border-radius: 12px; padding: 15px; text-align: center; color: #999; cursor: pointer; transition: 0.3s; }
-       .upload-card-sm:hover { border-color: var(--primary-blue); background: #f0f7ff; }
-       @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+       
+       /* [PATCH: Enterprise Form Styles] */
+       .ent-form-section-title {
+           color: var(--primary-blue);
+           margin: 30px 0 15px;
+           padding-left: 10px;
+           border-left: 4px solid var(--primary-orange);
+           font-size: 18px;
+           font-weight: 800;
+       }
    </style>
 </head>
 <body>
  
    <div class="main-content-wrapper">
-       <div class="top-bar"><div class="container">
+       <div class="top-bar"><div
+class="container">
          <div><i class="fas fa-tools"></i> 专业蓝领劳务·匠心服务热线：400-888-9999</div>
-         <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="#" style="color:white; text-decoration: none;">服务商入驻</a></div>
+         <div><a href="#" style="color:white;
+text-decoration: none;">帮助中心</a> |
+<a href="javascript:void(0)" onclick="app.openEnterpriseOnboarding()" style="color:white; text-decoration:
+none;">服务商入驻</a></div>
        </div></div>
  
        <header><div class="container">
          <div class="main-header">
-            <a href="javascript:void(0)" onclick="app.switchView('hub-view')" class="logo">智能劳务技术<span>网</span></a>
-            <div class="header-search" id="header-search-box">
-                 <input type="text" placeholder="快速搜索，如：装修水电、搬运..." id="secondary-search">
-                 <button onclick="app.handleSearch('secondary')"><i class="fas fa-search"></i> 搜索</button>
+            <a href="javascript:void(0)"
+onclick="app.switchView('hub-view')" class="logo">智能劳务技术<span>网</span></a>
+            <div class="header-search"
+id="header-search-box">
+                <input
+type="text" placeholder="快速搜索，如：装修水电、搬运..." id="secondary-search">
+                <button
+onclick="app.handleSearch('secondary')"><i class="fas
+fa-search"></i> 搜索</button>
             </div>
-            <div id="top-login-btn" style="font-weight: bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
+            <div id="top-login-btn" style="font-weight: bold;
+color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
          </div>
        </div>
-       <nav><div class="container"><ul class="nav-links">
-         <li><a href="javascript:void(0)" onclick="app.switchView('hub-view')">首页导览</a></li>
-         <li><a href="javascript:void(0)" onclick="app.filterGold()" style="color:var(--gold)"><i class="fas fa-crown"></i> 金牌师傅池</a></li>
+       <nav><div class="container"><ul
+class="nav-links">
+         <li><a href="javascript:void(0)"
+onclick="app.switchView('hub-view')">首页导览</a></li>
+         <li><a href="javascript:void(0)"
+onclick="app.filterGold()"
+style="color:var(--gold)"><i class="fas
+fa-crown"></i> 金牌师傅池</a></li>
          <li><a href="#">保障协议</a></li><li><a href="#">行业资讯</a></li>
        </ul></div></nav></header>
  
-       <section id="hub-view" class="view-section active">
+       <section id="hub-view" class="view-section
+active">
          <div class="home-hero">
             <div class="home-search-container">
-                 <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="hero-search-input">
-                 <i class="fas fa-search" onclick="app.handleSearch('hero')"></i>
+                <input
+type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="hero-search-input">
+                <i class="fas
+fa-search" onclick="app.handleSearch('hero')"></i>
             </div>
          </div>
+         
          <div class="home-categories">
-            <div class="cat-item" onclick="app.handleCatClick(1)"><div class="icon-box" style="background:#4285F4"><i class="fas fa-bolt"></i></div><p>水电暖通</p></div>
-            <div class="cat-item" onclick="app.handleCatClick(2)"><div class="icon-box" style="background:#EA4335"><i class="fas fa-hammer"></i></div><p>装饰装修</p></div>
-            <div class="cat-item" onclick="app.handleCatClick(3)"><div class="icon-box" style="background:#34A853"><i class="fas fa-couch"></i></div><p>家具门窗</p></div>
-            <div class="cat-item" onclick="app.handleCatClick(4)"><div class="icon-box" style="background:#FBBC05"><i class="fas fa-truck-loading"></i></div><p>搬运装卸</p></div>
-            <div class="cat-item" onclick="app.handleCatClick(5)"><div class="icon-box" style="background:#A142F4"><i class="fas fa-microchip"></i></div><p>智能家居</p></div>
+            <div class="cat-item"
+onclick="app.handleCatClick(1)"><div class="icon-box"
+style="background:#4285F4"><i class="fas
+fa-bolt"></i></div><p>水电暖通</p></div>
+            <div class="cat-item"
+onclick="app.handleCatClick(2)"><div class="icon-box"
+style="background:#EA4335"><i class="fas
+fa-hammer"></i></div><p>装饰装修</p></div>
+            <div class="cat-item"
+onclick="app.handleCatClick(3)"><div class="icon-box"
+style="background:#34A853"><i class="fas
+fa-couch"></i></div><p>家具门窗</p></div>
+            <div class="cat-item"
+onclick="app.handleCatClick(4)"><div class="icon-box"
+style="background:#FBBC05"><i class="fas
+fa-truck-loading"></i></div><p>搬运装卸</p></div>
+            <div class="cat-item"
+onclick="app.handleCatClick(5)"><div class="icon-box"
+style="background:#A142F4"><i class="fas
+fa-microchip"></i></div><p>智能家居</p></div>
          </div>
+         
          <div class="container promo-section">
-            <div style="display:flex; justify-content:space-between; align-items: center;">
-                 <h3 style="font-size: 24px; border-left: 6px solid var(--navy); padding-left: 15px;">专项技术服务推广</h3>
-                 <span style="color:#999; cursor:pointer;" onclick="app.switchView('promo-full-view')">更多项目 ></span>
+            <div style="display:flex; justify-content:space-between;
+align-items: center;">
+                <h3 style="font-size:
+24px; border-left: 6px solid var(--navy); padding-left: 15px;">专项技术服务推广</h3>
+                <span
+style="color:#999; cursor:pointer;"
+onclick="app.switchView('promo-full-view')">更多项目 ></span>
             </div>
-            <div class="promo-grid" id="home-promo-grid"></div>
+            <div class="promo-grid"
+id="home-promo-grid"></div>
          </div>
        </section>
-
-       <section id="enterprise-view" class="view-section container">
-           <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('promo-full-view')"><i class="fas fa-arrow-left"></i> 返回专项服务</div>
+ 
+       <section id="enterprise-view" class="view-section
+container">
+           <div style="padding: 20px 0; color: var(--primary-blue); cursor:
+pointer; font-weight: bold;"
+onclick="app.switchView('promo-full-view')"><i class="fas
+fa-arrow-left"></i> 返回专项服务</div>
            <div class="worker-list-header">
-               <h2 id="current-ent-category">入驻企业名录</h2>
-               <p style="color:#999; margin-top:5px;">以下企业均已经过平台实地验厂与资质审核</p>
+               <h2
+id="current-ent-category">入驻企业名录</h2>
+               <p style="color:#999;
+margin-top:5px;">以下企业均已经过平台实地验厂与资质审核</p>
            </div>
-           <div id="enterprise-list" style="margin-top: 30px;"></div>
+           <div id="enterprise-list" style="margin-top:
+30px;"></div>
        </section>
  
-       <section id="promo-full-view" class="view-section container">
-           <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('hub-view')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-           <h2 style="margin-bottom:30px; font-size: 32px; border-left: 8px solid var(--primary-orange); padding-left: 20px;">全部专项技术服务</h2>
-           <div class="promo-grid" id="full-promo-grid"></div>
+       <section id="promo-full-view" class="view-section
+container">
+           <div style="padding: 20px 0; color: var(--primary-blue); cursor:
+pointer; font-weight: bold;"
+onclick="app.switchView('hub-view')"><i class="fas
+fa-arrow-left"></i> 返回首页</div>
+           <h2 style="margin-bottom:30px; font-size: 32px; border-left: 8px
+solid var(--primary-orange); padding-left: 20px;">全部专项技术服务</h2>
+           <div class="promo-grid"
+id="full-promo-grid"></div>
        </section>
  
-       <section id="subcat-view" class="view-section container">
-         <div style="padding: 20px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('hub-view')"><i class="fas fa-arrow-left"></i> 返回首页</div>
-         <h2 id="subcat-title" style="margin-bottom:30px; font-size: 32px;">细分服务</h2>
-         <div id="subcat-list" class="subcat-grid"></div>
+       <section id="subcat-view" class="view-section
+container">
+         <div style="padding: 20px 0; color: var(--primary-blue); cursor:
+pointer; font-weight: bold;"
+onclick="app.switchView('hub-view')"><i class="fas
+fa-arrow-left"></i> 返回首页</div>
+         <h2 id="subcat-title" style="margin-bottom:30px;
+font-size: 32px;">细分服务</h2>
+         <div id="subcat-list"
+class="subcat-grid"></div>
        </section>
  
-       <section id="worker-view" class="view-section container">
-         <div style="padding: 15px 0; color: var(--primary-blue); cursor: pointer; font-weight: bold;" onclick="app.switchView('subcat-view')"><i class="fas fa-arrow-left"></i> 返回细分</div>
-         <div class="worker-list-header"><h2 id="current-worker-subcat">细分分类技工导览</h2></div>
+       <section id="worker-view" class="view-section
+container">
+         <div style="padding: 15px 0; color: var(--primary-blue); cursor:
+pointer; font-weight: bold;"
+onclick="app.switchView('subcat-view')"><i class="fas
+fa-arrow-left"></i> 返回细分</div>
+         <div class="worker-list-header">
+            <h2 id="current-worker-subcat">细分分类技工导览</h2>
+         </div>
          <div class="sort-bar" id="sort-bar-container">
-            <button class="sort-btn active" data-sort="dist">距离最近</button>
+            <button class="sort-btn active"
+data-sort="dist">距离最近</button>
             <button class="sort-btn" data-sort="rating">好评最高</button>
             <button class="sort-btn" data-sort="price">价格低到高</button>
             <button class="sort-btn" data-sort="count">次数最多</button>
          </div>
-         <div id="worker-list" style="margin-top: 30px;"></div>
+         <div id="worker-list" style="margin-top:
+30px;"></div>
        </section>
    </div>
  
-   <div id="profile-overlay" class="overlay"></div>
-   <div id="booking-drawer" class="drawer"></div>
-   <div id="order-overlay" class="overlay"></div>
-   <div id="rating-page" class="rating-overlay"></div>
-   <div id="chat-overlay" class="chat-overlay"></div>
-   <div id="auth-overlay" class="auth-overlay"></div>
-   <div id="user-overlay" class="overlay"></div>
-   <div id="verify-overlay" class="overlay"></div>
-   <div id="payment-overlay" class="overlay"></div>
-   <div id="orders-overlay" class="overlay"></div>
-   <div id="worker-dashboard-overlay" class="overlay"></div>
-   <div id="worker-onboarding-overlay" class="overlay"></div>
-
-   <div id="ent-register-overlay" class="overlay" style="z-index: 9900; background: #f8f9fa;">
-       <div class="overlay-header">
-           <h3>企业服务商入驻登记</h3>
-           <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('ent-register-overlay')"></i>
+   <div id="profile-overlay" class="overlay">
+       <div class="overlay-header"><h3>技工详情档案</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('profile-overlay')"></i></div>
+       <div style="padding: 10px 0;">
+         <div class="section-box" style="display:flex;
+align-items:center; gap:35px;">
+            <img id="p-avatar" src=""
+style="width:130px; height:130px; border-radius:20px; object-fit:cover;
+border: 1px solid #eeeeee;">
+            <div>
+                <h2 id="p-name"
+style="font-size: 32px; margin-bottom: 12px;">师傅名称</h2>
+                <div
+class="score-display">
+                    <span
+id="p-avg-score" style="font-size: 36px; color:
+var(--primary-orange); font-weight: 800;">5.0</span>
+                    <span
+style="font-size: 15px; color: #666666;">/ 5.0 综合评价</span>
+                </div>
+            </div>
+         </div>
+         <div class="section-box">
+           <p style="font-weight: bold; margin-bottom: 18px; font-size:
+18px; color: var(--navy);">专业资质认证</p>
+           <div id="p-certs"></div>
+           <div style="margin-top: 20px; display: flex; gap:
+30px;">
+               <span
+style="color:var(--primary-blue); font-weight:bold;
+font-size:14px;"><i class="fas
+fa-check-circle"></i> 实名认证通过</span>
+               <span
+style="color:var(--success); font-weight:bold;
+font-size:14px;"><i class="fas
+fa-shield-alt"></i> 100万工程险</span>
+           </div>
+         </div>
+         <div class="section-box">
+            <p style="font-weight: bold; margin-bottom: 18px; font-size:
+18px; color: var(--navy);">淘宝级带图评价 (10+ 条随机返图)</p>
+            <div id="p-reviews"></div>
+         </div>
        </div>
-       <div style="max-width: 800px; margin: 0 auto; padding: 30px;">
-           <div style="display:flex; justify-content:space-around; margin-bottom:40px; background:white; padding:20px; border-radius:15px;">
-               <div id="step-1-label" style="color:var(--primary-blue); font-weight:bold;">1.资质</div>
-               <div id="step-2-label" style="color:#ccc;">2.人才</div>
-               <div id="step-3-label" style="color:#ccc;">3.业绩</div>
+       <div class="overlay-footer"><button
+class="btn-booking-main" onclick="app.openBooking()">立即预约服务</button></div>
+   </div>
+ 
+   <div id="booking-drawer" class="drawer">
+       <div style="display:flex; justify-content:space-between;
+margin-bottom:30px;"><h3>选择预约时段与需求</h3><i class="fas fa-times"
+style="font-size: 28px; cursor: pointer;"
+onclick="app.closeAll()"></i></div>
+       <p class="input-label">1. 选择未来 7 天内方便的上门时间：</p>
+       <div style="display:grid; grid-template-columns: repeat(7, 1fr);
+gap: 12px; margin-bottom:30px;" id="slot-grid"></div>
+       <div class="input-group">
+         <p class="input-label">2. 故障拍照/视频上传：</p>
+         <div class="photo-upload-placeholder"><i
+class="fas fa-camera" style="font-size:
+30px;"></i><span style="font-size: 12px;
+margin-top:5px;">点击上传现场图</span></div>
+       </div>
+       <div class="input-group">
+         <p class="input-label">3. 语音/文字需求详述：</p>
+         <textarea class="voice-textarea" placeholder="请详细描述技术需求..."></textarea>
+       </div>
+       <div class="input-group"
+style="background-color:#f0f7ff; padding:20px; border-radius:15px;
+margin-bottom:30px;">
+         <p style="font-weight:bold;
+color:var(--primary-blue);"><i class="fas
+fa-location-arrow"></i> 师傅距离您所在位置：<span id="worker-dist-val">--</span>
+km</p>
+       </div>
+       <button class="btn-booking-main"
+onclick="app.confirmBooking()">支付定金并确认预约</button>
+   </div>
+ 
+   <div id="order-overlay" class="overlay"
+style="z-index: 4000;">
+       <div class="overlay-header"><h3>订单履约动态追踪</h3><i class="fas fa-times"
+style="cursor:pointer;"
+onclick="app.closeOverlay('order-overlay')"></i></div>
+       <div style="padding:40px; text-align:center;">
+         <div style="background-color:#fff3e0; padding:35px;
+border-radius:25px; border: 2px dashed var(--primary-orange);
+margin-bottom:50px;">
+            <p style="color: #666666; font-size: 16px;">安全开工核销码</p>
+            <h1 id="check-code" style="letter-spacing:18px;
+color:var(--primary-blue); font-size:64px; margin:20px
+0;">9711</h1>
+            <p style="font-size: 14px; color: #999999;">施工开始前，请核对一致后再点击确认施工</p>
+         </div>
+         <div class="progress-container">
+            <div class="p-axis" id="order-p-bar">
+                <div class="node
+active">1<span class="node-label">已预约</span></div>
+                <div
+class="node">2<span class="node-label">待上门</span></div>
+                <div
+class="node">3<span class="node-label">施工中</span></div>
+                <div
+class="node">4<span class="node-label">验收结算</span></div>
+            </div>
+         </div>
+         <div id="order-actions"
+style="margin-top:80px;">
+            <button class="btn-booking-main"
+style="background-color:var(--primary-blue)"
+onclick="app.simFlow('start')">模拟：师傅点击已出发</button>
+         </div>
+       </div>
+   </div>
+ 
+   <div id="rating-page" class="rating-overlay">
+       <div class="rating-inner-content">
+         <h2 style="text-align:center; margin-bottom:40px; font-size:
+32px;">服务完成 - 评价反馈</h2>
+         <p style="text-align:center; color: #666; font-size: 18px;
+margin-bottom: 40px;">您的评价是平台积累信用资产的核心环节</p>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">服务态度</span>
+            <div class="rating-stars" data-dim="attitude">
+                <i class="fas
+fa-star" data-idx="1"></i><i class="fas
+fa-star" data-idx="2"></i>
+                <i class="fas
+fa-star" data-idx="3"></i><i class="fas
+fa-star" data-idx="4"></i>
+                <i class="fas
+fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">专业技能</span>
+            <div class="rating-stars" data-dim="skill">
+                <i class="fas
+fa-star" data-idx="1"></i><i class="fas
+fa-star" data-idx="2"></i>
+                <i class="fas
+fa-star" data-idx="3"></i><i class="fas
+fa-star" data-idx="4"></i>
+                <i class="fas
+fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <div class="dim-row">
+            <span style="font-weight: bold; font-size: 18px;">响应速度</span>
+            <div class="rating-stars" data-dim="speed">
+                <i class="fas
+fa-star" data-idx="1"></i><i class="fas
+fa-star" data-idx="2"></i>
+                <i class="fas
+fa-star" data-idx="3"></i><i class="fas
+fa-star" data-idx="4"></i>
+                <i class="fas
+fa-star" data-idx="5"></i>
+            </div>
+         </div>
+         <p style="font-weight: bold; margin-left: 40px; margin-top:
+30px;">深度点评：</p>
+         <textarea class="voice-textarea" style="height:150px;
+margin: 10px 40px; width: calc(100% - 80px);" placeholder="描述施工细节或师傅人品..."></textarea>
+         <div style="margin: 20px 40px;">
+            <p style="font-weight: bold; margin-bottom: 10px;">完工实拍返图：</p>
+            <div class="photo-upload-placeholder" style="width:
+100%; height: 150px;"><i class="fas
+fa-plus"></i></div>
+         </div>
+         <div style="padding: 0 40px;">
+            <button class="btn-booking-main"
+style="margin-top:30px;" onclick="app.finishRating()">确认提交评价并结算</button>
+         </div>
+       </div>
+   </div>
+ 
+   <div id="chat-overlay" class="chat-overlay">
+       <div class="overlay-header"><h3
+id="chat-title">客服对话</h3><i
+class="fas fa-times" style="font-size:24px;
+cursor:pointer;"
+onclick="app.closeOverlay('chat-overlay')"></i></div>
+       <div class="chat-messages"
+id="chat-content"></div>
+       <div style="padding:20px; display:flex; gap:15px;
+background-color: var(--white); border-top:1px solid #eeeeee;">
+         <input type="text" id="chat-input"
+placeholder="输入内容..."
+style="flex:1; padding:15px; border-radius:30px; border:1px solid #dddddd;
+outline:none;">
+         <button onclick="app.sendChat()" style="background-color:var(--primary-blue);
+color:white; border:none; padding-left: 25px; padding-right: 25px;
+border-radius:30px; cursor:pointer; font-weight:bold;">发送</button>
+       </div>
+   </div>
+ 
+   <div class="fab-container">
+       <div class="fab-menu" id="fab-menu">
+         <div class="fab-item disabled" id="fab-worker"
+onclick="app.openChat('worker')">
+            <i class="fas fa-user-wrench"
+style="color:var(--primary-orange)"></i> 联系师傅 (预约激活)
+         </div>
+         <div class="fab-item"
+onclick="app.openChat('service')">
+            <i class="fas fa-headset"
+style="color:var(--primary-blue)"></i> 平台官方客服 (24H)
+         </div>
+       </div>
+       <div class="fab-main"
+onclick="app.toggleFab()"><i class="fas
+fa-comment-dots"></i></div>
+   </div>
+ 
+   <div class="backdrop" id="backdrop"
+onclick="app.closeAll()"></div>
+ 
+   <div id="auth-overlay" class="auth-overlay">
+       <div class="auth-card">
+         <i class="fas fa-times" style="position:absolute;
+right:25px; top:25px; cursor:pointer; font-size:20px; color:#ccc;"
+onclick="app.closeAuth()"></i>
+         <div class="auth-tab">登录 / 注册</div>
+         <div class="auth-input-group">
+           <input type="text" class="auth-input"
+id="auth-phone" placeholder="请输入手机号" maxlength="11">
+         </div>
+         <div class="auth-input-group">
+           <input type="text" class="auth-input"
+id="auth-code" placeholder="验证码" maxlength="6">
+           <button class="btn-send-code" id="btn-sms"
+onclick="app.handleSMS()">获取验证码</button>
+         </div>
+         <label class="legal-check">
+           <input type="checkbox" id="auth-agree">
+           <span>我已阅读并同意 <a
+href="#">《用户服务协议》</a>与 <a href="#">《隐私政策》</a></span>
+         </label>
+         <button class="btn-booking-main"
+onclick="app.doLogin()">立即进入匠心世界</button>
+         <p style="text-align:center; margin-top:30px; font-size:12px;
+color:#999;">未注册手机号验证后将自动创建账号</p>
+       </div>
+   </div>
+ 
+   <div id="user-overlay" class="overlay">
+       <div class="overlay-header"><h3>个人中心</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('user-overlay')"></i></div>
+       <div style="padding: 20px;">
+         <div class="section-box" style="display:flex;
+align-items:center; gap:25px; border-bottom:none;">
+           <img id="u-avatar"
+src="https://i.pravatar.cc/100?u=user" style="width:80px;
+height:80px; border-radius:50%; border:3px solid var(--white); box-shadow:0 5px
+15px rgba(0,0,0,0.1);">
+           <div>
+                <h2
+id="u-nickname" style="font-size:24px;
+margin-bottom:5px;">未登录</h2>
+                <p id="u-phone"
+style="color:#999; font-size:14px;">138****0000</p>
            </div>
-           <div id="ent-step-1" class="ent-verify-step active">
-               <div class="section-box" style="background:white; border-radius:15px; border:none;">
-                   <label class="input-label">1. 营业执照扫描件</label>
-                   <div class="photo-upload-placeholder" style="height:150px;"><i class="fas fa-building"></i><span>上传执照</span></div>
-                   <label class="input-label" style="margin-top:20px;">2. 经营范围简介</label>
-                   <textarea class="voice-textarea" id="ent-scope" placeholder="输入经营范围..."></textarea>
-                   <button class="btn-booking-main" style="margin-top:20px;" onclick="app.nextEntStep(2)">下一步</button>
-               </div>
+         </div>
+         <div class="user-asset-grid">
+           <div class="asset-item"
+onclick="app.openOrders()"><span class="asset-val"
+id="u-order-count">0</span><span
+class="asset-label">我的预约</span></div>
+           <div class="asset-item"><span
+class="asset-val">850</span><span
+class="asset-label">信用分</span></div>
+           <div class="asset-item"
+onclick="app.openPayment()"><span class="asset-val"
+id="u-balance">0.00</span><span
+class="asset-label">钱包余额</span></div>
+         </div>
+         <div class="menu-list" id="main-menu-list">
+           <div class="menu-item"
+onclick="app.openVerify()">
+                <div
+class="menu-item-left"><i class="fas fa-id-card
+main-icon" style="color:var(--primary-blue)"></i>实名认证状态</div>
+                <span
+id="u-verify-tag" class="verify-status status-no">未认证</span>
            </div>
-           <div id="ent-step-2" class="ent-verify-step">
-                <div class="section-box" style="background:white; border-radius:15px; border:none;">
-                    <label class="input-label">3. 技术人员职称/资格证书</label>
-                    <div class="upload-list-grid">
-                        <div class="upload-card-sm"><i class="fas fa-plus"></i><br>职称证</div>
-                        <div class="upload-card-sm"><i class="fas fa-plus"></i><br>特种作业证</div>
-                    </div>
-                    <button class="btn-booking-main" style="margin-top:20px;" onclick="app.nextEntStep(3)">下一步</button>
-                </div>
+           <div class="menu-item"
+onclick="app.openOrders()">
+                <div
+class="menu-item-left"><i class="fas fa-clipboard-list
+main-icon" style="color:#34A853"></i>全部服务订单</div>
+                <i class="fas
+fa-chevron-right" style="color:#ccc"></i>
            </div>
-           <div id="ent-step-3" class="ent-verify-step">
-                <div class="section-box" style="background:white; border-radius:15px; border:none;">
-                    <label class="input-label">4. 业绩宣传资料</label>
-                    <textarea class="voice-textarea" id="ent-performance" placeholder="输入过往业绩..."></textarea>
-                    <button class="btn-booking-main" style="margin-top:20px; background:var(--success);" onclick="app.submitEntRegister()">确认入驻申请</button>
-                </div>
+           <div class="menu-item" onclick="alert('地址管理功能开发中')">
+                <div
+class="menu-item-left"><i class="fas fa-map-marker-alt
+main-icon" style="color:#EA4335"></i>我的服务地址</div>
+                <i class="fas
+fa-chevron-right" style="color:#ccc"></i>
            </div>
+           <div class="menu-item" style="margin-top:20px;
+border-bottom:none; justify-content:center; color:#ff4d4f; font-weight:bold;
+background:#fff1f0;" onclick="location.reload()">
+                退出登录
+           </div>
+         </div>
+       </div>
+   </div>
+ 
+   <div id="verify-overlay" class="overlay"
+style="z-index:9500;">
+       <div class="overlay-header"><h3>实名认证</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('verify-overlay')"></i></div>
+       <div style="padding: 30px;">
+         <div style="background:#fff7e6; padding:20px;
+border-radius:12px; margin-bottom:30px; color:#d46b08; font-size:13px;
+line-height:1.6;">
+           <i class="fas fa-shield-alt"></i> 根据《中华人民共和国网络安全法》，为保障劳务交易安全，用户须完成实名认证后方可进行大额支付及查看详细施工单。
+         </div>
+         <div class="verify-form-group">
+           <label>真实姓名</label>
+           <input type="text" class="auth-input"
+id="v-name" placeholder="请输入您的合法姓名">
+         </div>
+         <div class="verify-form-group">
+           <label>身份证号</label>
+           <input type="text" class="auth-input"
+id="v-idcard" placeholder="18位身份证号码">
+         </div>
+         <div class="verify-form-group">
+           <label>现场人脸/证件核验照片</label>
+           <div class="photo-upload-placeholder"
+style="width:100%; height:180px;">
+                <i class="fas
+fa-id-badge" style="font-size:40px;
+margin-bottom:10px;"></i>
+                <span>点击拍摄/上传身份证正面照</span>
+           </div>
+         </div>
+         <button class="btn-booking-main"
+onclick="app.doVerify()">提交人工审核</button>
+         <p style="text-align:center; margin-top:20px; color:#999;
+font-size:12px;">审核通常在 10 分钟内完成</p>
+       </div>
+   </div>
+ 
+   <div id="payment-overlay" class="overlay"
+style="z-index:9600;">
+       <div class="overlay-header"><h3>资金账户</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('payment-overlay')"></i></div>
+       <div style="padding: 30px;">
+         <div style="text-align:center; margin-bottom:40px;">
+           <p style="color:#999; font-size:14px;">当前可用余额 (元)</p>
+           <h1 style="font-size:48px; color:var(--navy);
+margin-top:10px;" id="p-balance-display">0.00</h1>
+         </div>
+         <p style="font-weight:bold; margin-bottom:20px;">快速充值</p>
+         <div class="recharge-grid">
+           <div class="recharge-card"
+onclick="app.selectRecharge(50, this)"><span>充值</span><br><b>¥50</b></div>
+           <div class="recharge-card active"
+onclick="app.selectRecharge(100, this)"><span>充值</span><br><b>¥100</b></div>
+           <div class="recharge-card"
+onclick="app.selectRecharge(200, this)"><span>充值</span><br><b>¥200</b></div>
+           <div class="recharge-card"
+onclick="app.selectRecharge(500, this)"><span>充值</span><br><b>¥500</b></div>
+         </div>
+         <button class="btn-booking-main"
+onclick="app.doRecharge()">立即在线支付</button>
+       </div>
+   </div>
+ 
+   <div id="orders-overlay" class="overlay"
+style="z-index:9400; background-color: #f8f9fa;">
+       <div class="overlay-header"><h3>我的服务订单</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('orders-overlay')"></i></div>
+       <div id="orders-list-container" style="padding:
+20px;"></div>
+   </div>
+ 
+   <div id="worker-dashboard-overlay"
+class="overlay" style="z-index:9800;
+background:#f8f9fa;">
+       <div class="dashboard-header">
+         <div style="display:flex; justify-content:space-between;
+align-items:flex-start;">
+           <div>
+                <h2
+style="font-size:28px;">师傅管理工作台</h2>
+                <p style="opacity:0.7;
+font-size:14px; margin-top:5px;">接单状态：在线接单中...</p>
+           </div>
+           <i class="fas fa-times" style="font-size:28px;
+cursor:pointer;"
+onclick="app.closeOverlay('worker-dashboard-overlay')"></i>
+         </div>
+         <div class="stat-row">
+           <div class="stat-card"><small>累计收益</small><div style="font-size:22px; font-weight:bold;
+margin-top:5px;">¥ 12,850.00</div></div>
+           <div class="stat-card"><small>职业评级</small><div style="font-size:22px; font-weight:bold;
+margin-top:5px; color:var(--gold);">L5 资深师傅</div></div>
+         </div>
+       </div>
+       <div class="dashboard-tabs">
+         <div class="dash-tab active" id="tab-orders"
+onclick="app.switchDashTab('orders')">实时接单中心</div>
+         <div class="dash-tab" id="tab-profile"
+onclick="app.switchDashTab('profile')">职业资料修改</div>
+       </div>
+       <div id="dash-orders" class="dash-content-section
+active">
+         <div style="background:white; border-radius:15px; padding:20px;
+border:1px solid #eee; margin-bottom:15px;">
+           <div style="display:flex; justify-content:space-between;
+margin-bottom:12px;">
+                <span
+class="order-status-tag" style="background:#fff7e6;
+color:#fa8c16;">距离
+2.4km</span>
+                <b
+style="color:var(--primary-orange);">预估: ¥260.00</b>
+           </div>
+           <h4 style="font-size:18px;">紧急：卫生间给排水管道渗水修复</h4>
+           <p style="color:#666; font-size:14px; margin:10px
+0;"><i class="fas fa-map-marker-alt"></i> 历下区泺源大街中银大厦 1802室</p>
+           <button class="income-btn" style="width:100%;
+margin-top:10px;" onclick="alert('接单成功，请务必于 30 分钟内联系业主。')">立即抢单</button>
+         </div>
+       </div>
+       <div id="dash-profile"
+class="dash-content-section">
+         <div style="background:white; border-radius:15px;
+padding:25px;">
+           <div class="verify-form-group"><label>1. 真实姓名</label><input type="text"
+class="auth-input" id="wd-name" value="陈建国"></div>
+           <div class="verify-form-group"><label>2. 性别</label><div class="gender-selector"><div
+class="gender-opt active" onclick="app.selectDashGender('男', this)">男</div><div
+class="gender-opt" onclick="app.selectDashGender('女', this)">女</div></div></div>
+           <div class="verify-form-group"><label>3. 身份证号</label><input type="text"
+class="auth-input" id="wd-id"
+value="3701**********9912" readonly
+style="background:#f5f5f5;"></div>
+           <div class="verify-form-group"><label>4. 职业近照</label><div
+class="upload-placeholder-sm"><i class="fas
+fa-camera"></i><span>更换证件照</span></div></div>
+           <div class="verify-form-group"><label>5. 体检证明文件</label><div
+class="upload-placeholder-sm"><i class="fas
+fa-file-medical"></i><span>更新报告</span></div></div>
+           <div class="verify-form-group"><label>6. 专业特长</label><input type="text"
+class="auth-input" id="wd-skill" value="给排水、消防水、电气焊"></div>
+           <div class="verify-form-group"><label>7. 从业年限</label><input type="number"
+class="auth-input" id="wd-years"
+value="15"></div>
+           <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea"
+id="wd-intro" style="height:120px;">15年水暖工老牌经验，持有高级焊工证，承诺施工质保3年。</textarea></div>
+           <button class="btn-booking-main"
+onclick="app.saveWorkerProfile()">确认修改资料</button>
+         </div>
+       </div>
+   </div>
+ 
+   <div id="worker-onboarding-overlay"
+class="overlay" style="z-index:9700;">
+       <div class="overlay-header"><h3>成为匠心师傅</h3><i class="fas fa-times"
+style="font-size:28px; cursor:pointer;"
+onclick="app.closeOverlay('worker-onboarding-overlay')"></i></div>
+       <div style="padding: 30px;">
+         <div style="background:#f0f7ff; padding:15px;
+border-radius:10px; color:var(--primary-blue); font-size:13px;
+margin-bottom:25px;">
+           <i class="fas fa-info-circle"></i> 请如实填写以下信息。审核通过后，您将获得平台专属职业等级。
+         </div>
+         <div class="verify-form-group"><label>1. 真实姓名</label><input type="text"
+class="auth-input" id="wo-name" placeholder="与证件姓名一致"></div>
+         <div class="verify-form-group">
+           <label>2. 性别</label>
+           <div class="gender-selector">
+                <div class="gender-opt
+active" onclick="app.selectWoGender('男', this)">男</div>
+                <div
+class="gender-opt" onclick="app.selectWoGender('女', this)">女</div>
+           </div>
+         </div>
+         <div class="verify-form-group"><label>3. 身份证号码</label><input type="text"
+class="auth-input" id="wo-id" placeholder="18位二代身份证号"></div>
+         <div class="verify-form-group"><label>4. 职业近照</label><div
+class="upload-placeholder-sm"><i class="fas
+fa-user-tie"></i><span>上传清晰正面生活/职业照</span></div></div>
+         <div class="verify-form-group"><label>5. 近期体检证明</label><div
+class="upload-placeholder-sm"><i class="fas
+fa-heartbeat"></i><span>上传近半年体检报告图片</span></div></div>
+         <div class="verify-form-group"><label>6. 专业特长</label><input type="text"
+class="auth-input" id="wo-skill" placeholder="如：精装修瓦工、消防电维修等"></div>
+         <div class="verify-form-group"><label>7. 从业年限</label><input type="number"
+class="auth-input" id="wo-years" placeholder="请填写数字"></div>
+         <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea"
+id="wo-intro" style="height:150px;" placeholder="请详细介绍您的技术优势、过往工程案例及服务态度，这关乎您的初始评级。"></textarea></div>
+         <button class="btn-booking-main"
+onclick="app.submitWorkerOnboarding()">提交入驻资料并等待审核</button>
        </div>
    </div>
 
-   <div class="backdrop" id="backdrop" onclick="app.closeAll()"></div>
-   <footer><div class="container">© 2026 智能劳务技术网 | 鲁ICP备20260118号</div></footer>
+   <div id="enterprise-onboarding-overlay" class="overlay" style="z-index:9900;">
+       <div class="overlay-header"><h3>企业服务商入驻申请</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('enterprise-onboarding-overlay')"></i></div>
+       <div style="padding: 30px;">
+           <div style="background:#fff7e6; padding:15px; border-radius:10px; color:#d46b08; font-size:13px; margin-bottom:25px;">
+               <i class="fas fa-building"></i> 欢迎入驻企业端。请准备好营业执照、资质证书等原件照片，信息审核通过后将为您开通企业专属账号。
+           </div>
+
+           <div class="ent-form-section-title">一、基础身份信息</div>
+           <div class="verify-form-group"><label>1. 营业执照 (统一社会信用代码)</label><input type="text" class="auth-input" placeholder="请输入18位信用代码"></div>
+           <div class="verify-form-group"><label>营业执照扫描件/照片</label><div class="upload-placeholder-sm"><i class="fas fa-file-image"></i><span>上传执照原件</span></div></div>
+           <div class="verify-form-group"><label>2. 企业名称 (需与执照一致)</label><input type="text" class="auth-input" placeholder="请输入完整企业名称"></div>
+           <div class="verify-form-group"><label>3. 法定代表人姓名</label><input type="text" class="auth-input" placeholder="法人真实姓名"></div>
+           <div class="verify-form-group"><label>法人身份证正反面</label><div style="display:flex; gap:10px;"><div class="upload-placeholder-sm"><i class="fas fa-id-card"></i><span>人像面</span></div><div class="upload-placeholder-sm"><i class="fas fa-id-card"></i><span>国徽面</span></div></div></div>
+           <div class="verify-form-group"><label>4. 授权经办人信息</label><input type="text" class="auth-input" placeholder="经办人姓名" style="margin-bottom:10px;"><input type="text" class="auth-input" placeholder="经办人手机号 (实名制)"></div>
+           <div class="verify-form-group"><label>5. 企业授权委托书 (盖公章)</label><div class="upload-placeholder-sm"><i class="fas fa-file-signature"></i><span>上传授权书扫描件</span></div></div>
+           <div class="verify-form-group"><label>6. 办公场所证明</label><input type="text" class="auth-input" placeholder="详细办公地址" style="margin-bottom:10px;"><div class="upload-placeholder-sm"><i class="fas fa-building"></i><span>上传前台/经营场所照</span></div></div>
+
+           <div class="ent-form-section-title">二、行业资质与人员</div>
+           <div class="verify-form-group"><label>7. 经营范围简介</label><textarea class="voice-textarea" placeholder="请简述企业主营业务..." style="height:100px;"></textarea></div>
+           <div class="verify-form-group"><label>8. 行业行政许可证书</label><div class="upload-placeholder-sm"><i class="fas fa-certificate"></i><span>上传安全生产许可证/资质证书等</span></div></div>
+           <div class="verify-form-group"><label>9. 人员名册及证书材料</label><div class="upload-placeholder-sm"><i class="fas fa-users-cog"></i><span>上传职称证/技工证/特种作业证打包</span></div><div class="upload-placeholder-sm" style="margin-top:10px;"><i class="fas fa-file-invoice"></i><span>(可选)社保缴纳证明</span></div></div>
+
+           <div class="ent-form-section-title">三、财务与税务信息</div>
+           <div class="verify-form-group"><label>10. 对公银行账户信息</label><input type="text" class="auth-input" placeholder="开户行全称" style="margin-bottom:10px;"><input type="text" class="auth-input" placeholder="银行账号" style="margin-bottom:10px;"><div class="upload-placeholder-sm"><i class="fas fa-money-check-alt"></i><span>开户许可证扫描件</span></div></div>
+           <div class="verify-form-group"><label>11. 开票资料</label><input type="text" class="auth-input" placeholder="纳税人识别号" style="margin-bottom:10px;"><div class="gender-selector" style="margin-bottom:10px;"><div class="gender-opt active">一般纳税人</div><div class="gender-opt">小规模纳税人</div></div><input type="text" class="auth-input" placeholder="注册地址及电话"></div>
+           <div class="verify-form-group"><label>12. 税务登记副本/完税证明</label><div class="upload-placeholder-sm"><i class="fas fa-file-invoice-dollar"></i><span>上传证明文件</span></div></div>
+
+           <div class="ent-form-section-title">四、业绩与品牌宣传</div>
+           <div class="verify-form-group"><label>13. 业绩证明资料</label><div class="upload-placeholder-sm"><i class="fas fa-file-contract"></i><span>上传过往合同/验收报告 (敏感可码)</span></div></div>
+           <div class="verify-form-group"><label>14. 企业 Logo</label><div class="upload-placeholder-sm"><i class="fas fa-image"></i><span>上传 Logo 图片</span></div></div>
+
+           <div class="ent-form-section-title">五、安全与保障</div>
+           <div class="verify-form-group"><label>15. 商业保险单 (责任险)</label><div class="upload-placeholder-sm"><i class="fas fa-file-medical-alt"></i><span>上传保单扫描件</span></div></div>
+           <div class="verify-form-group"><label>16. 信用记录声明</label><label class="legal-check"><input type="checkbox" checked> <span>我司承诺无重大违法违规记录</span></label></div>
+           <div class="verify-form-group"><label>17. 官方联系方式</label><input type="text" class="auth-input" placeholder="400电话/座机" style="margin-bottom:10px;"><input type="text" class="auth-input" placeholder="官方邮箱" style="margin-bottom:10px;"><input type="text" class="auth-input" placeholder="企业官网地址"></div>
+
+           <button class="btn-booking-main" onclick="app.submitEnterpriseEntry()">提交企业入驻申请</button>
+           <div style="height: 30px;"></div>
+       </div>
+   </div>
+ 
+   <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
  
    <script>
-       // --- [1. 原生逻辑：这里保留您完整的1460行核心逻辑] ---
        const app = {
-           state: { workers: [], sortType: 'dist', currentSubcat: '', isLoggedIn: false, walletBalance: 0, userOrders: [] },
-           subcatData: {
-                1: ["给排水，消防水", "强弱电，消防电", "通风空调采暖", "电气焊"],
-                2: ["木工", "瓦工", "油漆大白工", "装修水电工", "装修保洁"],
-                3: ["固定家具制作，家具维修", "门窗制作，维修"],
-                4: ["带车搬运装卸", "力工"],
-                5: []
+           state: { 
+               workers: [], 
+               sortType: 'dist', 
+               currentSubcat: '', 
+               isBooked: false, 
+               isFinished: false, 
+               chatTarget: 'service',
+               activeWorker: null,
+               selectedTime: null,
+               isLoggedIn: false,
+               userInfo: null,
+               isVerified: false,
+               walletBalance: 0.0,
+               userOrders: [],
+               rechargeSelected: 100,
+               workerRegStatus: 'none', 
+               woGender: '男',
+               workerGender: '男'
            },
+ 
+           subcatData: {
+               1: ["给排水，消防水", "强弱电，消防电",
+"通风空调采暖", "电气焊"],
+               2: ["木工", "瓦工", "油漆大白工", "装修水电工",
+"装修保洁"],
+               3: ["固定家具制作，家具维修", "门窗制作，维修"],
+               4: ["带车搬运装卸", "力工"],
+               5: []
+           },
+ 
            promoData: [
-                { name: "消防设施", full: "消防设施改造/维保", img: "https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?w=600" },
-                { name: "暖通空调", full: "暖通空调维保", img: "https://images.unsplash.com/photo-1504307651254-35680f3366d4?w=600" }
+               { name: "消防设施", full: "消防设施改造，维修，维保，运维",
+img:
+"https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?w=600"
+},
+               { name: "机电设施", full: "机电设施改造，维修，维保，运维",
+img:
+"https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=600"
+},
+               { name: "电梯设施", full: "电梯设施维修，维保",
+img:
+"https://images.unsplash.com/photo-1582139611293-80949d06b6f7?w=600"
+},
+               { name: "暖通空调", full: "暖通空调设施改造，维修，维保，运维", img:
+"https://images.unsplash.com/photo-1504307651254-35680f3366d4?w=600"
+},
+               { name: "园林绿化", full: "园林绿化设施运维",
+img:
+"https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600"
+},
+               { name: "市政公用", full: "市政公用设施改造，维修",
+img:
+"https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600"
+},
+               { name: "人防设施", full: "人防设施维修，维保",
+img:
+"https://images.unsplash.com/photo-1508962914676-134849a727f0?w=600"
+},
+               { name: "电力设施", full: "电力设施改造，维修，维保，运维",
+img:
+"https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600"
+},
+               { name: "人力资源", full: "人力资源外包服务",
+img:
+"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600"
+}
            ],
-           initData() { /* 模拟生成技工数据 */ },
-           switchView(id) {
-               document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+ 
+           initData() {
+               const names = ['张建国','王大明','赵全能','刘师傅','陈工','周师傅','吴大志','郑师傅','孙师傅','钱师傅'];
+               this.state.workers = Array.from({length:
+12}, (_, i) => ({ id: i, name: names[i % names.length], tier: i % 4 === 0 ?
+'高级师傅 (Gold)' : '优质师傅 (Silver)', rating: (4.4 + Math.random() * 0.6).toFixed(1), price:
+[260, 150, 100, 200][i % 4], dist: (0.5 + Math.random() * 5).toFixed(1), count:
+800 + Math.floor(Math.random() * 2000), exp: (8 + Math.floor(Math.random() *
+10)) + '年', certs: ['高级电工证', '诚信上岗证'] }));
+               this.renderPromos();
+           },
+ 
+           renderPromos() {
+               const homeGrid =
+document.getElementById('home-promo-grid');
+               const fullGrid =
+document.getElementById('full-promo-grid');
+               const createHtml = (item) =>
+`<div class="promo-card-v2"
+style="background-image:url('${item.img}')"
+onclick="app.renderWorkers('${item.name}')"><span>${item.full}</span></div>`;
+               if(homeGrid) homeGrid.innerHTML
+= this.promoData.slice(0, 3).map(createHtml).join('');
+               if(fullGrid) fullGrid.innerHTML
+= this.promoData.map(createHtml).join('');
+           },
+ 
+           switchView(id) { 
+               document.querySelectorAll('.view-section').forEach(v =>
+v.classList.remove('active'));
                document.getElementById(id).classList.add('active');
+               document.getElementById('header-search-box').style.display = (id ===
+'hub-view') ? 'none' : 'block';
                window.scrollTo(0,0);
            },
+ 
+           handleSearch(type) {
+               const inputId = type === 'hero'
+? 'hero-search-input' : 'secondary-search';
+               const keyword =
+document.getElementById(inputId).value.trim();
+               if(!keyword) return alert('请输入服务分类');
+               this.state.currentSubcat =
+keyword;
+               this.renderWorkers();
+           },
+ 
            handleCatClick(id) {
-               const subs = this.subcatData[id];
-               const list = document.getElementById('subcat-list');
-               list.innerHTML = subs.map(s => `<div class="subcat-btn" onclick="app.renderWorkers('${s}')"><span>${s}</span><i class="fas fa-chevron-right"></i></div>`).join('');
+               const subs =
+this.subcatData[id];
+               if(subs.length === 0) {
+this.state.currentSubcat = "智能家居/家电维修"; return this.renderWorkers(); }
+               const catNames = ["水电暖通", "装饰装修",
+"家具门窗", "搬运装卸", "智能家居"];
+               document.getElementById('subcat-title').innerText = catNames[id-1];
+               document.getElementById('subcat-list').innerHTML = subs.map(s =>
+`<div class="subcat-btn"
+onclick="app.renderWorkers('${s}')"><span>${s}</span><i
+class="fas fa-chevron-right"></i></div>`).join('');
                this.switchView('subcat-view');
            },
-           renderWorkers(name) {
-               document.getElementById('current-worker-subcat').innerText = name || "精选技工";
-               document.getElementById('worker-list').innerHTML = `<div class="worker-card" onclick="alert('详情加载中')"><div class="worker-main-info"><h3>测试技工</h3><p>⭐ 5.0 | 距离 1.2km</p></div><div class="worker-price">¥<b>200</b>起</div></div>`;
+ 
+           renderWorkers(subcatName) {
+               if(subcatName)
+this.state.currentSubcat = subcatName;
+               document.getElementById('current-worker-subcat').innerText =
+this.state.currentSubcat;
+               const list =
+document.getElementById('worker-list');
+               let sorted =
+[...this.state.workers];
+               if(this.state.sortType ===
+'dist') sorted.sort((a,b) => a.dist - b.dist);
+               else if(this.state.sortType ===
+'rating') sorted.sort((a,b) => b.rating - a.rating);
+               else if(this.state.sortType ===
+'price') sorted.sort((a,b) => a.price - b.price);
+               else if(this.state.sortType ===
+'count') sorted.sort((a,b) => b.count - a.count);
+               list.innerHTML = sorted.map(w
+=> `<div class="worker-card"
+onclick="app.openProfile(${w.id})"><img
+src="https://i.pravatar.cc/130?u=${w.id}" class="worker-avatar"><div
+class="worker-main-info"><h3>${w.name}</h3><p>⭐ 评分 ${w.rating} | 已服务 ${w.count}次</p><p style="color:var(--primary-blue);
+font-weight:bold; margin-top:8px;">距离您：${w.dist}km</p></div><div
+class="worker-price">¥<b>${w.price}</b>起</div></div>`).join('');
                this.switchView('worker-view');
            },
-           closeOverlay(id) { document.getElementById(id).classList.remove('active'); document.getElementById('backdrop').style.display='none'; },
-           closeAll() { this.closeOverlay('ent-register-overlay'); /* ... 其他关闭逻辑 */ }
-       };
-
-       // --- [2. 功能外挂：在不修改原对象声明的前提下，追加企业功能] ---
-       Object.assign(app, {
-           openEntRegister() {
-               document.getElementById('ent-register-overlay').classList.add('active');
+ 
+           openProfile(id) {
+               const w =
+this.state.workers.find(i => i.id === id);
+               this.state.activeWorker = w;
+               document.getElementById('p-avatar').src =
+`https://i.pravatar.cc/130?u=${w.id}`;
+               document.getElementById('p-name').innerText = w.name;
+               document.getElementById('p-avg-score').innerText = w.rating;
+               document.getElementById('p-certs').innerHTML = w.certs.map(c =>
+`<span style="background-color:#f0f7ff; color:var(--primary-blue);
+padding:4px 10px; border-radius:4px; font-size:12px;
+margin-right:8px;">${c}</span>`).join('');
+               let revHtml = "";
+               for(let i=0; i<10; i++) {
+                   const img =
+`https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=500&sig=${i}`;
+                   revHtml += `<div
+class="review-card"><div style="display:flex;
+align-items:center; gap:12px; margin-bottom:12px;"><img
+src="https://i.pravatar.cc/40?u=${i}"
+style="border-radius:50%"><span>业主 138****${1100+i}</span><span style="color:#ffc107;
+margin-left:auto">⭐⭐⭐⭐⭐</span></div><p
+style="font-size:15px; color:#444444; margin-bottom:15px">师傅手艺特别好，施工标准！</p><div class="ba-slider"
+onmousemove="app.handleBA(event)"><div class="ba-img"
+style="background-image:url('${img}')"></div><div
+class="ba-img ba-before"
+style="background-image:url('${img}')"></div></div></div>`;
+               }
+               document.getElementById('p-reviews').innerHTML = revHtml;
+               document.getElementById('profile-overlay').classList.add('active');
                document.getElementById('backdrop').style.display = 'block';
            },
-           nextEntStep(step) {
-               document.querySelectorAll('.ent-verify-step').forEach(s => s.classList.remove('active'));
-               document.getElementById('ent-step-' + step).classList.add('active');
-               for(let i=1; i<=3; i++) document.getElementById('step-' + i + '-label').style.color = (i===step) ? 'var(--primary-blue)' : '#ccc';
+ 
+           openBooking() { 
+               this.closeOverlay('profile-overlay'); 
+               const dr =
+document.getElementById('booking-drawer');
+               dr.style.display = 'block';
+               setTimeout(() =>
+dr.classList.add('active'), 10);
+               document.getElementById('worker-dist-val').innerText =
+this.state.activeWorker.dist;
+               this.renderSlots(); 
            },
-           submitEntRegister() {
-               alert('企业资质已提交，我们将尽快审核营业执照及人员证件！');
-               this.closeOverlay('ent-register-overlay');
+ 
+           renderSlots() { document.getElementById('slot-grid').innerHTML = ['周一','周二','周三','周四','周五','周六','周日'].map(d => `<div class="slot-item"
+onclick="app.selectSlot(this)">${d}<br>有空</div>`).join(''); },
+           selectSlot(el) { document.querySelectorAll('.slot-item').forEach(s =>
+s.classList.remove('active')); el.classList.add('active');
+this.state.selectedTime = el.innerText; },
+ 
+           confirmBooking() {
+               if(!this.state.selectedTime)
+return alert('请点选一个服务时间');
+               this.closeAll();
+               this.state.isBooked = true;
+               const fabW =
+document.getElementById('fab-worker');
+               fabW.classList.remove('disabled'); fabW.innerHTML = `<i
+class="fas fa-user-wrench"
+style="color:var(--primary-orange)"></i> 联系${this.state.activeWorker.name}师傅`;
+               document.getElementById('check-code').innerText = Math.floor(1000 +
+Math.random()*9000);
+               document.getElementById('order-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
+           },
+ 
+           simFlow(step) {
+               const ns =
+document.querySelectorAll('#order-p-bar .node'); const ac =
+document.getElementById('order-actions');
+               if(step === 'start') {
+                   ns[1].classList.add('active');
+                   ac.innerHTML = `<p
+style="margin-bottom:15px; color:var(--primary-blue);
+font-weight:bold;">师傅正在路上，预计 15 分钟送达</p><input type="text" id="cin"
+placeholder="核销码"
+style="width:100%; padding:20px; border:1px solid #ddd;
+border-radius:15px; text-align:center; font-size:32px; letter-spacing:15px;
+margin-bottom:20px;"><button class="btn-booking-main"
+onclick="app.simFlow('work')">验证并开始施工</button>`;
+               } else if(step === 'work') {
+                   if(document.getElementById('cin').value ===
+document.getElementById('check-code').innerText) {
+                       ns[2].classList.add('active');
+                       ac.innerHTML = `<div
+style="text-align:center; padding:30px;"><i class="fas
+fa-tools fa-spin" style="font-size:45px;
+color:var(--primary-blue)"></i><p style="margin-top:20px;
+font-weight:bold;">施工中，计时已启动...</p><div
+style="margin-top:20px; display:flex; gap:15px;
+justify-content:center;"><button style="padding:10px 20px;
+border-radius:8px; border:1px solid #ddd; background:white;"><i
+class="fas fa-phone"></i> 实时联系</button><button style="padding:10px 20px;
+border-radius:8px; border:1px solid #ff4d4f; color:white;
+background:#ff4d4f;">违约申诉</button></div></div><button
+class="btn-booking-main"
+onclick="app.simFlow('finish')">确认施工完成并验收</button>`;
+                   } else alert('核销码错误');
+               } else if(step === 'finish') {
+                   ns[3].classList.add('active');
+                   document.getElementById('order-overlay').classList.remove('active');
+                   document.getElementById('rating-page').style.display = 'block';
+               }
+           },
+ 
+           finishRating() { alert('评价已提交');
+this.state.isFinished = true;
+document.getElementById('fab-worker').classList.add('disabled');
+document.getElementById('rating-page').style.display = 'none'; this.closeAll();
+this.switchView('hub-view'); },
+           openChat(type) { if(type === 'worker' && (!this.state.isBooked
+|| this.state.isFinished)) return; this.state.chatTarget = type;
+document.getElementById('chat-title').innerText = type === 'worker' ? `与师傅对话` : '在线客服';
+document.getElementById('chat-overlay').classList.add('active');
+document.getElementById('chat-content').innerHTML = `<div
+class="msg-bubble other">您好！请问需要什么帮助？</div>`; document.getElementById('backdrop').style.display =
+'block'; this.toggleFab(); },
+           sendChat() { const v = document.getElementById('chat-input').value;
+if(!v) return; document.getElementById('chat-content').innerHTML += `<div
+class="msg-bubble me">${v}</div>`; document.getElementById('chat-input').value
+= ''; },
+           toggleFab() { const m = document.getElementById('fab-menu');
+m.style.display = m.style.display==='flex'?'none':'flex'; },
+           handleBA(e) { const r = e.currentTarget.getBoundingClientRect(); const p
+= ((e.clientX - r.left) / r.width) * 100;
+e.currentTarget.querySelector('.ba-before').style.width = p + "%"; },
+           closeOverlay(id) {
+document.getElementById(id).classList.remove('active');
+document.getElementById('backdrop').style.display = 'none'; },
+           closeAll() { document.querySelectorAll('.overlay, .drawer').forEach(el
+=> el.classList.remove('active')); setTimeout(() =>
+document.querySelectorAll('.drawer').forEach(el => el.style.display =
+'none'), 500); document.getElementById('backdrop').style.display = 'none'; },
+           handleSort(btn) { document.querySelectorAll('.sort-btn').forEach(b =>
+b.classList.remove('active')); btn.classList.add('active'); this.state.sortType
+= btn.getAttribute('data-sort'); this.renderWorkers(); },
+           filterGold() { this.state.sortType = 'rating'; this.renderWorkers('金牌精选'); },
+ 
+           openAuth() { document.getElementById('auth-overlay').style.display =
+'flex'; document.body.style.overflow = 'hidden'; },
+           closeAuth() { document.getElementById('auth-overlay').style.display =
+'none'; document.body.style.overflow = 'auto'; },
+           handleSMS() {
+               const phone =
+document.getElementById('auth-phone').value;
+               if(!/^1[3-9]\d{9}$/.test(phone)) return alert('请输入正确的11位手机号');
+               let count = 60; const btn =
+document.getElementById('btn-sms'); btn.disabled = true;
+               const timer = setInterval(()
+=> { btn.innerText = `${count--}s后重发`; if(count < 0) { clearInterval(timer); btn.innerText = '获取验证码'; btn.disabled = false; } }, 1000);
+               alert('模拟验证码为：123456');
+           },
+           doLogin() {
+               const phone =
+document.getElementById('auth-phone').value; const code =
+document.getElementById('auth-code').value; const agree =
+document.getElementById('auth-agree').checked;
+               if(!phone || !code) return
+alert('请完整填写信息'); if(code !==
+'123456') return alert('验证码错误');
+if(!agree) return alert('请先同意协议');
+               this.state.isLoggedIn = true;
+this.state.userInfo = { phone: phone, nickname: '用户_' + phone.slice(-4) };
+               document.getElementById('top-login-btn').innerText = `欢迎您，${this.state.userInfo.nickname}`;
+               document.getElementById('top-login-btn').style.color =
+'var(--primary-orange)';
+               this.closeAuth(); alert('登录成功！');
+           },
+ 
+           openUserCenter() {
+               document.getElementById('u-nickname').innerText =
+this.state.userInfo.nickname;
+               document.getElementById('u-phone').innerText =
+this.state.userInfo.phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+               document.getElementById('user-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
+               this.syncWalletUI();
+this.patchWorkerEntry(); 
+           },
+           openVerify() { if(this.state.isVerified) return alert('已完成实名认证');
+document.getElementById('verify-overlay').classList.add('active'); },
+           doVerify() {
+               const name =
+document.getElementById('v-name').value; const id =
+document.getElementById('v-idcard').value;
+               if(!name || id.length < 15)
+return alert('请填写完整信息');
+               setTimeout(() => {
+this.state.isVerified = true; document.getElementById('u-verify-tag').innerText
+= "已实名";
+document.getElementById('u-verify-tag').className = "verify-status
+status-yes"; this.closeOverlay('verify-overlay'); alert('实名认证成功！'); }, 1000);
+           },
+ 
+           syncWalletUI() { const bal = this.state.walletBalance.toFixed(2);
+document.getElementById('u-balance').innerText = bal;
+document.getElementById('p-balance-display').innerText = bal;
+document.getElementById('u-order-count').innerText =
+this.state.userOrders.length; },
+           openPayment() { this.closeOverlay('user-overlay');
+document.getElementById('payment-overlay').classList.add('active');
+document.getElementById('backdrop').style.display = 'block'; },
+           selectRecharge(amt, el) {
+document.querySelectorAll('.recharge-card').forEach(c =>
+c.classList.remove('active')); el.classList.add('active');
+this.state.rechargeSelected = amt; },
+           doRecharge() {
+               setTimeout(() => {
+this.state.walletBalance += this.state.rechargeSelected; this.syncWalletUI();
+alert('充值成功！');
+this.closeOverlay('payment-overlay'); this.openUserCenter(); }, 1000);
+           },
+           openOrders() {
+               this.closeOverlay('user-overlay'); const container =
+document.getElementById('orders-list-container');
+               if(this.state.userOrders.length
+=== 0) { container.innerHTML = `<div style="text-align:center;
+padding:100px 0;"><i class="fas fa-box-open"
+style="font-size:48px; color:#eee;"></i><p
+style="color:#999; margin-top:20px;">暂无订单记录</p></div>`; }
+               else { container.innerHTML =
+this.state.userOrders.map(o => `<div
+class="order-item"><div
+class="order-meta"><span>单号：${o.id}</span><span>${o.time}</span></div><div
+class="order-body"><img
+src="https://i.pravatar.cc/50?u=${o.worker}"
+style="border-radius:10px;"><div
+class="order-info"><h4>${o.service}</h4><p
+style="font-size:13px; color:#666;">师傅：${o.worker}</p></div><div
+style="margin-left:auto; text-align:right;"><b
+style="color:var(--primary-orange);">¥${o.price}</b><br><span
+class="order-status-tag">${o.status}</span></div></div></div>`).join('');
+}
+               document.getElementById('orders-overlay').classList.add('active');
+document.getElementById('backdrop').style.display = 'block';
+           },
+ 
+           patchWorkerEntry() {
+               if(document.getElementById('dynamic-worker-btn'))
+document.getElementById('dynamic-worker-btn').remove(); 
+               const menuList =
+document.getElementById('main-menu-list'); if(!menuList) return;
+               const logoutBtn =
+menuList.lastElementChild; const workerBtn = document.createElement('div');
+               workerBtn.id =
+'dynamic-worker-btn'; workerBtn.className = 'menu-item';
+               if(this.state.workerRegStatus
+=== 'none') {
+                   workerBtn.innerHTML =
+`<div class="menu-item-left"><i class="fas fa-user-plus
+main-icon" style="color:var(--primary-orange)"></i>申请成为匠心师傅</div><i class="fas fa-chevron-right"
+style="color:#ccc"></i>`;
+                   workerBtn.onclick = ()
+=> { this.closeOverlay('user-overlay');
+document.getElementById('worker-onboarding-overlay').classList.add('active');
+};
+               } else
+if(this.state.workerRegStatus === 'pending') {
+                   workerBtn.innerHTML =
+`<div class="menu-item-left"><i class="fas
+fa-hourglass-half main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
+               } else
+if(this.state.workerRegStatus === 'approved') {
+                   workerBtn.style.border =
+'1.5px solid var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
+                   workerBtn.innerHTML =
+`<div class="menu-item-left"
+style="color:var(--primary-orange)"><i class="fas fa-tools
+main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right"
+style="color:var(--primary-orange)"></i>`;
+                   workerBtn.onclick = ()
+=> { this.closeOverlay('user-overlay');
+document.getElementById('worker-dashboard-overlay').classList.add('active'); };
+               }
+               menuList.insertBefore(workerBtn, logoutBtn);
+           },
+           openWorkerDashboard() { this.closeOverlay('user-overlay');
+document.getElementById('worker-dashboard-overlay').classList.add('active');
+document.getElementById('backdrop').style.display = 'block'; },
+           switchDashTab(tab) {
+               document.querySelectorAll('.dash-tab').forEach(t =>
+t.classList.remove('active'));
+document.querySelectorAll('.dash-content-section').forEach(s =>
+s.classList.remove('active'));
+               document.getElementById(`tab-${tab}`).classList.add('active');
+document.getElementById(`dash-${tab}`).classList.add('active');
+           },
+           selectDashGender(g, el) {
+document.querySelectorAll('#worker-dashboard-overlay .gender-opt').forEach(o
+=> o.classList.remove('active')); el.classList.add('active');
+this.state.workerGender = g; },
+           selectWoGender(g, el) {
+document.querySelectorAll('#worker-onboarding-overlay .gender-opt').forEach(o
+=> o.classList.remove('active')); el.classList.add('active');
+this.state.woGender = g; },
+           submitWorkerOnboarding() {
+               const ids = ['wo-name',
+'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
+               if(ids.some(i =>
+!document.getElementById(i).value)) return alert('必填项未填写');
+               setTimeout(() => {
+this.state.workerRegStatus = 'pending';
+this.closeOverlay('worker-onboarding-overlay'); setTimeout(() => {
+this.state.workerRegStatus = 'approved'; }, 1500); }, 1000);
+           },
+           saveWorkerProfile() { alert('资料更新成功'); },
+           
+           /* [PATCH: Enterprise Logic] */
+           openEnterpriseOnboarding() {
+               this.closeAll();
+               document.getElementById('enterprise-onboarding-overlay').classList.add('active');
+               document.getElementById('backdrop').style.display = 'block';
+           },
+           submitEnterpriseEntry() {
+               alert('企业入驻申请已提交！我们将于 3 个工作日内完成资质审核，请留意短信通知。');
+               this.closeOverlay('enterprise-onboarding-overlay');
            }
+       };
+ 
+       document.addEventListener('click', (e) => {
+           const btn = e.target.closest('.sort-btn'); if(btn) app.handleSort(btn);
+           const star = e.target.closest('.rating-stars i'); if(star) { const idx =
+star.dataset.idx; star.parentElement.querySelectorAll('i').forEach((s, i) =>
+s.classList.toggle('active', i < idx)); }
        });
-
+ 
        window.addEventListener('DOMContentLoaded', () => {
-           // 初始化
-           app.initData();
-
-           // 重新挂载首页大类（确保点击大类能进入企业名录）
-           app.renderPromos = function() {
-               const grid = document.getElementById('home-promo-grid');
-               if(grid) {
-                   grid.innerHTML = app.promoData.map(item => `
-                       <div class="promo-card-v2" style="background-image:url('${item.img}')" onclick="app.renderWorkers('${item.name}')">
-                           <span>${item.full}</span>
-                       </div>
-                   `).join('');
-               }
+           const loginBtn = document.getElementById('top-login-btn');
+           if(loginBtn) { loginBtn.onclick = () => { if(!app.state.isLoggedIn)
+app.openAuth(); else app.openUserCenter(); }; }
+           const originalConfirm = app.confirmBooking;
+           app.confirmBooking = function() {
+               const newOrder = { id: 'ORD' +
+Date.now().toString().slice(-8), service: this.state.currentSubcat, worker:
+this.state.activeWorker.name, price: this.state.activeWorker.price, status: '已预约', time: this.state.selectedTime };
+               this.state.userOrders.push(newOrder); this.syncWalletUI();
+originalConfirm.apply(this);
            };
-           app.renderPromos();
-
-           // 核心修复：动态绑定“服务商入驻”按钮，不触碰HTML行
-           const links = document.querySelectorAll('.top-bar a');
-           links.forEach(a => {
-               if(a.innerText.includes('服务商入驻')) {
-                   a.href = "javascript:void(0)";
-                   a.addEventListener('click', () => app.openEntRegister());
-               }
-           });
+           app.initData();
+ 
+           /* [PATCH: Enterprise Data & Redirection Logic] */
+           app.enterpriseData = [
+               { name: "中安消防工程有限公司", cat: "消防设施",
+capital: "5000万", year:
+"15年", icon: "🏢" },
+               { name: "泰和消防设备维护部", cat: "消防设施",
+capital: "1500万", year:
+"8年", icon: "🛡️" },
+               { name: "德力机电安装集团", cat: "机电设施",
+capital: "3200万", year:
+"12年", icon: "⚙️" },
+               { name: "迅达伟业电梯维保中心", cat: "电梯设施",
+capital: "1000万", year:
+"10年", icon: "🛗" },
+               { name: "格瑞环境空调工程公司", cat: "暖通空调",
+capital: "1500万", year:
+"10年", icon: "❄️" },
+               { name: "绿野仙踪园林运维部", cat: "园林绿化",
+capital: "800万", year:
+"6年", icon: "🌳" },
+               { name: "市政一建工程有限公司", cat: "市政公用",
+capital: "1亿", year: "25年", icon: "🛣️"
+},
+               { name: "盾构人防设施防护中心", cat: "人防设施",
+capital: "2000万", year:
+"18年", icon: "🛡️" },
+               { name: "国电通电力设备维护队", cat: "电力设施",
+capital: "4500万", year:
+"14年", icon: "⚡" },
+               { name: "匠心人力资源外包集团", cat: "人力资源",
+capital: "2000万", year:
+"9年", icon: "🤝" }
+           ];
+           app.renderEnterprises = function(categoryName) {
+               document.getElementById('current-ent-category').innerText = categoryName
++ " - 入驻企业";
+               const list =
+document.getElementById('enterprise-list');
+               const filtered =
+this.enterpriseData.filter(e => categoryName.includes(e.cat));
+               list.innerHTML = filtered.map(e
+=> `
+                   <div
+class="ent-card" onclick="alert('已向【${e.name}】发送合作咨询请求，请保持手机畅通。')">
+                       <div
+class="ent-logo">${e.icon}</div>
+                       <div
+class="ent-info">
+                           <h3>${e.name}</h3>
+                           <div
+style="font-size:14px; color:#666;"><i class="fas
+fa-coins"></i> 注册资金：${e.capital}
+| <i class="fas fa-history"></i> 行业经验：${e.year}</div>
+                           <div
+class="ent-tags"><span class="ent-tag">施工许可甲级</span><span class="ent-tag">持证上岗100%</span><span class="ent-tag">年度AAA企业</span></div>
+                       </div>
+                       <button
+style="padding:10px 20px; border-radius:30px; border:2px solid
+var(--primary-blue); background:white; color:var(--primary-blue);
+font-weight:bold;">企业询价</button>
+                   </div>
+               `).join('');
+               this.switchView('enterprise-view');
+           };
+           app.renderPromos = function() {
+               const homeGrid =
+document.getElementById('home-promo-grid');
+               const fullGrid =
+document.getElementById('full-promo-grid');
+               const createHtml = (item) =>
+`<div class="promo-card-v2"
+style="background-image:url('${item.img}')"
+onclick="app.renderEnterprises('${item.name}')"><span>${item.full}</span></div>`;
+               if(homeGrid) homeGrid.innerHTML
+= this.promoData.slice(0, 3).map(createHtml).join('');
+               if(fullGrid) fullGrid.innerHTML
+= this.promoData.map(createHtml).join('');
+           };
+           app.renderPromos(); // 补丁挂载后立即重新渲染
        });
    </script>
 </body>
