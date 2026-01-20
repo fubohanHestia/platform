@@ -106,7 +106,7 @@
         .slot-item.active { border-color: var(--primary-orange); background-color: var(--primary-orange); color: white; }
         .input-group { margin-top: 25px; }
         .input-label { font-weight: bold; margin-bottom: 10px; display: block; font-size: 16px; }
-        .photo-upload-placeholder { width: 100%; height: 100px; border: 2px dashed #dddddd; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999999; cursor: pointer; }
+        .photo-upload-placeholder { width: 100%; height: 100px; border: 2px dashed #dddddd; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #999; cursor: pointer; }
         .voice-textarea { width: 100%; height: 100px; padding: 15px; border-radius: 12px; border: 1px solid #dddddd; outline: none; background-color: #f9f9f9; resize: none; margin-top: 10px; }
 
         /* --- [IX. 订单状态] --- */
@@ -235,7 +235,7 @@
     <div class="main-content-wrapper">
         <div class="top-bar"><div class="container">
             <div><i class="fas fa-tools"></i> 专业蓝领劳务·匠心服务热线：400-888-9999</div>
-            <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="javascript:void(0)" onclick="app.openEnterpriseOnboarding()" style="color:white; text-decoration: none;">服务商入驻</a></div>
+            <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="javascript:void(0)" onclick="app.handleEnterpriseEntry()" style="color:white; text-decoration: none;">服务商入驻</a></div>
         </div></div>
 
         <header><div class="container">
@@ -661,6 +661,44 @@
         </div>
     </div>
 
+    <div id="enterprise-dashboard-overlay" class="overlay" style="z-index:9850; background:#f8f9fa;">
+        <div class="dashboard-header" style="background: #234; border-bottom: 4px solid var(--primary-blue);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                    <h2 style="font-size:28px;"><i class="fas fa-building"></i> 企业管理后台</h2>
+                    <p style="opacity:0.7; font-size:14px; margin-top:5px;">企业认证状态：<span style="background:var(--success); padding:2px 6px; border-radius:4px; font-size:12px;">已认证</span></p>
+                </div>
+                <i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('enterprise-dashboard-overlay')"></i>
+            </div>
+            <div class="stat-row">
+                <div class="stat-card"><small>本月承接金额</small><div style="font-size:22px; font-weight:bold; margin-top:5px;">¥ 45,200.00</div></div>
+                <div class="stat-card"><small>进行中项目</small><div style="font-size:22px; font-weight:bold; margin-top:5px; color:var(--primary-orange);">3 个</div></div>
+            </div>
+        </div>
+        
+        <div style="padding: 20px;">
+            <div style="background:white; border-radius:15px; padding:20px; border:1px solid #eee; margin-bottom:15px;">
+                <h3 style="margin-bottom:15px; font-size:18px;">项目管理</h3>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button style="padding:10px 15px; border-radius:8px; border:1px solid #eee; background:#f9f9f9;"><i class="fas fa-clipboard-list" style="color:var(--primary-blue)"></i> 待投标项目</button>
+                    <button style="padding:10px 15px; border-radius:8px; border:1px solid #eee; background:#f9f9f9;"><i class="fas fa-hard-hat" style="color:var(--primary-orange)"></i> 施工中</button>
+                    <button style="padding:10px 15px; border-radius:8px; border:1px solid #eee; background:#f9f9f9;"><i class="fas fa-check-circle" style="color:var(--success)"></i> 已完工</button>
+                </div>
+            </div>
+
+            <div style="background:white; border-radius:15px; padding:20px; border:1px solid #eee;">
+                <h3 style="margin-bottom:15px; font-size:18px;">资金结算</h3>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#f0f7ff; padding:15px; border-radius:10px;">
+                    <div>
+                        <div style="font-size:12px; color:#666;">可提现余额</div>
+                        <div style="font-size:20px; font-weight:bold; color:var(--navy);">¥ 12,800.00</div>
+                    </div>
+                    <button style="background:var(--primary-blue); color:white; border:none; padding:8px 15px; border-radius:20px; cursor:pointer;">提现</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
 
     <script>
@@ -681,6 +719,7 @@
                 userOrders: [],
                 rechargeSelected: 100,
                 workerRegStatus: 'none', 
+                enterpriseRegStatus: 'none', // [NEW] Track Enterprise Status
                 woGender: '男',
                 workerGender: '男'
             },
@@ -739,7 +778,6 @@
             renderPromos() {
                 const homeGrid = document.getElementById('home-promo-grid');
                 const fullGrid = document.getElementById('full-promo-grid');
-                // Use the Logic from the PATCH (renders Enterprises onclick)
                 const createHtml = (item) => `<div class="promo-card-v2" style="background-image:url('${item.img}')" onclick="app.renderEnterprises('${item.name}')"><span>${item.full}</span></div>`;
                 
                 if(homeGrid) homeGrid.innerHTML = this.promoData.slice(0, 3).map(createHtml).join('');
@@ -845,7 +883,6 @@
             confirmBooking() {
                 if(!this.state.selectedTime) return alert('请点选一个服务时间');
                 
-                // Integrated Logic from PATCH: Create Order
                 const newOrder = { 
                     id: 'ORD' + Date.now().toString().slice(-8), 
                     service: this.state.currentSubcat, 
@@ -857,7 +894,6 @@
                 this.state.userOrders.push(newOrder); 
                 this.syncWalletUI();
                 
-                // Original UI Flow
                 this.closeAll();
                 this.state.isBooked = true;
                 const fabW = document.getElementById('fab-worker');
@@ -1082,23 +1118,49 @@
             submitWorkerOnboarding() {
                 const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
                 if(ids.some(i => !document.getElementById(i).value)) return alert('必填项未填写');
+                
+                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve
+                alert("平台已收到申请，静候审核通过");
+                this.closeOverlay('worker-onboarding-overlay');
+                
                 setTimeout(() => { 
-                    this.state.workerRegStatus = 'pending'; 
-                    this.closeOverlay('worker-onboarding-overlay'); 
-                    setTimeout(() => { this.state.workerRegStatus = 'approved'; }, 1500); 
-                }, 1000);
+                    alert("恭喜！您的匠心师傅资格已审核通过！");
+                    this.state.workerRegStatus = 'approved'; 
+                    // No automatic open, user must go to profile
+                }, 2000);
             },
             
             saveWorkerProfile() { alert('资料更新成功'); },
             
-            // --- [NEW: Enterprise Onboarding Functions] ---
+            // --- [Enterprise Onboarding Functions] ---
+            
             openEnterpriseOnboarding() {
                 document.getElementById('enterprise-onboarding-overlay').classList.add('active');
             },
             
+            openEnterpriseDashboard() {
+                document.getElementById('enterprise-dashboard-overlay').classList.add('active');
+            },
+            
+            handleEnterpriseEntry() {
+                // [UPDATED] Smart Route
+                if (this.state.enterpriseRegStatus === 'approved') {
+                    this.openEnterpriseDashboard();
+                } else {
+                    this.openEnterpriseOnboarding();
+                }
+            },
+            
             submitEnterpriseOnboarding() {
-                alert('您的企业入驻申请已提交！\n平台将在3-5个工作日内完成资质审核，请留意短信通知。');
+                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve -> Open Dashboard
+                alert("平台已收到申请，静候审核通过");
                 this.closeOverlay('enterprise-onboarding-overlay');
+                
+                setTimeout(() => {
+                    alert("恭喜！您的企业服务商账号已审核通过！");
+                    this.state.enterpriseRegStatus = 'approved';
+                    this.openEnterpriseDashboard();
+                }, 2000);
             }
         };
 
