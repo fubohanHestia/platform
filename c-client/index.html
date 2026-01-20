@@ -217,6 +217,17 @@
         .ent-info h3 { margin: 0 0 8px; font-size: 20px; color: var(--navy); }
         .ent-tags { display: flex; gap: 8px; margin-top: 10px; }
         .ent-tag { font-size: 12px; padding: 3px 10px; border-radius: 4px; background: #f0f7ff; color: var(--primary-blue); font-weight: bold; }
+        
+        /* --- [NEW: Form Section Title] --- */
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--navy);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eeeeee;
+        }
     </style>
 </head>
 <body>
@@ -224,7 +235,7 @@
     <div class="main-content-wrapper">
         <div class="top-bar"><div class="container">
             <div><i class="fas fa-tools"></i> 专业蓝领劳务·匠心服务热线：400-888-9999</div>
-            <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="#" style="color:white; text-decoration: none;">服务商入驻</a></div>
+            <div><a href="#" style="color:white; text-decoration: none;">帮助中心</a> | <a href="javascript:void(0)" onclick="app.openEnterpriseOnboarding()" style="color:white; text-decoration: none;">服务商入驻</a></div>
         </div></div>
 
         <header><div class="container">
@@ -605,6 +616,48 @@
             <div class="verify-form-group"><label>7. 从业年限</label><input type="number" class="auth-input" id="wo-years" placeholder="请填写数字"></div>
             <div class="verify-form-group"><label>8. 职业自我介绍</label><textarea class="voice-textarea" id="wo-intro" style="height:150px;" placeholder="请详细介绍您的技术优势、过往工程案例及服务态度，这关乎您的初始评级。"></textarea></div>
             <button class="btn-booking-main" onclick="app.submitWorkerOnboarding()">提交入驻资料并等待审核</button>
+        </div>
+    </div>
+    
+    <div id="enterprise-onboarding-overlay" class="overlay" style="z-index:9750;">
+        <div class="overlay-header"><h3>企业服务商入驻申请</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('enterprise-onboarding-overlay')"></i></div>
+        <div style="padding: 30px 30px 100px 30px;">
+            <div style="background:#e6f7ff; padding:15px; border-radius:10px; color:var(--primary-blue); font-size:13px; margin-bottom:25px; border:1px solid #91d5ff;">
+                <i class="fas fa-building"></i> 欢迎入驻智能劳务技术网。请准备好营业执照、资质证书等材料。平台将在 3-5 个工作日内完成审核。
+            </div>
+
+            <div class="form-section-title">一、基础身份信息</div>
+            <div class="verify-form-group"><label>统一社会信用代码</label><input type="text" class="auth-input" placeholder="请输入18位信用代码"></div>
+            <div class="verify-form-group"><label>营业执照副本扫描件</label><div class="photo-upload-placeholder"><i class="fas fa-file-contract" style="font-size:30px;"></i><span>点击上传执照原件</span></div></div>
+            <div class="verify-form-group"><label>企业注册名称</label><input type="text" class="auth-input" placeholder="需与营业执照一致"></div>
+            <div class="verify-form-group"><label>法定代表人姓名</label><input type="text" class="auth-input" placeholder="法人姓名"></div>
+            <div class="verify-form-group"><label>法人身份证正反面</label><div style="display:flex; gap:10px;"><div class="photo-upload-placeholder"><i class="fas fa-id-card"></i><span>人像面</span></div><div class="photo-upload-placeholder"><i class="fas fa-id-card"></i><span>国徽面</span></div></div></div>
+            <div class="verify-form-group"><label>授权经办人姓名 & 手机</label><input type="text" class="auth-input" placeholder="姓名"> <input type="text" class="auth-input" placeholder="手机号" style="margin-top:10px;"></div>
+            <div class="verify-form-group"><label>企业授权委托书 (盖公章)</label><div class="photo-upload-placeholder"><i class="fas fa-file-signature" style="font-size:30px;"></i><span>上传委托书扫描件</span></div></div>
+            <div class="verify-form-group"><label>办公场所证明</label><input type="text" class="auth-input" placeholder="详细办公地址"> <div class="photo-upload-placeholder" style="margin-top:10px;"><i class="fas fa-building"></i><span>上传场所照片/前台照</span></div></div>
+
+            <div class="form-section-title">二、行业资质与人员</div>
+            <div class="verify-form-group"><label>主营业务/经营范围简介</label><textarea class="voice-textarea" style="height:100px;" placeholder="请简述企业核心业务..."></textarea></div>
+            <div class="verify-form-group"><label>行业行政许可证 (如安全生产许可)</label><div class="photo-upload-placeholder"><i class="fas fa-certificate" style="font-size:30px;"></i><span>上传资质证书</span></div></div>
+            <div class="verify-form-group"><label>人员名册及证书材料</label><div class="photo-upload-placeholder"><i class="fas fa-users" style="font-size:30px;"></i><span>上传打包材料 (职称/技工证/社保)</span></div></div>
+
+            <div class="form-section-title">三、财务与税务信息</div>
+            <div class="verify-form-group"><label>对公银行账户信息</label><input type="text" class="auth-input" placeholder="开户行全称"> <input type="text" class="auth-input" placeholder="银行账号" style="margin-top:10px;"></div>
+            <div class="verify-form-group"><label>开户许可证扫描件</label><div class="photo-upload-placeholder"><i class="fas fa-money-check-alt"></i><span>上传许可证</span></div></div>
+            <div class="verify-form-group"><label>纳税人类型</label><div class="gender-selector"><div class="gender-opt active">一般纳税人</div><div class="gender-opt">小规模纳税人</div></div></div>
+            <div class="verify-form-group"><label>纳税人识别号</label><input type="text" class="auth-input" placeholder="税号"></div>
+            <div class="verify-form-group"><label>税务登记副本/完税证明</label><div class="photo-upload-placeholder"><i class="fas fa-file-invoice-dollar"></i><span>上传税务证明</span></div></div>
+
+            <div class="form-section-title">四、业绩与品牌宣传</div>
+            <div class="verify-form-group"><label>过往业绩合同/验收报告</label><div class="photo-upload-placeholder"><i class="fas fa-file-contract"></i><span>上传业绩证明材料</span></div></div>
+            <div class="verify-form-group"><label>企业 Logo</label><div class="photo-upload-placeholder" style="height:100px; width:100px;"><i class="fas fa-image"></i></div></div>
+
+            <div class="form-section-title">五、安全与保障</div>
+            <div class="verify-form-group"><label>商业保险单 (雇主责任险等)</label><div class="photo-upload-placeholder"><i class="fas fa-file-medical-alt"></i><span>上传保单扫描件</span></div></div>
+            <div class="verify-form-group"><label>无重大违法违规声明书</label><div class="photo-upload-placeholder"><i class="fas fa-stamp"></i><span>上传声明书</span></div></div>
+            <div class="verify-form-group"><label>官方联系方式</label><input type="text" class="auth-input" placeholder="400电话/座机"> <input type="text" class="auth-input" placeholder="官方邮箱" style="margin-top:10px;"></div>
+
+            <button class="btn-booking-main" onclick="app.submitEnterpriseOnboarding()">提交入驻申请</button>
         </div>
     </div>
 
@@ -1036,7 +1089,17 @@
                 }, 1000);
             },
             
-            saveWorkerProfile() { alert('资料更新成功'); }
+            saveWorkerProfile() { alert('资料更新成功'); },
+            
+            // --- [NEW: Enterprise Onboarding Functions] ---
+            openEnterpriseOnboarding() {
+                document.getElementById('enterprise-onboarding-overlay').classList.add('active');
+            },
+            
+            submitEnterpriseOnboarding() {
+                alert('您的企业入驻申请已提交！\n平台将在3-5个工作日内完成资质审核，请留意短信通知。');
+                this.closeOverlay('enterprise-onboarding-overlay');
+            }
         };
 
         // --- [Event Listeners] ---
