@@ -337,7 +337,7 @@
         <div style="padding: 30px;">
             <p style="text-align:center; color:#666; font-size:16px;">请选择您的入驻身份类型</p>
             <div class="entry-card-grid">
-                <div class="entry-card" onclick="app.openWorkerReg()">
+                <div class="entry-card" onclick="app.handleWorkerEntry()">
                     <i class="fas fa-user-hard-hat" style="color:var(--primary-orange)"></i>
                     <h3>我是技工师傅</h3>
                     <p>个人实名接单，灵活就业，多劳多得</p>
@@ -742,6 +742,25 @@
         </div>
         <div class="fire-grid" id="fire-services-grid">
             </div>
+    </div>
+
+    <div id="entry-selection-overlay" class="overlay">
+        <div class="overlay-header"><h3>服务商入驻申请</h3><i class="fas fa-times" style="font-size:28px; cursor:pointer;" onclick="app.closeOverlay('entry-selection-overlay')"></i></div>
+        <div style="padding: 30px;">
+            <p style="text-align:center; color:#666; font-size:16px;">请选择您的入驻身份类型</p>
+            <div class="entry-card-grid">
+                <div class="entry-card" onclick="app.handleWorkerEntry()">
+                    <i class="fas fa-user-hard-hat" style="color:var(--primary-orange)"></i>
+                    <h3>我是技工师傅</h3>
+                    <p>个人实名接单，灵活就业，多劳多得</p>
+                </div>
+                <div class="entry-card" onclick="app.handleEnterpriseEntry()">
+                    <i class="fas fa-city" style="color:var(--primary-blue)"></i>
+                    <h3>我是企业服务商</h3>
+                    <p>企业资质认证，承接大型维保改造项目</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
@@ -1153,7 +1172,6 @@
                 document.getElementById('user-overlay').classList.add('active');
                 document.getElementById('backdrop').style.display = 'block';
                 this.syncWalletUI();
-                this.patchWorkerEntry(); 
             },
             
             openVerify() { 
@@ -1212,29 +1230,6 @@
                 document.getElementById('orders-overlay').classList.add('active'); 
                 document.getElementById('backdrop').style.display = 'block';
             },
-
-            patchWorkerEntry() {
-                if(document.getElementById('dynamic-worker-btn')) document.getElementById('dynamic-worker-btn').remove(); 
-                const menuList = document.getElementById('main-menu-list'); if(!menuList) return;
-                const logoutBtn = menuList.lastElementChild; 
-                
-                // [REMOVED] The logic that adds "Apply to be a Master" button here.
-                // Now we only show the Dashboard or Pending status if they have already applied.
-                
-                if(this.state.workerRegStatus === 'pending') {
-                    const workerBtn = document.createElement('div');
-                    workerBtn.id = 'dynamic-worker-btn'; workerBtn.className = 'menu-item';
-                    workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-hourglass-half main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
-                    menuList.insertBefore(workerBtn, logoutBtn);
-                } else if(this.state.workerRegStatus === 'approved') {
-                    const workerBtn = document.createElement('div');
-                    workerBtn.id = 'dynamic-worker-btn'; workerBtn.className = 'menu-item';
-                    workerBtn.style.border = '1.5px solid var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
-                    workerBtn.innerHTML = `<div class="menu-item-left" style="color:var(--primary-orange)"><i class="fas fa-tools main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right" style="color:var(--primary-orange)"></i>`;
-                    workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-dashboard-overlay').classList.add('active'); };
-                    menuList.insertBefore(workerBtn, logoutBtn);
-                }
-            },
             
             openWorkerDashboard() { 
                 this.closeOverlay('user-overlay'); 
@@ -1265,31 +1260,48 @@
                 const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
                 if(ids.some(i => !document.getElementById(i).value)) return alert('必填项未填写');
                 
-                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve
                 alert("平台已收到申请，静候审核通过");
                 this.closeOverlay('worker-onboarding-overlay');
                 
                 setTimeout(() => { 
                     alert("恭喜！您的匠心师傅资格已审核通过！");
                     this.state.workerRegStatus = 'approved'; 
-                    // No automatic open, user must go to profile
                 }, 2000);
             },
             
             saveWorkerProfile() { alert('资料更新成功'); },
             
-            // --- [Enterprise Onboarding Functions] ---
+            // --- [Service Provider Entry Logic] ---
             
-            // [NEW] Open the Selection Overlay
             openEntrySelection() {
                 document.getElementById('entry-selection-overlay').classList.add('active');
                 document.getElementById('backdrop').style.display = 'block';
             },
 
-            // [NEW] Helper to open Worker Registration from Selection
-            openWorkerReg() {
+            // [NEW] Smart Worker Entry Handler
+            handleWorkerEntry() {
                 this.closeOverlay('entry-selection-overlay');
-                document.getElementById('worker-onboarding-overlay').classList.add('active');
+                // Check Status
+                if (this.state.workerRegStatus === 'none') {
+                    // Not registered -> Open Form
+                    document.getElementById('worker-onboarding-overlay').classList.add('active');
+                } else if (this.state.workerRegStatus === 'pending') {
+                    // Pending -> Show Alert
+                    alert('您的入驻申请正在审核中，请耐心等待。审核通常需要 1-3 个工作日。');
+                } else if (this.state.workerRegStatus === 'approved') {
+                    // Approved -> Open Dashboard
+                    document.getElementById('worker-dashboard-overlay').classList.add('active');
+                }
+            },
+
+            // [Legacy] Helper for Entry Card (Enterprise)
+            handleEnterpriseEntry() {
+                this.closeOverlay('entry-selection-overlay');
+                if (this.state.enterpriseRegStatus === 'approved') {
+                    this.openEnterpriseDashboard();
+                } else {
+                    this.openEnterpriseOnboarding();
+                }
             },
 
             openEnterpriseOnboarding() {
@@ -1300,23 +1312,9 @@
                 document.getElementById('enterprise-dashboard-overlay').classList.add('active');
             },
             
-            handleEnterpriseEntry() {
-                // Close selection overlay if open
-                this.closeOverlay('entry-selection-overlay');
-                
-                // [UPDATED] Smart Route
-                if (this.state.enterpriseRegStatus === 'approved') {
-                    this.openEnterpriseDashboard();
-                } else {
-                    this.openEnterpriseOnboarding();
-                }
-            },
-            
             submitEnterpriseOnboarding() {
-                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve -> Open Dashboard
                 alert("平台已收到申请，静候审核通过");
                 this.closeOverlay('enterprise-onboarding-overlay');
-                
                 setTimeout(() => {
                     alert("恭喜！您的企业服务商账号已审核通过！");
                     this.state.enterpriseRegStatus = 'approved';
