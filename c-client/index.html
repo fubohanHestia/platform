@@ -43,11 +43,37 @@
         .top-bar .container { display: flex; justify-content: space-between; align-items: center; }
         header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .main-header { padding: 15px 0; display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 26px; font-weight: 800; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+        .logo { font-size: 26px; font-weight: 800; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .logo span { color: var(--primary-orange); }
-        .header-search { flex: 1; max-width: 500px; margin: 0 30px; position: relative; display: none; }
-        .header-search input { width: 100%; padding: 10px 20px; border: 2px solid #eeeeee; border-radius: 25px; outline: none; font-size: 14px; }
-        .header-search button { position: absolute; right: 5px; top: 5px; border: none; background-color: var(--primary-blue); color: white; padding: 6px 15px; border-radius: 20px; cursor: pointer; }
+        
+        /* [MODIFIED] Search Box Moved to Header with Blue Border */
+        .header-search { flex: 1; max-width: 600px; margin: 0 40px; position: relative; }
+        .header-search input { 
+            width: 100%; 
+            padding: 12px 25px; 
+            border: 2px solid var(--primary-blue); /* 醒目的蓝框 */
+            border-radius: 30px; 
+            outline: none; 
+            font-size: 15px;
+            background-color: #fff;
+            transition: box-shadow 0.3s ease;
+        }
+        .header-search input:focus { box-shadow: 0 0 0 3px rgba(42, 92, 170, 0.15); }
+        .header-search button { 
+            position: absolute; 
+            right: 5px; 
+            top: 50%; 
+            transform: translateY(-50%);
+            border: none; 
+            background-color: var(--primary-blue); 
+            color: white; 
+            padding: 8px 25px; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
         nav { border-top: 1px solid #eeeeee; background-color: var(--white); }
         .nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
         .nav-links li a { display: block; padding: 12px 20px; text-decoration: none; color: #333333; font-weight: 600; font-size: 14px; transition: color 0.3s ease; }
@@ -56,10 +82,8 @@
         /* --- [IV. 首页样式] --- */
         .view-section { display: none; padding-bottom: 50px; }
         .view-section.active { display: block; }
-        .home-hero { background-color: var(--white); padding: 40px 0; text-align: center; border-bottom: 1px solid #eee; }
-        .home-search-container { max-width: 700px; margin: 0 auto; position: relative; }
-        .home-search-container input { width: 100%; padding: 22px 35px; border-radius: 45px; border: 1px solid #dddddd; background-color: #f8f9fa; font-size: 18px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .home-search-container i { position: absolute; right: 30px; top: 24px; color: #666666; font-size: 24px; cursor: pointer; }
+        
+        /* [REMOVED] .home-hero section removed as search is now in header */
         
         /* [NEW] 58.com Style Directory Styles */
         .directory-box { background: white; margin-top: 20px; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden; }
@@ -260,9 +284,9 @@
         <header><div class="container">
             <div class="main-header">
                 <a href="javascript:void(0)" onclick="app.switchView('hub-view')" class="logo">智能劳务技术<span>网</span></a>
-                <div class="header-search" id="header-search-box">
-                    <input type="text" placeholder="快速搜索，如：装修水电、搬运..." id="secondary-search">
-                    <button onclick="app.handleSearch('secondary')"><i class="fas fa-search"></i> 搜索</button>
+                <div class="header-search" id="header-search-box" style="display:block;">
+                    <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="global-search-input">
+                    <button onclick="app.handleSearch()"><i class="fas fa-search"></i> 搜索</button>
                 </div>
                 <div id="top-login-btn" style="font-weight: bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
             </div>
@@ -274,13 +298,6 @@
         </ul></div></nav></header>
 
         <section id="hub-view" class="view-section active">
-            <div class="home-hero">
-                <div class="home-search-container">
-                    <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="hero-search-input">
-                    <i class="fas fa-search" onclick="app.handleSearch('hero')"></i>
-                </div>
-            </div>
-            
             <div class="container" style="padding-top: 20px;">
                 <div class="directory-box">
                     <div class="dir-header"><i class="fas fa-hammer" style="color:var(--primary-blue)"></i><h3>技工服务大全</h3></div>
@@ -970,13 +987,19 @@
                 document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
                 const target = document.getElementById(id);
                 if(target) target.classList.add('active');
-                const searchBox = document.getElementById('header-search-box');
-                if(searchBox) searchBox.style.display = (id === 'hub-view') ? 'none' : 'block';
+                
+                // [MODIFIED] Do not hide the header search box anymore, it stays.
+                // const searchBox = document.getElementById('header-search-box');
+                // if(searchBox) searchBox.style.display = (id === 'hub-view') ? 'none' : 'block';
+                
                 window.scrollTo(0,0);
             },
 
             handleSearch(type) {
-                const inputId = type === 'hero' ? 'hero-search-input' : 'secondary-search';
+                // [MODIFIED] Always use the single global input now
+                // const inputId = type === 'hero' ? 'hero-search-input' : 'secondary-search';
+                const inputId = 'global-search-input';
+                
                 const keyword = document.getElementById(inputId).value.trim();
                 if(!keyword) return alert('请输入服务分类');
                 this.state.currentSubcat = keyword;
@@ -1172,6 +1195,7 @@
                 document.getElementById('user-overlay').classList.add('active');
                 document.getElementById('backdrop').style.display = 'block';
                 this.syncWalletUI();
+                this.patchWorkerEntry(); 
             },
             
             openVerify() { 
@@ -1230,6 +1254,10 @@
                 document.getElementById('orders-overlay').classList.add('active'); 
                 document.getElementById('backdrop').style.display = 'block';
             },
+
+            patchWorkerEntry() {
+                // [REMOVED] Logic to inject worker entry into user profile
+            },
             
             openWorkerDashboard() { 
                 this.closeOverlay('user-overlay'); 
@@ -1260,12 +1288,14 @@
                 const ids = ['wo-name', 'wo-id', 'wo-skill', 'wo-years', 'wo-intro'];
                 if(ids.some(i => !document.getElementById(i).value)) return alert('必填项未填写');
                 
+                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve
                 alert("平台已收到申请，静候审核通过");
                 this.closeOverlay('worker-onboarding-overlay');
                 
                 setTimeout(() => { 
                     alert("恭喜！您的匠心师傅资格已审核通过！");
                     this.state.workerRegStatus = 'approved'; 
+                    // No automatic open, user must go to profile
                 }, 2000);
             },
             
@@ -1273,6 +1303,7 @@
             
             // --- [Service Provider Entry Logic] ---
             
+            // [NEW] Open the Selection Overlay
             openEntrySelection() {
                 document.getElementById('entry-selection-overlay').classList.add('active');
                 document.getElementById('backdrop').style.display = 'block';
@@ -1297,6 +1328,7 @@
             // [Legacy] Helper for Entry Card (Enterprise)
             handleEnterpriseEntry() {
                 this.closeOverlay('entry-selection-overlay');
+                // [UPDATED] Smart Route
                 if (this.state.enterpriseRegStatus === 'approved') {
                     this.openEnterpriseDashboard();
                 } else {
@@ -1313,8 +1345,10 @@
             },
             
             submitEnterpriseOnboarding() {
+                // [UPDATED] Flow: Alert -> Close -> Wait 2s -> Alert -> Approve -> Open Dashboard
                 alert("平台已收到申请，静候审核通过");
                 this.closeOverlay('enterprise-onboarding-overlay');
+                
                 setTimeout(() => {
                     alert("恭喜！您的企业服务商账号已审核通过！");
                     this.state.enterpriseRegStatus = 'approved';
