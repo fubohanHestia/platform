@@ -282,7 +282,7 @@
 
                 <div class="directory-box">
                     <div class="dir-header"><i class="fas fa-building" style="color:var(--primary-orange)"></i><h3>专项企业服务</h3></div>
-                    <div id="enterprise-directory-content" style="padding:20px; display:flex; flex-wrap:wrap; gap:15px;">
+                    <div id="enterprise-directory-content">
                         </div>
                 </div>
             </div>
@@ -816,7 +816,7 @@
 
             // [NEW] Generate the 58-style directories
             renderHomeDirectories() {
-                // 1. Render Skilled Worker Directory
+                // 1. Render Skilled Worker Directory (Keep existing logic)
                 const skillContainer = document.getElementById('skill-directory-content');
                 const catNames = {1: "水电暖通", 2: "装饰装修", 3: "家具门窗", 4: "搬运装卸", 5: "智能家居"};
                 let skillHtml = "";
@@ -834,8 +834,7 @@
                         `;
                     }
                 });
-                // Handle the empty "Smart Home" case just for display if needed, or skip. 
-                // Currently ID 5 is empty in data, adding default text for layout completeness
+                // Hardcoded Smart Home filler as per previous state
                 skillHtml += `
                     <div class="dir-row">
                         <div class="dir-label">智能家居</div>
@@ -848,13 +847,35 @@
                 `;
                 skillContainer.innerHTML = skillHtml;
 
-                // 2. Render Enterprise Directory
+                // 2. Render Enterprise Directory [MAJOR UPDATE HERE]
                 const entContainer = document.getElementById('enterprise-directory-content');
-                entContainer.innerHTML = this.promoData.map(item => {
-                    let clickAction = `app.renderEnterprises('${item.name}')`;
-                    if(item.name === "消防设施") clickAction = `app.openFireDrawer()`;
-                    return `<div class="dir-link" onclick="${clickAction}" style="font-size:15px;">${item.name}</div>`;
-                }).join('');
+                
+                // Part A: Fire Facilities (Expanded to 8 sub-items)
+                let entHtml = `
+                    <div class="dir-row">
+                        <div class="dir-label">消防设施</div>
+                        <div class="dir-content">
+                            ${this.fireServices.map(s => `<div class="dir-link" onclick="app.handleFireSubClick('${s}')">${s}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                // Part B: Other 8 Major Services (From promoData, excluding Fire)
+                const otherServices = this.promoData.filter(item => item.name !== "消防设施");
+                
+                entHtml += `
+                    <div class="dir-row">
+                        <div class="dir-label">综合设施</div>
+                        <div class="dir-content">
+                            ${otherServices.map(item => `<div class="dir-link" onclick="app.renderEnterprises('${item.name}')">${item.name}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                // Override the style of the container to block (remove flex gap from previous version if necessary, but dir-row handles layout now)
+                entContainer.style.display = "block"; 
+                entContainer.style.padding = "0"; // Reset padding managed by dir-row
+                entContainer.innerHTML = entHtml;
             },
 
             // [NEW] Open the Fire Services Drawer
