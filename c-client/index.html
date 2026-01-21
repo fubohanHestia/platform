@@ -228,6 +228,11 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #eeeeee;
         }
+        
+        /* --- [NEW: Fire Service Grid] --- */
+        .fire-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .fire-item { background: #fff0e6; color: #d4380d; padding: 20px; border-radius: 12px; text-align: center; font-weight: bold; cursor: pointer; border: 1px solid #ffbb96; transition: 0.2s; }
+        .fire-item:hover { background: #ffbb96; color: white; }
     </style>
 </head>
 <body>
@@ -698,6 +703,15 @@
             </div>
         </div>
     </div>
+    
+    <div id="fire-services-overlay" class="drawer" style="z-index:3500;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+            <h3>请选择具体消防设施服务</h3>
+            <i class="fas fa-times" style="font-size: 28px; cursor: pointer;" onclick="app.closeAll()"></i>
+        </div>
+        <div class="fire-grid" id="fire-services-grid">
+            </div>
+    </div>
 
     <footer><div class="container">© 2026 智能劳务技术网 | 专业·透明·高效 | 鲁ICP备20260118号</div></footer>
 
@@ -719,7 +733,7 @@
                 userOrders: [],
                 rechargeSelected: 100,
                 workerRegStatus: 'none', 
-                enterpriseRegStatus: 'none', // [NEW] Track Enterprise Status
+                enterpriseRegStatus: 'none', 
                 woGender: '男',
                 workerGender: '男'
             },
@@ -733,8 +747,20 @@
                 5: []
             },
 
+            // [NEW: Fire Services Sub-items]
+            fireServices: [
+                "火灾报警设备及配件",
+                "自动喷洒设备及配件",
+                "消火栓设备及配件",
+                "防排烟和新风设备及配件",
+                "防火门设备及配件",
+                "防火卷帘和挡烟垂壁设备及配件",
+                "气体灭火设备及配件",
+                "应急照明和疏散指示设备及配件的新增和移位"
+            ],
+
             promoData: [
-                { name: "消防设施", full: "消防设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?w=600" },
+                { name: "消防设施", full: "消防设施的改造、维修、维保和运维", img: "https://images.unsplash.com/photo-1516641396056-0ce60a85d49f?w=600" },
                 { name: "机电设施", full: "机电设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?w=600" },
                 { name: "电梯设施", full: "电梯设施维修，维保", img: "https://images.unsplash.com/photo-1582139611293-80949d06b6f7?w=600" },
                 { name: "暖通空调", full: "暖通空调设施改造，维修，维保，运维", img: "https://images.unsplash.com/photo-1504307651254-35680f3366d4?w=600" },
@@ -772,20 +798,58 @@
                     certs: ['高级电工证', '诚信上岗证'] 
                 }));
                 this.renderPromos();
+                this.renderFireServices(); // [NEW] Init Fire Grid
+            },
+
+            // [NEW] Render Fire Sub-services buttons
+            renderFireServices() {
+                const grid = document.getElementById('fire-services-grid');
+                grid.innerHTML = this.fireServices.map(s => 
+                    `<div class="fire-item" onclick="app.handleFireSubClick('${s}')">${s}</div>`
+                ).join('');
             },
 
             // --- [Core Functions: Integrated] ---
             renderPromos() {
                 const homeGrid = document.getElementById('home-promo-grid');
                 const fullGrid = document.getElementById('full-promo-grid');
-                const createHtml = (item) => `<div class="promo-card-v2" style="background-image:url('${item.img}')" onclick="app.renderEnterprises('${item.name}')"><span>${item.full}</span></div>`;
+                
+                // [MODIFIED] Check if it's the Fire Service item (index 0 or name check)
+                const createHtml = (item) => {
+                    let clickAction = `app.renderEnterprises('${item.name}')`;
+                    // If it is the Fire Facility item, open the specific drawer instead
+                    if(item.name === "消防设施") {
+                        clickAction = `app.openFireDrawer()`;
+                    }
+                    return `<div class="promo-card-v2" style="background-image:url('${item.img}')" onclick="${clickAction}"><span>${item.full}</span></div>`;
+                };
                 
                 if(homeGrid) homeGrid.innerHTML = this.promoData.slice(0, 3).map(createHtml).join('');
                 if(fullGrid) fullGrid.innerHTML = this.promoData.map(createHtml).join('');
             },
 
-            renderEnterprises(categoryName) {
-                document.getElementById('current-ent-category').innerText = categoryName + " - 入驻企业";
+            // [NEW] Open the Fire Services Drawer
+            openFireDrawer() {
+                const dr = document.getElementById('fire-services-overlay');
+                dr.style.display = 'block';
+                setTimeout(() => dr.classList.add('active'), 10);
+                document.getElementById('backdrop').style.display = 'block';
+            },
+
+            // [NEW] Handle click on specific fire sub-service
+            handleFireSubClick(subName) {
+                this.closeAll();
+                // We show companies under "消防设施" category, but update title to show sub-service
+                this.renderEnterprises('消防设施', subName); 
+            },
+
+            renderEnterprises(categoryName, subTitle = null) {
+                let displayTitle = categoryName + " - 入驻企业";
+                if(subTitle) {
+                    displayTitle = subTitle + " - 入驻企业名录";
+                }
+                
+                document.getElementById('current-ent-category').innerText = displayTitle;
                 const list = document.getElementById('enterprise-list');
                 const filtered = this.enterpriseData.filter(e => categoryName.includes(e.cat));
                 
