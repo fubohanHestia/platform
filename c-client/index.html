@@ -8,9 +8,11 @@
     <style>
         /* --- [I. 核心品牌视觉变量定义] --- */
         :root {
-            --primary-blue: #2A5CAA;
-            --primary-orange: #FF6B35;
-            --navy: #1a1a2e;
+            /* [MODIFIED] Changed Main Color from Blue (#2A5CAA) to Orange (#ff552e) */
+            --primary-blue: #ff552e; 
+            /* [MODIFIED] Secondary Orange adjusted to match the new theme harmony */
+            --primary-orange: #ff8800;
+            --navy: #1a1a2e; /* Footer background kept dark for contrast */
             --gold: #D4AF37;
             --silver: #A8A8A8;
             --success: #28A745;
@@ -44,35 +46,56 @@
         header { background-color: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .main-header { padding: 15px 0; display: flex; align-items: center; justify-content: space-between; }
         .logo { font-size: 26px; font-weight: 800; color: var(--primary-blue); text-decoration: none; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .logo span { color: var(--primary-orange); }
+        /* Logo span color adjusted slightly or kept for contrast */
+        .logo span { color: #333; } 
         
-        /* [MODIFIED] Search Box Moved to Header with Blue Border */
-        .header-search { flex: 1; max-width: 600px; margin: 0 40px; position: relative; }
+        /* [MODIFIED] Search Box Style - Border now uses the new Orange theme */
+        .header-search { flex: 1; max-width: 500px; margin: 0 40px; position: relative; }
         .header-search input { 
             width: 100%; 
-            padding: 12px 25px; 
-            border: 2px solid var(--primary-blue); /* 醒目的蓝框 */
+            padding: 10px 25px; 
+            border: 2px solid var(--primary-blue); /* Now Orange */
             border-radius: 30px; 
             outline: none; 
-            font-size: 15px;
+            font-size: 14px;
             background-color: #fff;
             transition: box-shadow 0.3s ease;
         }
-        .header-search input:focus { box-shadow: 0 0 0 3px rgba(42, 92, 170, 0.15); }
+        .header-search input:focus { box-shadow: 0 0 0 3px rgba(255, 85, 46, 0.15); }
         .header-search button { 
             position: absolute; 
-            right: 5px; 
+            right: 4px; 
             top: 50%; 
             transform: translateY(-50%);
             border: none; 
-            background-color: var(--primary-blue); 
+            background-color: var(--primary-blue); /* Now Orange */
             color: white; 
-            padding: 8px 25px; 
+            padding: 7px 20px; 
             border-radius: 20px; 
             cursor: pointer; 
             font-weight: bold;
             font-size: 14px;
         }
+        
+        /* [NEW] Header Right Side Actions Container */
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        
+        /* [NEW] Free Post Button Style */
+        .btn-free-post {
+            background-color: #fff0e6;
+            color: var(--primary-blue);
+            border: 1px solid #ffcca8;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-free-post:hover { background-color: #ffe4d1; }
         
         nav { border-top: 1px solid #eeeeee; background-color: var(--white); }
         .nav-links { display: flex; list-style: none; margin: 0; padding: 0; }
@@ -82,8 +105,6 @@
         /* --- [IV. 首页样式] --- */
         .view-section { display: none; padding-bottom: 50px; }
         .view-section.active { display: block; }
-        
-        /* [REMOVED] .home-hero section removed as search is now in header */
         
         /* [NEW] 58.com Style Directory Styles */
         .directory-box { background: white; margin-top: 20px; border-radius: 8px; border: 1px solid #e0e0e0; overflow: hidden; }
@@ -288,7 +309,13 @@
                     <input type="text" placeholder="寻找专业师傅：如“瓦工”、“强电”" id="global-search-input">
                     <button onclick="app.handleSearch()"><i class="fas fa-search"></i> 搜索</button>
                 </div>
-                <div id="top-login-btn" style="font-weight: bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
+                
+                <div class="header-right">
+                    <button class="btn-free-post" onclick="alert('免费发布功能即将上线！')">
+                        <i class="fas fa-plus-circle"></i> 免费发布信息
+                    </button>
+                    <div id="top-login-btn" style="font-weight: bold; color: var(--primary-blue); cursor: pointer;">登录 / 注册</div>
+                </div>
             </div>
         </div>
         <nav><div class="container"><ul class="nav-links">
@@ -1256,7 +1283,21 @@
             },
 
             patchWorkerEntry() {
-                // [REMOVED] Logic to inject worker entry into user profile
+                if(document.getElementById('dynamic-worker-btn')) document.getElementById('dynamic-worker-btn').remove(); 
+                const menuList = document.getElementById('main-menu-list'); if(!menuList) return;
+                const logoutBtn = menuList.lastElementChild; const workerBtn = document.createElement('div');
+                workerBtn.id = 'dynamic-worker-btn'; workerBtn.className = 'menu-item';
+                if(this.state.workerRegStatus === 'none') {
+                    workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-user-plus main-icon" style="color:var(--primary-orange)"></i>申请成为匠心师傅</div><i class="fas fa-chevron-right" style="color:#ccc"></i>`;
+                    workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-onboarding-overlay').classList.add('active'); };
+                } else if(this.state.workerRegStatus === 'pending') {
+                    workerBtn.innerHTML = `<div class="menu-item-left"><i class="fas fa-hourglass-half main-icon" style="color:#faad14"></i>师傅入驻审核中...</div>`;
+                } else if(this.state.workerRegStatus === 'approved') {
+                    workerBtn.style.border = '1.5px solid var(--primary-orange)'; workerBtn.style.background = '#fffaf5';
+                    workerBtn.innerHTML = `<div class="menu-item-left" style="color:var(--primary-orange)"><i class="fas fa-tools main-icon"></i><b>师傅管理工作台</b></div><i class="fas fa-chevron-right" style="color:var(--primary-orange)"></i>`;
+                    workerBtn.onclick = () => { this.closeOverlay('user-overlay'); document.getElementById('worker-dashboard-overlay').classList.add('active'); };
+                }
+                menuList.insertBefore(workerBtn, logoutBtn);
             },
             
             openWorkerDashboard() { 
@@ -1301,7 +1342,7 @@
             
             saveWorkerProfile() { alert('资料更新成功'); },
             
-            // --- [Service Provider Entry Logic] ---
+            // --- [Enterprise Onboarding Functions] ---
             
             // [NEW] Open the Selection Overlay
             openEntrySelection() {
